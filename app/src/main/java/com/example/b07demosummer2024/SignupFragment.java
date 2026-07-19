@@ -17,12 +17,12 @@ public class SignupFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflator, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflator.inflate(R.layout.signup, container, false);
 
-        Button backButton = view.findViewById(R.id.buttonBack);
+//        Button backButton = view.findViewById(R.id.BackButton);
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new LoginFragment()); }
-        });
+//        backButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) { loadFragment(new LoginFragment()); }
+//        });
 
 
         return view;
