@@ -1,4 +1,4 @@
-package com.example.b07demosummer2024;
+package com.example.s26g5;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -70,7 +70,7 @@ public class DeleteItemFragment extends Fragment {
                 boolean itemFound = false;
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Item item = snapshot.getValue(Item.class);
-                    if (item != null && item.getTitle().equalsIgnoreCase(title)) {
+                    if (item != null && item.getLotNumber().equalsIgnoreCase(title)) {
                         snapshot.getRef().removeValue().addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
