@@ -1,12 +1,13 @@
 package com.example.s26g5;
 
-public abstract class ArtifactField<T> {
+public abstract class ArtifactField {
     private String name;
     private boolean mandatory;
 
-    public ArtifactField(String name, boolean mandatory){
+    public ArtifactField(String name, boolean mandatory, String value){
         this.name = name;
         this.mandatory = mandatory;
+        setValueFromString(value);
     }
 
     public String getName(){
@@ -17,5 +18,7 @@ public abstract class ArtifactField<T> {
         return mandatory;
     }
 
-    public abstract T getValue();
+    public abstract String getValue();
+
+    public abstract void setValueFromString(String value);
 }
