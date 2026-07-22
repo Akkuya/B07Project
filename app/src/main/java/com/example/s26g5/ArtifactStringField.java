@@ -13,7 +13,7 @@ public class ArtifactStringField extends ArtifactField{
     }
 
     @Override
-    public void setValueFromString(String value){
+    public void setValue(String value){
         this.value = value;
     }
 }

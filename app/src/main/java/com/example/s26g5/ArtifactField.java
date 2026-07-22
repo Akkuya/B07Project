@@ -7,7 +7,7 @@ public abstract class ArtifactField {
     public ArtifactField(String name, boolean mandatory, String value){
         this.name = name;
         this.mandatory = mandatory;
-        setValueFromString(value);
+        setValue(value);
     }
 
     public String getName(){
@@ -20,5 +20,10 @@ public abstract class ArtifactField {
 
     public abstract String getValue();
 
-    public abstract void setValueFromString(String value);
+    public abstract void setValue(String value);
+
+    @Override
+    public String toString(){
+        return getValue();
+    }
 }

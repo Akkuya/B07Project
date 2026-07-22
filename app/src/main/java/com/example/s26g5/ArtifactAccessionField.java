@@ -15,7 +15,7 @@ public class ArtifactAccessionField extends ArtifactField{
     }
 
     @Override
-    public void setValueFromString(String value){
+    public void setValue(String value){
         String[] split = value.split("\\.");
         year = Integer.parseInt(split[0]);
         group = Integer.parseInt(split[1]);
