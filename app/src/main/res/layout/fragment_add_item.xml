@@ -7,29 +7,20 @@
     tools:context=".AddItemFragment">
 
     <EditText
-        android:id="@+id/editTextTitle"
+        android:id="@+id/editTextLotNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Title"
+        android:hint="Lot Number"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText
-        android:id="@+id/editTextAuthor"
+        android:id="@+id/editTextArtifactName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Author"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <EditText
-        android:id="@+id/editTextGenre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Genre"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAuthor"
+        android:hint="ArtifactName"
+        app:layout_constraintTop_toBottomOf="@id/editTextLotNumber"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -38,24 +29,55 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Description"
-        app:layout_constraintTop_toBottomOf="@+id/editTextGenre"
+        app:layout_constraintTop_toBottomOf="@+id/editTextArtifactName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Spinner
+        android:id="@+id/spinnerMaterial"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/editTextDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerDynasty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/spinnerMaterial"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
 
     <Spinner
         android:id="@+id/spinnerCategory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDescription"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDynasty"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Select Image(Optional)"
+        android:clickable="true"
+        android:focusable="false"
+        android:cursorVisible="false"
+        android:inputType="none"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCategory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_item"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory"
+        app:layout_constraintTop_toBottomOf="@+id/editTextImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

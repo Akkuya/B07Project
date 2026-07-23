@@ -3,30 +3,80 @@ package com.example.s26g5;
 public class Item {
 
     private String id;
-    private String title;
-    private String author;
-    private String genre;
+    private String lotNumber;
+    private String artifactName;
+    private String image;
     private String description;
+    private String materials;
+    private String dynasty;
 
-    public Item() {}
+    public Item() {
+        // Required by Firebase
+    }
 
-    public Item(String id, String title, String author, String genre, String description) {
+    public Item(String id, String lotNumber, String materials, String artifactName, String dynasty, String image, String description) {
         this.id = id;
-        this.title = title;
-        this.author = author;
-        this.genre = genre;
+        this.lotNumber = lotNumber;
+        this.materials = materials;
+        this.artifactName = artifactName;
+        this.dynasty = dynasty;
+        this.image = image;
         this.description = description;
     }
 
-    // Getters and setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
-    public String getGenre() { return genre; }
-    public void setGenre(String genre) { this.genre = genre; }
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getLotNumber() {
+        return lotNumber;
+    }
+
+    public void setLotNumber(String lotNumber) {
+        this.lotNumber = lotNumber;
+    }
+
+    public String getArtifactName() {
+        return artifactName;
+    }
+
+    public void setArtifactName(String artifactName) {
+        this.artifactName = artifactName;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getMaterials() {
+        return materials;
+    }
+
+    public void setMaterials(String materials) {
+        this.materials = materials;
+    }
+
+    public String getDynasty() {
+        return dynasty;
+    }
+
+    public void setDynasty(String dynasty) {
+        this.dynasty = dynasty;
+    }
 }

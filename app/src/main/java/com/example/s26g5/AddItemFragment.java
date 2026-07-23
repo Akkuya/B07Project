@@ -15,34 +15,139 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import android.net.Uri;
+
+import android.util.Log;
 
 public class AddItemFragment extends Fragment {
-    private EditText editTextTitle, editTextAuthor, editTextGenre, editTextDescription;
+    private EditText editTextLotNumber;
+    private EditText editTextArtifactName;
+    private EditText editTextDescription;
+    private EditText editTextImage;
+
     private Spinner spinnerCategory;
+    private Spinner spinnerMaterial;
+    private Spinner spinnerDynasty;
     private Button buttonAdd;
 
     private FirebaseDatabase db;
     private DatabaseReference itemsRef;
+
+    private UploadImagePicker uploadImagePicker;
+    private String uploadedImageUrl;
+
+    private static final String TAG = "AddItemFragment";
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        uploadImagePicker = new UploadImagePicker(
+                requireContext(),
+                requireActivity().getActivityResultRegistry(),
+                getLifecycle(),
+                "add-item-image-picker",
+                new UploadImagePicker.Callback() {
+                    @Override
+                    public void onImageSelected(Uri imageUri) {
+                        if (editTextImage != null) {
+                            editTextImage.setText("Uploading...");
+                        }
+
+                        if (buttonAdd != null) {
+                            buttonAdd.setEnabled(false);
+                        }
+                    }
+
+                    @Override
+                    public void onUploadSuccess(String publicUrl) {
+                        uploadedImageUrl = publicUrl;
+
+                        Log.d(TAG, "Uploaded image URL: " + publicUrl);
+
+                        if (editTextImage != null) {
+                            editTextImage.setText("Image selected");
+                        }
+
+                        if (buttonAdd != null) {
+                            buttonAdd.setEnabled(true);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        uploadedImageUrl = null;
+
+                        Log.e(TAG, "Image upload error: " + message);
+                        if (editTextImage != null) {
+                            editTextImage.setText("Upload failed — tap to retry");
+                        }
+
+                        if (buttonAdd != null) {
+                            buttonAdd.setEnabled(true);
+                        }
+
+                        if (isAdded()) {
+                            Toast.makeText(
+                                    requireContext(),
+                                    message,
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                    }
+
+                    @Override
+                    public void onSelectionCancelled() {
+                        if (buttonAdd != null) {
+                            buttonAdd.setEnabled(true);
+                        }
+                    }
+                }
+        );
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_item, container, false);
 
-        editTextTitle = view.findViewById(R.id.editTextTitle);
-        editTextAuthor = view.findViewById(R.id.editTextAuthor);
-        editTextGenre = view.findViewById(R.id.editTextGenre);
+        editTextLotNumber = view.findViewById(R.id.editTextLotNumber);
+        editTextArtifactName = view.findViewById(R.id.editTextArtifactName);
+        spinnerMaterial = view.findViewById(R.id.spinnerMaterial);
+        spinnerDynasty = view.findViewById(R.id.spinnerDynasty);
         editTextDescription = view.findViewById(R.id.editTextDescription);
         spinnerCategory = view.findViewById(R.id.spinnerCategory);
+        editTextImage = view.findViewById(R.id.editTextImage);
+        editTextImage.setOnClickListener(v -> {
+            String lotNumber =
+                    editTextLotNumber.getText().toString().trim();
+
+            uploadImagePicker.selectAndUpload(lotNumber);
+        });
         buttonAdd = view.findViewById(R.id.buttonAdd);
 
-        db = FirebaseDatabase.getInstance("https://b07-demo-summer-2024-default-rtdb.firebaseio.com/");
+        db = FirebaseDatabase.getInstance();
 
         // Set up the spinner with categories
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.categories_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
+
+        ArrayAdapter<CharSequence> materialAdapter =
+                ArrayAdapter.createFromResource(
+                        requireContext(),
+                        R.array.materials_array,
+                        android.R.layout.simple_spinner_item);
+        materialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMaterial.setAdapter(materialAdapter);
+
+        ArrayAdapter<CharSequence> dynastyAdapter = ArrayAdapter.createFromResource(
+                        requireContext(),
+                        R.array.dynasties_array,
+                        android.R.layout.simple_spinner_item);
+        dynastyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDynasty.setAdapter(dynastyAdapter);
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,27 +160,96 @@ public class AddItemFragment extends Fragment {
     }
 
     private void addItem() {
-        String title = editTextTitle.getText().toString().trim();
-        String author = editTextAuthor.getText().toString().trim();
-        String genre = editTextGenre.getText().toString().trim();
+        String lotNumber = editTextLotNumber.getText().toString().trim();
+        String artifactName = editTextArtifactName.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
+        String materials = spinnerMaterial.getSelectedItem().toString().trim();
+        String dynasty = spinnerDynasty.getSelectedItem().toString().trim();
         String category = spinnerCategory.getSelectedItem().toString().toLowerCase();
+        String image = uploadedImageUrl == null
+                ? ""
+                : uploadedImageUrl;
+        Log.d(TAG, "Image value being saved: " + image);
 
-        if (title.isEmpty() || author.isEmpty() || genre.isEmpty() || description.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill out all fields", Toast.LENGTH_SHORT).show();
+        boolean materialNotSelected = spinnerMaterial.getSelectedItemPosition() == 0;
+        boolean dynastyNotSelected = spinnerDynasty.getSelectedItemPosition() == 0;
+        boolean categoryNotSelected = spinnerCategory.getSelectedItemPosition() == 0;
+
+        if (lotNumber.isEmpty()
+                || artifactName.isEmpty()
+                || description.isEmpty()
+                || materialNotSelected
+                || dynastyNotSelected
+                || categoryNotSelected) {
+
+            Toast.makeText(
+                    requireContext(),
+                    "Please fill out all fields",
+                    Toast.LENGTH_SHORT
+            ).show();
+
             return;
         }
 
-        itemsRef = db.getReference("categories/" + category);
-        String id = itemsRef.push().getKey();
-        Item item = new Item(id, title, author, genre, description);
+        itemsRef = db.getReference("categories").child(category);
 
-        itemsRef.child(id).setValue(item).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(getContext(), "Item added", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), "Failed to add item", Toast.LENGTH_SHORT).show();
-            }
-        });
+        String id = itemsRef.push().getKey();
+
+        if (id == null) {
+            Toast.makeText(
+                    requireContext(),
+                    "Could not generate item ID",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+        Item item = new Item(
+                id,
+                lotNumber,
+                materials,
+                artifactName,
+                dynasty,
+                image,
+                description
+        );
+
+        itemsRef.child(id)
+                .setValue(item)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(
+                                requireContext(),
+                                "Item added",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    } else {
+                        String message = task.getException() == null
+                                ? "Failed to add item"
+                                : task.getException().getMessage();
+
+                        Toast.makeText(
+                                requireContext(),
+                                message,
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                });
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        editTextLotNumber = null;
+        editTextArtifactName = null;
+        spinnerMaterial = null;
+        spinnerDynasty = null;
+        editTextDescription = null;
+        editTextImage = null;
+        spinnerCategory = null;
+        buttonAdd = null;
+    }
+
 }
