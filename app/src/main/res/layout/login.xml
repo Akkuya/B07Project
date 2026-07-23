@@ -23,7 +23,7 @@
             android:layout_height="499dp">
 
             <EditText
-                android:id="@+id/PasswordEmail"
+                android:id="@+id/PasswordField"
                 android:layout_width="310dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
@@ -36,7 +36,7 @@
                 android:paddingBottom="10dp"
                 android:text="password"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/LoginButton"
+                app:layout_constraintBottom_toTopOf="@+id/SignUpButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/EmailField" />
 
@@ -76,7 +76,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Don't have an Account?"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/LoginButton" />
+                app:layout_constraintTop_toBottomOf="@id/SignUpButton" />
 
             <EditText
                 android:id="@+id/EmailField"
@@ -92,12 +92,12 @@
                 android:paddingBottom="10dp"
                 android:text="Email address"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/PasswordEmail"
+                app:layout_constraintBottom_toTopOf="@+id/PasswordField"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/loginwelcline" />
 
             <Button
-                android:id="@+id/LoginButton"
+                android:id="@+id/SignUpButton"
                 style="@style/Widget.Material3.Button.ElevatedButton.Icon"
                 android:layout_width="310dp"
                 android:layout_height="45dp"
@@ -113,7 +113,7 @@
                 android:textColor="@color/white"
                 app:cornerRadius="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/PasswordEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/PasswordField" />
 
             <Button
                 android:id="@+id/signupPromptButton"
@@ -144,10 +144,10 @@
         android:layout_width="354dp"
         android:layout_height="196dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.948"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toEndOf="@+id/cardView2"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
