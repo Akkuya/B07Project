@@ -20,8 +20,8 @@
         <activity android:name=".RecyclerViewFragment" android:exported="false" />
         <activity android:name=".HomeFragment" android:exported="false" />
         <activity android:name=".Activity2" android:exported="false" />
-        <activity android:name=".LoginFragment" android:exported="false" />
-        <activity android:name=".SignupFragment" android:exported="false" />
+        <activity android:name=".auth.LoginFragment" android:exported="false" />
+        <activity android:name=".auth.SignupFragment" android:exported="false" />
 
         <activity
             android:name=".MainActivity"
