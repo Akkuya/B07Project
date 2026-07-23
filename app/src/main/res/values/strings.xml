@@ -11,7 +11,7 @@
     <string name="manage_items">Manage Items</string>
 
     <string-array name="categories_array">
-        <item>Select Category</item>
+        <item>Select Category (Mandatory)</item>
         <item>Painting and Calligraphy</item>
         <item>Ceramics</item>
         <item>Bronze Ware</item>
@@ -31,7 +31,7 @@
     </string-array>
 
     <string-array name="materials_array">
-        <item>Select Material</item>
+        <item>Select Material (Mandatory)</item>
         <item>Bronze</item>
         <item>Stone</item>
         <item>Wood</item>
@@ -46,7 +46,7 @@
     </string-array>
 
     <string-array name="dynasties_array">
-        <item>Select Dynasty/Period</item>
+        <item>Select Dynasty/Period (Mandatory)</item>
         <item>Shang Dynasty (c. 1600-1046 BCE)</item>
         <item>Western Zhou Dynasty (c. 1046-771 BCE)</item>
         <item>Eastern Zhou Dynasty (770-256 BCE)</item>

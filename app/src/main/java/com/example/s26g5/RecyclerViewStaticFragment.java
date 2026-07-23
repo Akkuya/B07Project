@@ -35,7 +35,7 @@ public class RecyclerViewStaticFragment extends Fragment {
 
     private void loadStaticItems() {
         // Load static items from strings.xml or hardcoded values
-        itemList.add(new Item("ID1","Item1", "Lot 001", "Name1", "Dynasty1", "ImageURL1", "Description1"));
-        itemList.add(new Item("ID2","Item2", "Lot 002", "Name2", "Dynasty2", "ImageURL2", "Description2"));
+        itemList.add(new Item("Item1", "Lot 001", "Name1", "Dynasty1", "ImageURL1", "Description1", "", "", "", "", "", "", "", "", System.currentTimeMillis(), 0));
+        itemList.add(new Item("Item2", "Lot 002", "Name2", "Dynasty2", "ImageURL2", "Description2", "", "", "", "", "", "", "", "", System.currentTimeMillis(), 0));
     }
 }

@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.net.Uri;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.ServerValue;
 
 import android.util.Log;
 
@@ -24,6 +26,15 @@ public class AddItemFragment extends Fragment {
     private EditText editTextArtifactName;
     private EditText editTextDescription;
     private EditText editTextImage;
+    private EditText editTextCulturalOrigin;
+    private EditText editTextDimensions;
+    private EditText editTextConditionReport;
+    private EditText editTextCurrentLocation;
+    private EditText editTextAcquisitionMethod;
+    private EditText editTextProvenance;
+    private EditText editTextAccessionNumber;
+    private EditText editTextNotes;
+
 
     private Spinner spinnerCategory;
     private Spinner spinnerMaterial;
@@ -121,10 +132,19 @@ public class AddItemFragment extends Fragment {
         editTextImage.setOnClickListener(v -> {
             String lotNumber =
                     editTextLotNumber.getText().toString().trim();
-
             uploadImagePicker.selectAndUpload(lotNumber);
         });
         buttonAdd = view.findViewById(R.id.buttonAdd);
+        editTextCulturalOrigin = view.findViewById(R.id.editTextCulturalOrigin);
+        editTextDimensions = view.findViewById(R.id.editTextDimensions);
+        editTextCurrentLocation = view.findViewById(R.id.editTextCurrentLocation);
+        editTextAcquisitionMethod = view.findViewById(R.id.editTextAcquisitionMethod);
+        editTextProvenance = view.findViewById(R.id.editTextProvenance);
+        editTextAccessionNumber = view.findViewById(R.id.editTextAccessionNumber);
+        editTextNotes = view.findViewById(R.id.editTextNotes);
+        editTextConditionReport = view.findViewById(R.id.editTextConditionReport);
+
+
 
         db = FirebaseDatabase.getInstance();
 
@@ -134,18 +154,13 @@ public class AddItemFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
 
-        ArrayAdapter<CharSequence> materialAdapter =
-                ArrayAdapter.createFromResource(
-                        requireContext(),
-                        R.array.materials_array,
-                        android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> materialAdapter = ArrayAdapter.createFromResource(requireContext(),
+                        R.array.materials_array, android.R.layout.simple_spinner_item);
         materialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMaterial.setAdapter(materialAdapter);
 
-        ArrayAdapter<CharSequence> dynastyAdapter = ArrayAdapter.createFromResource(
-                        requireContext(),
-                        R.array.dynasties_array,
-                        android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> dynastyAdapter = ArrayAdapter.createFromResource(requireContext(),
+                        R.array.dynasties_array, android.R.layout.simple_spinner_item);
         dynastyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDynasty.setAdapter(dynastyAdapter);
 
@@ -170,6 +185,17 @@ public class AddItemFragment extends Fragment {
                 ? ""
                 : uploadedImageUrl;
         Log.d(TAG, "Image value being saved: " + image);
+        String CulturalOrigin = editTextCulturalOrigin.getText().toString().trim();
+        String Dimensions = editTextDimensions.getText().toString().trim();
+        String CurrentLocation = editTextCurrentLocation.getText().toString().trim();
+        String AcquisitionMethod = editTextAcquisitionMethod.getText().toString().trim();
+        String Provenance = editTextProvenance.getText().toString().trim();
+        String AccessionNumber = editTextAccessionNumber.getText().toString().trim();
+        String ConditionReport = editTextConditionReport.getText().toString().trim();
+        String Notes = editTextNotes.getText().toString().trim();
+        Object timestamp = ServerValue.TIMESTAMP;
+        int numberOfLikes = 0;
+
 
         boolean materialNotSelected = spinnerMaterial.getSelectedItemPosition() == 0;
         boolean dynastyNotSelected = spinnerDynasty.getSelectedItemPosition() == 0;
@@ -184,58 +210,109 @@ public class AddItemFragment extends Fragment {
 
             Toast.makeText(
                     requireContext(),
-                    "Please fill out all fields",
+                    "Please fill out all the Mandatory fields",
                     Toast.LENGTH_SHORT
             ).show();
 
             return;
         }
 
-        itemsRef = db.getReference("categories").child(category);
+        DatabaseReference categoriesRef = db.getReference("categories");
 
-        String id = itemsRef.push().getKey();
+        categoriesRef.get().addOnCompleteListener(checkTask -> {
+            if (!checkTask.isSuccessful()) {
+                String message = checkTask.getException() == null
+                        ? "Could not check lot number"
+                        : checkTask.getException().getMessage();
+                Toast.makeText(
+                        requireContext(),
+                        message,
+                        Toast.LENGTH_LONG
+                ).show();
+                return;
+            }
 
-        if (id == null) {
-            Toast.makeText(
-                    requireContext(),
-                    "Could not generate item ID",
-                    Toast.LENGTH_SHORT
-            ).show();
+            boolean duplicateFound = false;
 
-            return;
-        }
-
-        Item item = new Item(
-                id,
-                lotNumber,
-                materials,
-                artifactName,
-                dynasty,
-                image,
-                description
-        );
-
-        itemsRef.child(id)
-                .setValue(item)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(
-                                requireContext(),
-                                "Item added",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    } else {
-                        String message = task.getException() == null
-                                ? "Failed to add item"
-                                : task.getException().getMessage();
-
-                        Toast.makeText(
-                                requireContext(),
-                                message,
-                                Toast.LENGTH_LONG
-                        ).show();
+            for (DataSnapshot categorySnapshot
+                    : checkTask.getResult().getChildren()) {
+                for (DataSnapshot itemSnapshot
+                        : categorySnapshot.getChildren()) {
+                    String existingLotNumber = itemSnapshot.child("lotNumber").getValue(String.class);
+                    if (existingLotNumber != null && existingLotNumber.equalsIgnoreCase(lotNumber)) {
+                        duplicateFound = true;
+                        break;
                     }
-                });
+                }
+
+                if (duplicateFound) {
+                    break;
+                }
+            }
+
+            if (duplicateFound) {
+                Toast.makeText(
+                        requireContext(),
+                        "This lot number already exists",
+                        Toast.LENGTH_SHORT
+                ).show();
+
+                return;
+            }
+
+            itemsRef = db.getReference("categories").child(category);
+            String id = itemsRef.push().getKey();
+
+            if (id == null) {
+                Toast.makeText(
+                        requireContext(),
+                        "Could not generate item ID",
+                        Toast.LENGTH_SHORT
+                ).show();
+
+                return;
+            }
+
+            Item item = new Item(
+                    lotNumber,
+                    materials,
+                    artifactName,
+                    dynasty,
+                    image,
+                    description,
+                    CulturalOrigin,
+                    Dimensions,
+                    CurrentLocation,
+                    AcquisitionMethod,
+                    Provenance,
+                    AccessionNumber,
+                    ConditionReport,
+                    Notes,
+                    timestamp,
+                    numberOfLikes
+            );
+
+            itemsRef.child(id)
+                    .setValue(item)
+                    .addOnCompleteListener(saveTask -> {
+                        if (saveTask.isSuccessful()) {
+                            Toast.makeText(
+                                    requireContext(),
+                                    "Item added",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        } else {
+                            String message = saveTask.getException() == null
+                                            ? "Failed to add item"
+                                            : saveTask.getException().getMessage();
+                            Toast.makeText(
+                                    requireContext(),
+                                    message,
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                    });
+        });
     }
 
     @Override
@@ -250,6 +327,15 @@ public class AddItemFragment extends Fragment {
         editTextImage = null;
         spinnerCategory = null;
         buttonAdd = null;
+        editTextCulturalOrigin = null;
+        editTextDimensions = null;
+        editTextCurrentLocation = null;
+        editTextAcquisitionMethod = null;
+        editTextProvenance = null;
+        editTextAccessionNumber = null;
+        editTextNotes = null;
+        editTextConditionReport = null;
+
     }
 
 }
