@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.s26g5.HomeFragment;
 import com.example.s26g5.R;
-import com.example.s26g5.data.FirebaseAuthActivity;
+import com.example.s26g5.data.FirebaseAuthManager;
 
 public class SignupFragment extends Fragment {
     @Nullable
@@ -24,7 +24,7 @@ public class SignupFragment extends Fragment {
         View view = inflator.inflate(R.layout.signup, container, false);
 
         Button backButton = view.findViewById(R.id.BackButton);
-        FirebaseAuthActivity authManager = FirebaseAuthActivity.getFirebaseAuthInstance();
+        FirebaseAuthManager authManager = FirebaseAuthManager.getFirebaseAuthInstance();
         Button signupButton = view.findViewById(R.id.SignUpButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {

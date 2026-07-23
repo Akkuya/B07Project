@@ -11,14 +11,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 
-public final class FirebaseAuthActivity {
+public final class FirebaseAuthManager {
     private final FirebaseAuth authManager = FirebaseAuth.getInstance();
-    private static FirebaseAuthActivity FirebaseAuthInstance;
+    private static FirebaseAuthManager FirebaseAuthInstance;
 
-    private FirebaseAuthActivity() { }
+    private FirebaseAuthManager() { }
 
-    public static FirebaseAuthActivity getFirebaseAuthInstance() {
-        if (FirebaseAuthInstance == null) { FirebaseAuthInstance = new FirebaseAuthActivity(); }
+    public static FirebaseAuthManager getFirebaseAuthInstance() {
+        if (FirebaseAuthInstance == null) { FirebaseAuthInstance = new FirebaseAuthManager(); }
         return FirebaseAuthInstance;
     }
 

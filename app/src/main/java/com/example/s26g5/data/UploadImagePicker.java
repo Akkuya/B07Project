@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.data;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
+
+import com.example.s26g5.SupabaseImageUploader;
 
 public final class UploadImagePicker implements DefaultLifecycleObserver {
 
