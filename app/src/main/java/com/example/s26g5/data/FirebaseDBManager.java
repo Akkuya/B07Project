@@ -1,11 +1,11 @@
 package com.example.s26g5.data;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class FirebaseDBManager {
-    private final FirebaseDatabase db = FirebaseDatabase.getInstance();
+public final class FirebaseDBManager {
+    private final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
     private static FirebaseDBManager FirebaseDBInstance;
-
     private FirebaseDBManager() { }
 
     public static FirebaseDBManager getFirebaseDBInstance() {
@@ -13,17 +13,15 @@ public class FirebaseDBManager {
         return FirebaseDBInstance;
     }
 
-    public static void getInfo(String path) { }
+    public void getInfo(String path) { }
 
-    public static boolean insertInfo(String path, Object item) {
+    public boolean insertInfo(String path, Object item) {
+        db.child(path).setValue(item);
         return true;
     }
 
-    public static boolean updateItem(String path, Object Item) {
-        return true;
-    }
-
-    public static boolean deleteItem(String path, Integer LotNumber) {
+    public boolean updateItem(String path, Object Item) { return true; }
+    public boolean deleteItem(String path, Integer LotNumber) {
         return true;
     }
 }

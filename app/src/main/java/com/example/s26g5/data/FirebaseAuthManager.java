@@ -9,6 +9,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.HashMap;
 
 
 public final class FirebaseAuthManager {
@@ -23,6 +24,8 @@ public final class FirebaseAuthManager {
     }
 
     public FirebaseUser getUserInfo() {
+        //add more fields accordingly
+        // pull username
         return authManager.getCurrentUser();
     }
 
@@ -32,17 +35,28 @@ public final class FirebaseAuthManager {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Add and connect username
+                                String userUID = getUserInfo().getUid();
+                                addUsername(userUID, email, username);
                                 // startSession(getUserInfo());
-                                Log.d("Signup",
-                                      "Success creating account");
+                                Log.d("Signup", "Success creating account");
                             } else {
-                                Log.w("Signup",
-                                      "Failure creating account",
-                                      task.getException());
+                                Log.w("Signup", "Failure creating account", task.getException());
                             }
                         }
                     });
+    }
+
+    private void addUsername(String userUID, String email, String username) {
+        String path = "users/"+userUID;
+        Log.d("DEBUGGING", path);
+        HashMap<String, String> user = new HashMap<String, String>();
+        user.put("email", email);
+        user.put("username", username);
+
+        FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
+        boolean success = db.insertInfo(path, user);
+
+        if (success) Log.d("Signup", "Successful in attaching username");
     }
 
     public void loginUser(String email, String password) {
@@ -72,5 +86,4 @@ public final class FirebaseAuthManager {
             Log.w("Logout", "Error logging out");
         }
     }
-
 }
