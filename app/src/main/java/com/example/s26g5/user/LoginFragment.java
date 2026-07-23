@@ -1,4 +1,4 @@
-package com.example.b07demosummer2024.auth;
+package com.example.s26g5.user;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.b07demosummer2024.HomeFragment;
-import com.example.b07demosummer2024.R;
-import com.example.b07demosummer2024.data.FirebaseAuthActivity;
+import com.example.s26g5.HomeFragment;
+import com.example.s26g5.R;
+import com.example.s26g5.data.FirebaseAuthActivity;
 
 public class LoginFragment extends Fragment {
     @Nullable

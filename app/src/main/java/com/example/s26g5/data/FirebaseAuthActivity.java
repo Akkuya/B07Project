@@ -1,4 +1,4 @@
-package com.example.b07demosummer2024.data;
+package com.example.s26g5.data;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -46,7 +46,6 @@ public final class FirebaseAuthActivity {
     }
 
     public void loginUser(String email, String password) {
-        Log.w("Hehe", "Email: "+email+" Password: "+password);
         authManager.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -62,6 +61,16 @@ public final class FirebaseAuthActivity {
                             }
                         }
                     });
+    }
+
+    public void logoutUser() {
+        authManager.signOut();
+        if (getUserInfo() == null) {
+            Log.d("Logout", "User has logged out");
+        }
+        else {
+            Log.w("Logout", "Error logging out");
+        }
     }
 
 }
