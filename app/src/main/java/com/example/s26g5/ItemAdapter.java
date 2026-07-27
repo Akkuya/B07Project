@@ -31,6 +31,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.textViewDescription.setText(item.getDescription());
     }
 
+
+
     @Override
     public int getItemCount() {
         return itemList.size();
