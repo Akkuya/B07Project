@@ -12,8 +12,6 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
-import com.example.s26g5.SupabaseImageUploader;
-
 public final class UploadImagePicker implements DefaultLifecycleObserver {
 
     public interface Callback {

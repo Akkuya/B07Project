@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.data;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.os.Looper;
 import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
+
+import com.example.s26g5.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

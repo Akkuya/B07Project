@@ -17,7 +17,6 @@ public final class FirebaseAuthManager {
     private static FirebaseAuthManager FirebaseAuthInstance;
 
     private FirebaseAuthManager() { }
-
     public static FirebaseAuthManager getFirebaseAuthInstance() {
         if (FirebaseAuthInstance == null) { FirebaseAuthInstance = new FirebaseAuthManager(); }
         return FirebaseAuthInstance;
@@ -48,7 +47,6 @@ public final class FirebaseAuthManager {
 
     private void addUsername(String userUID, String email, String username) {
         String path = "users/"+userUID;
-        Log.d("DEBUGGING", path);
         HashMap<String, String> user = new HashMap<String, String>();
         user.put("email", email);
         user.put("username", username);
