@@ -4,16 +4,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
-public class ItemAdapter
-        extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
-
-    private final List<Item> itemList;
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
+    private List<Item> itemList;
 
     public ItemAdapter(List<Item> itemList) {
         this.itemList = itemList;
