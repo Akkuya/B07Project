@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.data;
 
 import android.content.Context;
 import android.net.Uri;
