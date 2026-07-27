@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ServerValue;
 
 import android.util.Log;
+import java.util.ArrayList;
 
 public class AddItemFragment extends Fragment {
     private EditText editTextLotNumber;
@@ -194,7 +195,7 @@ public class AddItemFragment extends Fragment {
         String ConditionReport = editTextConditionReport.getText().toString().trim();
         String Notes = editTextNotes.getText().toString().trim();
         Object timestamp = ServerValue.TIMESTAMP;
-        int numberOfLikes = 0;
+        ArrayList<String> liked = new ArrayList<>();
 
 
         boolean materialNotSelected = spinnerMaterial.getSelectedItemPosition() == 0;
@@ -289,7 +290,7 @@ public class AddItemFragment extends Fragment {
                     ConditionReport,
                     Notes,
                     timestamp,
-                    numberOfLikes
+                    liked
             );
 
             itemsRef.child(id)

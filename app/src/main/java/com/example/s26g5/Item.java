@@ -1,5 +1,7 @@
 package com.example.s26g5;
 
+import java.util.ArrayList;
+import java.util.List;
 public class Item {
 
     private String lotNumber;
@@ -17,14 +19,14 @@ public class Item {
     private String conditionReport;
     private String notes;
     private Object timestamp;
-    private int numberOfLikes;
+    private List<String> liked;
 
     public Item() {
         // Required by Firebase
     }
 
     public Item(String lotNumber, String materials, String artifactName, String dynasty, String image, String description, String CulturalOrigin, String Dimensions,
-                String CurrentLocation, String AcquisitionMethod, String Provenance, String AccessionNumber, String ConditionReport, String Notes, Object timestamp, int numberOfLikes) {
+                String CurrentLocation, String AcquisitionMethod, String Provenance, String AccessionNumber, String ConditionReport, String Notes, Object timestamp, List<String> liked) {
 
         this.lotNumber = lotNumber;
         this.materials = materials;
@@ -41,7 +43,7 @@ public class Item {
         this.conditionReport = ConditionReport;
         this.notes = Notes;
         this.timestamp = timestamp;
-        this.numberOfLikes = 0;
+        this.liked = liked == null ? new ArrayList<>() : liked;
     }
 
 
@@ -75,6 +77,11 @@ public class Item {
     public void setNotes(String notes) {this.notes = notes;}
     public Object getTimestamp() {return timestamp;}
     public void setTimestamp(Object timestamp) {this.timestamp = timestamp;}
-    public int getNumberOfLikes() {return numberOfLikes;}
-    public void setNumberOfLikes(int numberOfLikes) {this.numberOfLikes = numberOfLikes;}
+    public List<String> getLiked() {
+        if (liked == null) {
+            liked = new ArrayList<>();
+        }
+        return liked;
+    }
+    public void setLiked(List<String> liked) {this.liked = liked == null ? new ArrayList<>() : liked;}
 }
