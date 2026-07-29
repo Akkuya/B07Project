@@ -26,13 +26,13 @@
                 android:layout_gravity="center_vertical"
                 android:background="?selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_arrow_back"
-                android:contentDescription="Back" />
+                android:contentDescription="@string/back" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Profile"
+                android:text="@string/profile"
                 android:textColor="#1A1A1A"
                 android:textSize="34sp"
                 android:textStyle="bold" />
@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:letterSpacing="0.12"
-                    android:text="USERNAME"
+                    android:text="@string/username"
                     android:textColor="#717182"
                     android:textSize="11sp"
                     android:textStyle="bold" />
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:letterSpacing="0.12"
-                    android:text="EMAIL ADDRESS"
+                    android:text="@string/email_address"
                     android:textColor="#717182"
                     android:textSize="11sp"
                     android:textStyle="bold" />
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
                     android:letterSpacing="0.12"
-                    android:text="ACCOUNT DELETION"
+                    android:text="@string/account_deletion"
                     android:textColor="#717182"
                     android:textSize="11sp"
                     android:textStyle="bold" />
@@ -154,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:lineSpacingMultiplier="1.4"
-                        android:text="Deleting your account will remove all saved artifacts, collections, and activity history from TAAM permanently."
+                        android:text="@string/account_deletion_warning"
                         android:textColor="#8A1220"
                         android:textSize="12.5sp" />
 
@@ -165,7 +165,7 @@
                     android:id="@+id/btnDeleteAccount"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:text="Delete Account"
+                    android:text="@string/delete_account"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -183,7 +183,7 @@
                     android:layout_marginTop="12dp"
                     android:gravity="center"
                     android:lineSpacingMultiplier="1.4"
-                    android:text="This action is permanent and cannot be undone"
+                    android:text="@string/permanent_warning"
                     android:textColor="#9999A8"
                     android:textSize="11.5sp" />
 
