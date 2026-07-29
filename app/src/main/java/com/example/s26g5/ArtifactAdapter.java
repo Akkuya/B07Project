@@ -12,9 +12,9 @@ import java.util.List;
 
 
 public class ArtifactAdapter extends RecyclerView.Adapter<ArtifactAdapter.ArtifactViewHolder> {
-    private List<Artifact> artifactList;
+    private List<Item> artifactList;
 
-    public ArtifactAdapter(List<Artifact> artifactList) {
+    public ArtifactAdapter(List<Item> artifactList) {
         this.artifactList = artifactList;
     }
 
@@ -27,7 +27,7 @@ public class ArtifactAdapter extends RecyclerView.Adapter<ArtifactAdapter.Artifa
 
     @Override
     public void onBindViewHolder(@NonNull ArtifactViewHolder holder, int position) {
-        Artifact artifact = artifactList.get(position);
+        Item artifact = artifactList.get(position);
         Glide.with(holder.imageViewArtifact.getContext())
                 .load(artifact.getImage())
                 .placeholder(R.drawable.ic_default_image)

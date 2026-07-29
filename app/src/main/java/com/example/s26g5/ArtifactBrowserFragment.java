@@ -27,10 +27,10 @@ public class ArtifactBrowserFragment extends Fragment {
     private final DatabaseReference db = FirebaseDatabase.getInstance().getReference("categories");
     private RecyclerView recycler;
     private ArtifactAdapter adapter;
-    private List<Artifact> artifactList;
+    private List<Item> artifactList;
     private final int ITEMS_PER_PAGE = 12;
     private int currPage = 0;
-    private List<List<Artifact>> pageCache = new ArrayList<>();
+    private List<List<Item>> pageCache = new ArrayList<>();
     private String lastlotNumber = null;
     private String lastKey = null;
 
@@ -99,10 +99,9 @@ public class ArtifactBrowserFragment extends Fragment {
                                 DataSnapshot snapshot = task.getResult();
                                 artifactList.clear();
                                 for (DataSnapshot child : snapshot.getChildren()) {
-                                    Artifact artifact = child.getValue(Artifact.class);
+                                    Item artifact = child.getValue(Item.class);
                                     if (artifact != null) {
-                                        //artifact.setLotNumber(child.getKey());
-                                        //TODO: add key field to artifact to store Firebase PushKey
+                                        artifact.setKey(child.getKey());
                                         artifactList.add(artifact);
                                         lastKey = child.getKey();
                                         lastlotNumber = artifact.getLotNumber();
@@ -116,12 +115,12 @@ public class ArtifactBrowserFragment extends Fragment {
         } else if (page > 0 && page < pageCache.size()) {
             artifactList.clear();
             artifactList.addAll(pageCache.get(page));
-            List<Artifact> cachedPage = pageCache.get(page);
+            List<Item> cachedPage = pageCache.get(page);
             if(!cachedPage.isEmpty()){
                 int last_idx = cachedPage.size() - 1;
-                Artifact last = cachedPage.get(last_idx);
+                Item last = cachedPage.get(last_idx);
                 lastlotNumber = last.getLotNumber();
-                //TODO: add key field to artifact to store Firebase PushKey
+                lastKey = last.getKey();
             }
             adapter.notifyDataSetChanged();
             
@@ -138,14 +137,13 @@ public class ArtifactBrowserFragment extends Fragment {
                                 artifactList.clear();
                                 int count = 0;
                                 for (DataSnapshot child : snapshot.getChildren()) {
-                                    Artifact artifact = child.getValue(Artifact.class);
+                                    Item artifact = child.getValue(Item.class);
                                     if(artifact != null) {
                                         if(count == 0 && child.getKey().equals(lastKey)){
                                             count++;
                                         }
                                         else{
-                                            //artifact.setLotNumber(child.getKey());
-                                            //TODO: add key field to artifact to store Firebase PushKey
+                                            artifact.setKey(child.getKey());
                                             artifactList.add(artifact);
                                             lastKey = child.getKey();
                                             lastlotNumber = artifact.getLotNumber();
