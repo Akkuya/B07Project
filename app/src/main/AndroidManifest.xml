@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,27 +15,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.B07DemoSummer2024"
         tools:targetApi="31">
-        <activity
-            android:name=".ItemAdapter"
-            android:exported="false" />
-        <activity
-            android:name=".Item"
-            android:exported="false" />
-        <activity
-            android:name=".Item2"
-            android:exported="false" />
-        <activity
-            android:name=".SpinnerFragment"
-            android:exported="false" />
-        <activity
-            android:name=".RecyclerViewFragment"
-            android:exported="false" />
-        <activity
-            android:name=".HomeFragment"
-            android:exported="false" />
-        <activity
-            android:name=".Activity2"
-            android:exported="false" />
+
+<!--        <activity android:name=".ItemAdapter" android:exported="false" />-->
+        <activity android:name=".Item" android:exported="false" />
+        <activity android:name=".SpinnerFragment" android:exported="false" />
+        <activity android:name=".RecyclerViewFragment" android:exported="false" />
+        <activity android:name=".HomeFragment" android:exported="false" />
+
+        <!--    User-related    -->
+        <activity android:name=".user.LoginFragment" android:exported="false" />
+        <activity android:name=".user.SignupFragment" android:exported="false" />
+
+        <!--      Data-related      -->
+<!--        <activity android:name=".data.FirebaseAuthManager" android:exported="false" />-->
+<!--        <activity android:name=".data.FirebaseDBManager" android:exported="false" />-->
+<!--        <activity android:name=".data.UploadImagePicker" android:exported="false" />-->
+<!--        <activity android:name=".data.SupabaseImageUploader" android:exported="false" />-->
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
