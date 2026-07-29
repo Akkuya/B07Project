@@ -3,6 +3,7 @@ package com.example.s26g5.data;
 import android.util.Log;
 import androidx.annotation.NonNull;
 
+import com.example.s26g5.SessionManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -83,5 +84,13 @@ public final class FirebaseAuthManager {
         else {
             Log.w("Logout", "Error logging out");
         }
+    }
+
+    public void deleteUser() {
+        SessionManager sm = SessionManager.getInstance();
+        String uid = sm.getUid();
+        FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
+        FirebaseAuth.getInstance().getCurrentUser().delete();
+        db.deleteUserData(uid);
     }
 }
