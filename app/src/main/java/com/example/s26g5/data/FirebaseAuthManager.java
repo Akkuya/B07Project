@@ -3,7 +3,6 @@ package com.example.s26g5.data;
 import android.util.Log;
 import androidx.annotation.NonNull;
 
-import com.example.s26g5.SessionManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -86,11 +85,4 @@ public final class FirebaseAuthManager {
         }
     }
 
-    public void deleteUser() {
-        FirebaseAuth fba = FirebaseAuth.getInstance();
-        String uid = fba.getUid();
-        FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
-        fba.getCurrentUser().delete();
-        db.deleteUserData(uid);
-    }
 }
