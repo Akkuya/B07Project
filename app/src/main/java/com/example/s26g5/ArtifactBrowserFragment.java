@@ -5,15 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,43 +24,145 @@ import java.util.List;
 
 public class ArtifactBrowserFragment extends Fragment {
 
-    public ArtifactBrowserFragment() {
-        super(R.layout.artifact_browser_fragment);
-    }
-
-    private final DatabaseReference db = FirebaseDatabase.getInstance().getReference("artifacts");
-    //private static final int PAGE_SIZE = 12;
-
+    private final DatabaseReference db = FirebaseDatabase.getInstance().getReference("categories");
+    private RecyclerView recycler;
     private ArtifactAdapter adapter;
-    private final List<List<ArtifactStringField>> pageCache = new ArrayList<>();
-    private int currentPageIndex = -1;
-    //private Long lastTimeCreated = null;
-    //private String lastKey = null;
+    private List<Artifact> artifactList;
+    private final int ITEMS_PER_PAGE = 12;
+    private int currPage = 0;
+    private List<List<Artifact>> pageCache = new ArrayList<>();
+    private String lastlotNumber = null;
+    private String lastKey = null;
+
+
 
     @Nullable
     @Override
-    public View onCreateVeiw(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.artifact_browser_fragment, container, false);
 
-        RecyclerView recycler = view.findViewById(R.id.recyclerView);
-        recycler.setLayoutManager(new GridLayoutManager(requireContext(), 3));
+        recycler = view.findViewById(R.id.recycler_artifacts);
 
+        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 3);
+        recycler.setLayoutManager(layoutManager);
 
-        adapter = new ArtifactAdapter(artifact -> {
-            // TODO: handle tapping an artifact
-        });
+        artifactList = new ArrayList<>();
+
+        loadPageFromFirebase(currPage);//Get First Page of data from database
+
+        adapter = new ArtifactAdapter(artifactList);
         recycler.setAdapter(adapter);
 
-        view.findViewById(R.id.button_bk).setOnClickListener(v ->
-                        getParentFragmentManager().popBackStack()
-        );
+        Button button_prv = view.findViewById(R.id.button_prv);
+        Button button_nxt = view.findViewById(R.id.button_nxt);
+        Button button_bk = view.findViewById(R.id.button_bk);
 
-        view.findViewById(R.id.button_nxt).setOnClickListener(v -> goToNextPage());
-        view.findViewById(R.id.button_prv).setOnClickListener(v -> goToPreviousPage());
-
-        EditText searchBar = view.findViewById(R.id.search_bar);
-        searchBar.setOnEditorActionListener((v, actionId, event) -> {
-            search(searchBar.getText().toString());
-            return true;
+        button_bk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new HomeFragment());
+            }
         });
+
+        button_prv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currPage > 0) {
+                    currPage--;
+                    loadPageFromFirebase(currPage);
+                }
+            }
+        });
+
+        button_nxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currPage++;
+                loadPageFromFirebase(currPage);
+            }
+        });
+
+        return view;
+    }
+
+    private void loadPageFromFirebase(int page) {
+
+        if (page == 0) {
+
+            db.orderByChild("lotNumber")
+                    .limitToFirst(ITEMS_PER_PAGE)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DataSnapshot snapshot = task.getResult();
+                                artifactList.clear();
+                                for (DataSnapshot child : snapshot.getChildren()) {
+                                    Artifact artifact = child.getValue(Artifact.class);
+                                    if (artifact != null) {
+                                        //artifact.setLotNumber(child.getKey());
+                                        //TODO: add key field to artifact to store Firebase PushKey
+                                        artifactList.add(artifact);
+                                        lastKey = child.getKey();
+                                        lastlotNumber = artifact.getLotNumber();
+                                    }
+                                }
+                                pageCache.add(new ArrayList<>(artifactList));
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+        } else if (page > 0 && page < pageCache.size()) {
+            artifactList.clear();
+            artifactList.addAll(pageCache.get(page));
+            List<Artifact> cachedPage = pageCache.get(page);
+            if(!cachedPage.isEmpty()){
+                int last_idx = cachedPage.size() - 1;
+                Artifact last = cachedPage.get(last_idx);
+                lastlotNumber = last.getLotNumber();
+                //TODO: add key field to artifact to store Firebase PushKey
+            }
+            adapter.notifyDataSetChanged();
+            
+        } else{
+            db.orderByChild("lotNumber")
+                    .startAt(lastlotNumber)
+                    .limitToFirst(ITEMS_PER_PAGE + 1)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DataSnapshot snapshot = task.getResult();
+                                artifactList.clear();
+                                int count = 0;
+                                for (DataSnapshot child : snapshot.getChildren()) {
+                                    Artifact artifact = child.getValue(Artifact.class);
+                                    if(artifact != null) {
+                                        if(count == 0 && child.getKey().equals(lastKey)){
+                                            count++;
+                                        }
+                                        else{
+                                            //artifact.setLotNumber(child.getKey());
+                                            //TODO: add key field to artifact to store Firebase PushKey
+                                            artifactList.add(artifact);
+                                            lastKey = child.getKey();
+                                            lastlotNumber = artifact.getLotNumber();
+                                        }
+                                    }
+                                }
+                                pageCache.add(new ArrayList<>(artifactList));
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+        }
+    }
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

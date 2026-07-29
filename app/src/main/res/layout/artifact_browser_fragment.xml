@@ -6,30 +6,50 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/button_bk"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/white"
+        android:text="&lt;"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/search_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
         android:id="@+id/button_prv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
+        android:layout_marginTop="19dp"
         android:layout_marginBottom="48dp"
         android:backgroundTint="@color/white"
-        android:text="<"
+        android:text="&lt;"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_artifacts" />
 
     <Button
         android:id="@+id/button_nxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="88dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="112dp"
         android:layout_marginBottom="48dp"
         android:backgroundTint="@color/white"
-        android:text=">"
+        android:text="&gt;"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_artifacts"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/search_bar"
@@ -58,14 +78,11 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@id/button_prv"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
-    <include
-        android:id="@+id/header"
-        layout="@layout/header"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <TextView
         android:id="@+id/textView2"
@@ -78,6 +95,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/button_prv"
         app:layout_constraintTop_toBottomOf="@+id/recycler_artifacts"
-        app:layout_constraintVertical_bias="0.325" />
+        app:layout_constraintVertical_bias="0.412" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
