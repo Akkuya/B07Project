@@ -1,5 +1,7 @@
 package com.example.s26g5;
 
+import static com.example.s26g5.ArtefactAdapter.*;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +24,8 @@ import java.util.List;
 
 public class RecyclerViewFragment extends Fragment {
     private RecyclerView recyclerView;
-    private ItemAdapter itemAdapter;
-    private List<Item> itemList;
+    private ArtefactAdapter itemAdapter;
+    private List<ArtifactStringField> itemList;
     private Spinner spinnerCategory;
 
     private FirebaseDatabase db;
@@ -44,7 +46,7 @@ public class RecyclerViewFragment extends Fragment {
         spinnerCategory.setAdapter(adapter);
 
         itemList = new ArrayList<>();
-        itemAdapter = new ItemAdapter(itemList);
+        itemAdapter = new ArtefactAdapter(itemList);
         recyclerView.setAdapter(itemAdapter);
 
         db = FirebaseDatabase.getInstance("https://b07-demo-summer-2024-default-rtdb.firebaseio.com/");
@@ -72,7 +74,7 @@ public class RecyclerViewFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 itemList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Item item = snapshot.getValue(Item.class);
+                    ArtifactStringField item = snapshot.getValue(ArtifactStringField.class);
                     itemList.add(item);
                 }
                 itemAdapter.notifyDataSetChanged();
