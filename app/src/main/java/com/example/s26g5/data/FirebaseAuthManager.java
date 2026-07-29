@@ -87,10 +87,10 @@ public final class FirebaseAuthManager {
     }
 
     public void deleteUser() {
-        SessionManager sm = SessionManager.getInstance();
-        String uid = sm.getUid();
+        FirebaseAuth fba = FirebaseAuth.getInstance();
+        String uid = fba.getUid();
         FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
-        FirebaseAuth.getInstance().getCurrentUser().delete();
+        fba.getCurrentUser().delete();
         db.deleteUserData(uid);
     }
 }
