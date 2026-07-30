@@ -17,7 +17,21 @@ import com.example.s26g5.HomeFragment;
 import com.example.s26g5.R;
 import com.example.s26g5.data.FirebaseAuthManager;
 
-public class SignupFragment extends Fragment {
+public class SignupFragment extends Fragment implements UICallbackInterface {
+    @Override
+    public void onSuccess() {
+        loadFragment(new HomeFragment());
+    }
+
+    @Override
+    public void onFailure() {
+        Toast.makeText(
+                        getContext(),
+                        "Username and/or password is incorrect",
+                        Toast.LENGTH_SHORT)
+                .show();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflator, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,15 +57,16 @@ public class SignupFragment extends Fragment {
                 String username = usernameField.getText().toString().trim();
 
                 if (email.isEmpty() || password.isEmpty() || username.isEmpty()) {
-                    Toast.makeText(
-                                    getContext(),
-                                    "Enter email, username and password",
-                                    Toast.LENGTH_SHORT)
+                    Toast.makeText(getContext(), "Enter email, username and password", Toast.LENGTH_SHORT)
+                         .show();
+                    return;
+                }
+                if (password.length() < 6) {
+                    Toast.makeText(getContext(), "Password too small", Toast.LENGTH_SHORT)
                             .show();
                     return;
                 }
-                authManager.signupUser(email, password, username);
-                loadFragment(new HomeFragment());
+                authManager.signupUser(email, password, username, SignupFragment.this);
             }
         }));
 

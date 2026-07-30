@@ -10,12 +10,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
+
 
 public final class FirebaseDBManager {
-    private final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference db = FirebaseDatabase.getInstance("https://cscb07s26g5-default-rtdb.firebaseio.com/").getReference();
     private static FirebaseDBManager FirebaseDBInstance;
     private FirebaseDBManager() { }
 
