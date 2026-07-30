@@ -28,12 +28,12 @@ public class ArtifactAdapter extends RecyclerView.Adapter<ArtifactAdapter.Artifa
     @Override
     public void onBindViewHolder(@NonNull ArtifactViewHolder holder, int position) {
         Item artifact = artifactList.get(position);
-        Glide.with(holder.imageViewArtifact.getContext())
+        Glide.with(holder.artifactImage.getContext())
                 .load(artifact.getImage())
                 .placeholder(R.drawable.ic_default_image)
                 .centerCrop()
-                .into(holder.imageViewArtifact);
-        holder.textViewName.setText(artifact.getArtifactName());
+                .into(holder.artifactImage);
+        holder.artifactName.setText(artifact.getArtifactName());
     }
 
     @Override
@@ -42,13 +42,15 @@ public class ArtifactAdapter extends RecyclerView.Adapter<ArtifactAdapter.Artifa
     }
 
     public static class ArtifactViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageViewArtifact;
-        TextView textViewName;
+        ImageView artifactImage;
+        TextView artifactName;
+
 
         public ArtifactViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewArtifact = itemView.findViewById(R.id.imageArtifact);
-            textViewName = itemView.findViewById(R.id.textArtifactName);
+            artifactImage = itemView.findViewById(R.id.imageArtifact);
+            artifactName = itemView.findViewById(R.id.textArtifactName);
+
         }
     }
 }

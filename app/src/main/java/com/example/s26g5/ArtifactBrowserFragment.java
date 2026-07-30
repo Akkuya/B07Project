@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +34,8 @@ public class ArtifactBrowserFragment extends Fragment {
     private List<List<Item>> pageCache = new ArrayList<>();
     private String lastlotNumber = null;
     private String lastKey = null;
+    private TextView pageNum;
+
 
 
 
@@ -53,9 +56,11 @@ public class ArtifactBrowserFragment extends Fragment {
         adapter = new ArtifactAdapter(artifactList);
         recycler.setAdapter(adapter);
 
+        Button button_bk = view.findViewById(R.id.button_bk);
         Button button_prv = view.findViewById(R.id.button_prv);
         Button button_nxt = view.findViewById(R.id.button_nxt);
-        Button button_bk = view.findViewById(R.id.button_bk);
+        pageNum = view.findViewById(R.id.page_num);
+
 
         button_bk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +93,13 @@ public class ArtifactBrowserFragment extends Fragment {
     private void loadPageFromFirebase(int page) {
 
         if (page == 0) {
-
+            if(!pageCache.isEmpty()){
+                artifactList.clear();
+                artifactList.addAll(pageCache.get(page));
+                pageNum.setText(String.valueOf(currPage + 1));
+                adapter.notifyDataSetChanged();
+                return;
+            }
             db.orderByChild("lotNumber")
                     .limitToFirst(ITEMS_PER_PAGE)
                     .get()
@@ -108,20 +119,22 @@ public class ArtifactBrowserFragment extends Fragment {
                                     }
                                 }
                                 pageCache.add(new ArrayList<>(artifactList));
+                                pageNum.setText(String.valueOf(currPage + 1));
                                 adapter.notifyDataSetChanged();
                             }
                         }
                     });
         } else if (page > 0 && page < pageCache.size()) {
             artifactList.clear();
-            artifactList.addAll(pageCache.get(page));
             List<Item> cachedPage = pageCache.get(page);
+            artifactList.addAll(cachedPage);
             if(!cachedPage.isEmpty()){
                 int last_idx = cachedPage.size() - 1;
                 Item last = cachedPage.get(last_idx);
                 lastlotNumber = last.getLotNumber();
                 lastKey = last.getKey();
             }
+            pageNum.setText(String.valueOf(currPage + 1));
             adapter.notifyDataSetChanged();
             
         } else{
@@ -151,6 +164,7 @@ public class ArtifactBrowserFragment extends Fragment {
                                     }
                                 }
                                 pageCache.add(new ArrayList<>(artifactList));
+                                pageNum.setText(String.valueOf(currPage + 1));
                                 adapter.notifyDataSetChanged();
                             }
                         }

@@ -16,40 +16,9 @@
         app:layout_constraintBottom_toTopOf="@+id/search_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.43" />
 
-    <Button
-        android:id="@+id/button_prv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="48dp"
-        android:backgroundTint="@color/white"
-        android:text="&lt;"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_artifacts" />
 
-    <Button
-        android:id="@+id/button_nxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="112dp"
-        android:layout_marginBottom="48dp"
-        android:backgroundTint="@color/white"
-        android:text="&gt;"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_artifacts"
-        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/search_bar"
@@ -65,36 +34,71 @@
         android:hint="Search..."
         android:imeOptions="actionSearch"
         android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_artifacts"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_artifacts"
-        android:layout_width="407dp"
-        android:layout_height="427dp"
+        android:layout_width="403dp"
+        android:layout_height="486dp"
+        android:layout_marginBottom="36dp"
         android:clipToPadding="false"
         android:paddingHorizontal="12dp"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@id/button_prv"
+        app:layout_constraintBottom_toTopOf="@+id/page_num"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+
+    <Button
+        android:id="@+id/button_prv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:backgroundTint="@color/white"
+        android:text="&lt;"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/page_num"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+    <Button
+        android:id="@+id/button_nxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="92dp"
+        android:backgroundTint="@color/white"
+        android:text="&gt;"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/page_num"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="35dp"
-        android:layout_height="22dp"
+        android:id="@+id/page_num"
+        android:layout_width="40dp"
+        android:layout_height="26dp"
+        android:layout_marginBottom="32dp"
         android:text="1"
         android:textAlignment="center"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_nxt"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/button_prv"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_artifacts"
-        app:layout_constraintVertical_bias="0.412" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
