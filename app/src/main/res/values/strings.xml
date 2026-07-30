@@ -12,6 +12,7 @@
     ]]><string name="saved_artefacts"><u>Saved Artefacts</u></string>
     <string name="cultural_origin">Cultural origin</string>
     <string name="description">Description</string>
+    <string name="save_artifact_button">Save artifact button</string>
 
     <string-array name="categories_array">
         <item>Books</item>

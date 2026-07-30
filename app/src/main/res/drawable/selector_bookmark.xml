@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--Image for saved state -->
+    <item android:state_selected="true" android:drawable="@drawable/bookmark_added" />
+    <!-- Image for the default (unsaved) state -->
+    <item android:drawable="@drawable/bookmark_border" />
+</selector>
