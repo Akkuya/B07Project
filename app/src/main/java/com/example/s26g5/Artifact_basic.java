@@ -16,15 +16,22 @@ public class Artifact_basic {
     private String notes;
 
 
-    Artifact_basic(String lotNumber, String artifactName, String image, String culturalOrigin){ //to be displayed in grid
-        this.lotNumber = lotNumber;
+    Artifact_basic(String lotNumber, String artifactName, String image, String accessionNumber, String acquisitionMethod, String conditionReport, String culturalOrigin){
         this.artifactName = artifactName;
         this.image = image;
         this.culturalOrigin = culturalOrigin;
     }
     Artifact_basic(){
     }
-    Artifact_basic(String lotNumber){
+    Artifact_basic(String artifactName, String lotNumber, String culturalOrigin, String image){
+        this.lotNumber = lotNumber;
+        this.artifactName = artifactName;
+        this.culturalOrigin = culturalOrigin;
+        this.image = image;
+    }
+
+    public Artifact_basic(String name, String lotNumber) {
+        this.artifactName = name;
         this.lotNumber = lotNumber;
     }
 
