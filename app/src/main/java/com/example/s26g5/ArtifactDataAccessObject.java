@@ -17,6 +17,6 @@ public interface ArtifactDataAccessObject {
     @Query("SELECT * FROM saved_artifacts")
     List<SavedArtifactEntity> getAllSavedArtifacts();
 
-    @Query("SELECT EXISTS(SELECT 1 FROM saved_artifacts WHERE id = :id)")
-    boolean isSaved(int id);
+    @Query("SELECT EXISTS(SELECT 1 FROM saved_artifacts WHERE lot_number = :lotNumber)")
+    boolean isSaved(String lotNumber);
 }
