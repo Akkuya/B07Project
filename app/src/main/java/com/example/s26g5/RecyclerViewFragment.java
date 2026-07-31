@@ -1,7 +1,6 @@
 package com.example.s26g5;
 
-import static com.example.s26g5.ArtefactAdapter.*;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,34 +21,37 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class RecyclerViewFragment extends Fragment {
-    private RecyclerView recyclerView;
-    private ArtefactAdapter itemAdapter;
-    private List<ArtifactStringField> itemList;
-    private Spinner spinnerCategory;
+
+    private SavedArtifactAdapter itemAdapter;
+    private List<ArtifactSaved> itemList;
 
     private FirebaseDatabase db;
-    private DatabaseReference itemsRef;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        RecyclerView recyclerView;
+        Spinner spinnerCategory;
+
         View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         spinnerCategory = view.findViewById(R.id.spinnerCategory);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(),
                 R.array.categories_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
 
         itemList = new ArrayList<>();
-        itemAdapter = new ArtefactAdapter(itemList);
+        itemAdapter = new SavedArtifactAdapter(itemList);
         recyclerView.setAdapter(itemAdapter);
 
-        db = FirebaseDatabase.getInstance("https://b07-demo-summer-2024-default-rtdb.firebaseio.com/");
+        db = FirebaseDatabase.getInstance("https://cscb07s26g5-default-rtdb.firebaseio.com//");
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -68,13 +70,15 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     private void fetchItemsFromDatabase(String category) {
-        itemsRef = db.getReference("categories/" + category);
+        DatabaseReference itemsRef;
+        itemsRef = db.getReference("categories");
         itemsRef.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 itemList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    ArtifactStringField item = snapshot.getValue(ArtifactStringField.class);
+                    ArtifactSaved item = snapshot.getValue(ArtifactSaved.class);
                     itemList.add(item);
                 }
                 itemAdapter.notifyDataSetChanged();
