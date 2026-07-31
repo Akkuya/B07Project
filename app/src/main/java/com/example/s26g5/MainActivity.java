@@ -36,13 +36,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    public void navigateToSavedArtifactsFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new SavedArtifactsFragment())
-                .addToBackStack(null)
-                .setReorderingAllowed(true)
-                .commit();
-    }
 
     @Override
     public void onBackPressed() {
