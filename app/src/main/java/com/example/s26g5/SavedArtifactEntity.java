@@ -1,18 +1,30 @@
 package com.example.s26g5;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "saved_artifacts")
 public class SavedArtifactEntity {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "lot_number")
+    private final String lotNumber;
+
+    @NonNull
+    @ColumnInfo(name = "name")
     private String name;
-    private String lotNumber;
+
+    @NonNull
+    @ColumnInfo(name = "cultural_origin")
     private String culturalOrigin;
+
+    @ColumnInfo(name = "image")
     private String image;
+
     // Constructors, getters, and setters
-    public SavedArtifactEntity(String name, String lotNumber, String culturalOrigin, String image) {
+    public SavedArtifactEntity(@NonNull String name, @NonNull String lotNumber, @NonNull String culturalOrigin, String image) {
         this.name = name;
         this.lotNumber = lotNumber;
         this.culturalOrigin = culturalOrigin;
@@ -20,28 +32,27 @@ public class SavedArtifactEntity {
     }
 
     // Getters and setters
-    public int getId() {
-        return id;
-    }
+    @NonNull
     public String getName() {
         return name;
     }
-    public void setName(String name) {
+    public void setName(@NonNull String name) {
         this.name = name;
     }
+    @NonNull
     public String getLotNumber() {
         return lotNumber;
     }
-    public void setLotNumber(String lotNumber) {
+    /*public void setLotNumber(String lotNumber) {
         this.lotNumber = lotNumber;
-    }
+    }*/
+    @NonNull
     public String getCulturalOrigin() {
         return culturalOrigin;
     }
-    public void setCulturalOrigin(String culturalOrigin) {
-        this.culturalOrigin = culturalOrigin;
-    }
+
     public String getImage() {
         return image;
     }
+
 }
