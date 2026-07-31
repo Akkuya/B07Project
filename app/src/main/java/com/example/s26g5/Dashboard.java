@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Dashboard {
     interface View {
-        void showArtefacts(List<Artifact_basic> artefacts);
+        void showArtefacts(List<ArtifactSaved> artefacts);
         void showError(String message);
     }
 
