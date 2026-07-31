@@ -6,29 +6,100 @@
     android:layout_height="match_parent"
     tools:context=".DeleteItemFragment">
 
-    <EditText
-        android:id="@+id/editTextTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Item Title"
-        app:layout_constraintTop_toTopOf="parent"
+    <TextView
+        android:id="@+id/artifactManager_d"
+        android:layout_width="437dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_card"
+        android:gravity="center_vertical"
+        android:paddingLeft="60dp"
+        android:text="Artifact Manager"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinnerCategory"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTitle"
+    <EditText
+        android:id="@+id/itemName_d"
+        android:layout_width="245dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="164dp"
+        android:background="@drawable/bg_card"
+        android:gravity="center_vertical"
+        android:hint="Artifact Name"
+        android:paddingLeft="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/artifactManager_d" />
+
+    <EditText
+        android:id="@+id/lotNumber_d"
+        android:layout_width="245dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_card"
+        android:gravity="center_vertical"
+        android:hint="Lot Number"
+        android:paddingLeft="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemName_d" />
 
     <Button
         android:id="@+id/buttonDelete"
+        android:layout_width="168dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="@color/highlight"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
+
+    <TextView
+        android:id="@+id/pageTitle_d"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
         android:text="Delete Item"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/artifactManager_d" />
+
+    <Button
+        android:id="@+id/button_bk_d"
+        android:layout_width="48dp"
+        android:layout_height="75dp"
+        android:backgroundTint="@color/grey"
+        android:gravity="center"
+        android:text="&lt;"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.011"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="245dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="40dp"
+        android:popupBackground="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lotNumber_d" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
