@@ -1,6 +1,7 @@
 package com.example.s26g5;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,6 +122,8 @@ public class ArtifactBrowserFragment extends Fragment {
                                 pageCache.add(new ArrayList<>(artifactList));
                                 pageNum.setText(String.valueOf(currPage + 1));
                                 adapter.notifyDataSetChanged();
+                            }else {
+                                Log.e("ArtifactBrowserFragment", "Failed to load page " + currPage, task.getException());
                             }
                         }
                     });
@@ -166,6 +169,8 @@ public class ArtifactBrowserFragment extends Fragment {
                                 pageCache.add(new ArrayList<>(artifactList));
                                 pageNum.setText(String.valueOf(currPage + 1));
                                 adapter.notifyDataSetChanged();
+                            }else {
+                                Log.e("ArtifactBrowserFragment", "Failed to load page " + currPage, task.getException());
                             }
                         }
                     });
