@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.s26g5.data.FirebaseDBManager;
+import com.example.s26g5.user.LoginFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,9 +27,8 @@ public class MainActivity extends AppCompatActivity {
         myRef.child("movies").setValue("B07 Demo!");
 
         if (savedInstanceState == null) {
-            loadFragment(new HomeFragment());
+            loadFragment(new LoginFragment());
         }
-
     }
 
     private void loadFragment(Fragment fragment) {
@@ -35,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 
     @Override
     public void onBackPressed() {
