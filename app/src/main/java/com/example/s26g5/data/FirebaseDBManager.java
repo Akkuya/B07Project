@@ -56,8 +56,8 @@ public final class FirebaseDBManager {
         return true;
     }
 
-    public boolean deleteUserData(String uid) {
-        db.child("users").child(uid).removeValue()
+    public Task<Void> deleteUserData(String uid) {
+        return db.child("users").child(uid).removeValue()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -68,6 +68,5 @@ public final class FirebaseDBManager {
                         }
                     }
                 });
-        return true;
     }
 }
