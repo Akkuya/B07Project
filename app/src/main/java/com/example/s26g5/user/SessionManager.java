@@ -1,31 +1,32 @@
 package com.example.s26g5.user;
 
-public final class SessionManager {
-
-    private boolean isAdmin;
-    private boolean isLoggedIn;
-    public User user;
-
+public class SessionManager {
     private static SessionManager instance;
-    private SessionManager() { };
+    private String uid;
+    private String username;
+    private boolean isAdmin;
+
+    // Singleton Design Pattern
     public static SessionManager getSessionInstance() {
         if (instance == null) instance = new SessionManager();
         return instance;
     }
 
-    public void startSession(User userIns) {
-        user = userIns;
-        isAdmin = user.getRole().equals("admin");
-        isLoggedIn = true;
+    public void setSession(String uid, String username, boolean isAdmin) {
+        this.uid = uid;
+        this.username = username;
+        this.isAdmin = isAdmin;
     }
 
     public void clearSession() {
-        user = null;
-        isLoggedIn = false;
-        isAdmin = false;
+        this.uid = null;
+        this.username = null;
+        this.isAdmin = false;
     }
 
-    public boolean isLoggedIn() { return isLoggedIn; }
+    public boolean isLoggedIn() { return uid != null; }
     public boolean isAdmin() { return isAdmin; }
+    public String getUsername() { return username; }
 
+    public String getUid() { return uid; }
 }

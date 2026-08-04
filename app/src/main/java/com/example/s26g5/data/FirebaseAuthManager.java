@@ -26,16 +26,23 @@ public final class FirebaseAuthManager {
         return FirebaseAuthInstance;
     }
 
-    private void addUsername(String userUID, String email, String username) {
+    private void addUser(String userUID, String email, String username) {
         String path = "users/"+userUID;
         HashMap<String, String> user = new HashMap<String, String>();
         user.put("email", email);
         user.put("username", username);
+        user.put("role", "visitor");
+        user.put("saved_artifacts", null);
+
 
         FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
         boolean success = db.insertInfo(path, user);
 
         if (success) Log.d("Signup", "Successful in attaching username");
+    }
+
+    private void getUserInfo(String userUID) {
+
     }
 
     public void signupUser(String email, String password, String username, UICallbackInterface callback) {
@@ -44,7 +51,7 @@ public final class FirebaseAuthManager {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                addUsername(authManager.getUid(), email, username);
+                                addUser(authManager.getUid(), email, username);
                                 callback.onSuccess();
                                 // startSession(getUserInfo());
                                 Log.d("Signup", "Success creating account");
