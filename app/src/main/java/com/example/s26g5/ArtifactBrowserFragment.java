@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ArtifactBrowserFragment extends Fragment {
@@ -30,6 +32,8 @@ public class ArtifactBrowserFragment extends Fragment {
     private RecyclerView recycler;
     private ArtifactAdapter adapter;
     private List<Item> artifactList;
+    private int sort_field = 0; // 0 = default, 1 = lotNumber, 2 = timestamp
+    private List<Item> allArtifacts;
     private final int ITEMS_PER_PAGE = 12;
     private int currPage = 0;
     private List<List<Item>> pageCache = new ArrayList<>();
@@ -50,9 +54,10 @@ public class ArtifactBrowserFragment extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 3);
         recycler.setLayoutManager(layoutManager);
 
-        artifactList = new ArrayList<>();
+        artifactList = new ArrayList<>(); // Will only hold artifacts that match the filters and sort.
+        allArtifacts = new ArrayList<>(); // Will hold all artifacts
 
-        loadPageFromFirebase(currPage);//Get First Page of data from database
+        loadAllArtifacts(); // Populate allArtifacts
 
         adapter = new ArtifactAdapter(artifactList);
         recycler.setAdapter(adapter);
@@ -91,6 +96,57 @@ public class ArtifactBrowserFragment extends Fragment {
         return view;
     }
 
+    private void loadAllArtifacts() {
+        db.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DataSnapshot snapshot = task.getResult();
+                    allArtifacts.clear();
+                    for (DataSnapshot category : snapshot.getChildren()) {
+                        for (DataSnapshot itemChild : category.getChildren()) {
+                            Item artifact = itemChild.getValue(Item.class);
+                            if (artifact != null) {
+                                artifact.setKey(itemChild.getKey());
+                                allArtifacts.add(artifact);
+                            }
+                        }
+
+                        refresh();
+                    }
+                } else {
+                    Log.e("ArtifactBrowserFragment", "Failed to load artifacts", task.getException());
+                }
+            }
+        });
+    }
+
+    private void refresh() {
+        artifactList.clear();
+        artifactList.addAll(allArtifacts);
+
+        switch (sort_field) {
+            case 0: break;
+            case 1:
+                artifactList.sort(new Comparator<Item>() {
+                    public int compare(Item artifact1, Item artifact2) {
+                        return artifact1.getLotNumber().compareTo(artifact2.getLotNumber());
+                    }
+                });
+                break;
+            case 2:
+                artifactList.sort(new Comparator<Item>() {
+                    public int compare(Item artifact1, Item artifact2) {
+                        return ((Long) artifact1.getTimestamp()).compareTo((Long) artifact2.getTimestamp());
+                    }
+                });
+                break;
+        }
+
+
+
+
+    }
     private void loadPageFromFirebase(int page) {
 
         if (page == 0) {
