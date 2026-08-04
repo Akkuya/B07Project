@@ -38,7 +38,7 @@ public class DeleteItemFragment extends Fragment {
 
         spinnerCategory = view.findViewById(R.id.spinnerCategory);
         buttonDelete = view.findViewById(R.id.buttonDelete);
-        buttonBack = view.findViewById(R.id.button_bk_d);
+        buttonBack = view.findViewById(R.id.buttonBack_d);
         lotNum = view.findViewById(R.id.lotNumber_d);
         artifactName = view.findViewById(R.id.itemName_d);
 

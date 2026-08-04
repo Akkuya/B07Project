@@ -6,21 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".DeleteItemFragment">
 
+
     <TextView
         android:id="@+id/artifactManager_d"
-        android:layout_width="437dp"
-        android:layout_height="98dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="434dp"
+        android:layout_height="126dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/bg_card"
-        android:gravity="center_vertical"
-        android:paddingLeft="60dp"
+        android:gravity="center"
         android:text="Artifact Manager"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBack_d"
+        android:layout_width="62dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="24dp"
+        android:backgroundTint="@color/grey"
+        android:foregroundGravity="center_vertical"
+        android:gravity="center"
+        android:text="&lt;"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/artifactManager_d"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037" />
 
     <EditText
         android:id="@+id/itemName_d"
@@ -75,20 +92,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/artifactManager_d" />
 
-    <Button
-        android:id="@+id/button_bk_d"
-        android:layout_width="48dp"
-        android:layout_height="75dp"
-        android:backgroundTint="@color/grey"
-        android:gravity="center"
-        android:text="&lt;"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.011"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.038" />
+
 
     <Spinner
         android:id="@+id/spinnerCategory"
