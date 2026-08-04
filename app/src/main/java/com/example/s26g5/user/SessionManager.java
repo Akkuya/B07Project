@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.user;
 
 public class SessionManager {
     private static SessionManager instance;
