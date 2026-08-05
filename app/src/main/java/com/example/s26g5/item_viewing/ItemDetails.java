@@ -16,7 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.s26g5.ArtifactBrowserFragment;
+import com.example.s26g5.item_manage.DeleteItemFragment;
 import com.example.s26g5.item_manage.EditItemFragment;
 import com.example.s26g5.HomeFragment;
 import com.example.s26g5.Item;
@@ -75,11 +77,44 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         conditionReport.setText(item.getConditionReport());
         desc.setText(item.getDescription());
         currentLocation.setText(item.getCurrentLocation());
-        acquisition.setText(item.getAccessionNumber());
+        acquisition.setText(item.getAcquisitionMethod());
         provenance.setText(item.getProvenance());
         accession.setText(item.getAccessionNumber());
         notes.setText(item.getNotes());
-        image.setImageURI(Uri.parse(item.getImage()));
+        //image.setImageURI(Uri.parse(item.getImage()));
+        if(item.getImage() != null){
+            Glide.with(this).load(item.getImage()).into(image);
+        }
+
+        if(SessionManager.getInstance().isAdmin()) {//TODO: Make sure up to date with correct session syntax
+            buttonEdit.setVisibility(View.VISIBLE);
+            buttonDelete.setVisibility(View.VISIBLE);
+
+            buttonEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadFragment(EditItemFragment.display(item.getLotNumber()));
+                }
+            });
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(requireContext())
+                            .setTitle("Delete Artifact")
+                            .setMessage("Are you sure you want to delete this item?")
+                            .setPositiveButton("Delete", (dialog, which) -> {
+                                deleteItemByLotNumber(item.getLotNumber());
+                            })
+                            .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+        }
+        else{
+            buttonEdit.setVisibility(View.GONE);
+            buttonDelete.setVisibility(View.GONE);
+        }
 
     }
 
@@ -119,36 +154,6 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         buttonEdit = view.findViewById(R.id.editItem);
         buttonDelete = view.findViewById(R.id.deleteItem);
 
-        if(SessionManager.getInstance().isAdmin()) {//TODO: Make sure up to date with correct session syntax
-            buttonEdit.setVisibility(View.VISIBLE);
-            buttonDelete.setVisibility(View.VISIBLE);
-
-            buttonEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    loadFragment(new EditItemFragment());
-                }
-            });
-
-            buttonDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new AlertDialog.Builder(requireContext())
-                            .setTitle("Delete Artifact")
-                            .setMessage("Are you sure you want to delete this item?")
-                            .setPositiveButton("Delete", (dialog, which) -> {
-                                deleteItemByLotNumber(lotNumber);
-                            })
-                            .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-            });
-        }
-        else {
-            buttonEdit.setVisibility(View.GONE);
-            buttonDelete.setVisibility(View.GONE);
-        }
         return view;
     }
 
@@ -163,45 +168,24 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         FirebaseDatabase database;
         database = FirebaseDatabase.getInstance();
 
-        if (lotNumber.isEmpty()) {
+        if (lotNumber.isEmpty() || lotNumber == null) {
             Toast.makeText(getContext(), "Unable to delete Item", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        itemsRef = database.getReference("artifacts/"+lotNumber);
-        itemsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                boolean itemFound = false;
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Item item = snapshot.getValue(Item.class);
-                    if (item != null && item.getLotNumber().equalsIgnoreCase(lotNumber)) {
-                        snapshot.getRef().removeValue().addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                if(!isAdded() || getView() == null){
-                                    return;
-                                }
-                                Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
-                                loadFragment(new ArtifactBrowserFragment());
-                            } else {
-                                if(!isAdded() || getView() == null){
-                                    return;
-                                }
-                                Toast.makeText(getContext(), "Failed to delete item", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        itemFound = true;
-                        break;
-                    }
+        itemsRef = database.getReference("artifacts/" + lotNumber);
+        itemsRef.removeValue().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (!isAdded() || getView() == null) {
+                    return;
                 }
-                if (!itemFound) {
-                    Toast.makeText(getContext(), "Item not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
+                loadFragment(new ArtifactBrowserFragment());
+            } else {
+                if (!isAdded() || getView() == null) {
+                    return;
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Failed to delete item", Toast.LENGTH_SHORT).show();
             }
         });
     }

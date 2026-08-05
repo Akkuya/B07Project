@@ -405,18 +405,6 @@
         app:layout_constraintGuide_begin="205dp" />
 
 
-    <ImageButton
-        android:id="@+id/editItem_e"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.905"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_edit" />
-
     <Button
         android:id="@+id/saveEdit"
         android:layout_width="82dp"
