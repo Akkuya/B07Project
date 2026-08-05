@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">B07 Demo Summer 2024</string>
+    <string name="app_name">Toronto Asian Arts Museum App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delete_item">Delete Item</string>
@@ -71,6 +71,13 @@
     <string name="supabase_url">https://stnlsqpruhjfocqldrmv.supabase.co</string>
     <string name="supabase_anon_key">sb_publishable_OhANNKijx0JTEYKqw3skSA_E6rvO1YJ</string>
     <string name="supabase_image_bucket">artifact image</string>
+    <string name="profile">Profile</string>
+    <string name="username">USERNAME</string>
+    <string name="email_address">EMAIL ADDRESS</string>
+    <string name="account_deletion">ACCOUNT DELETION</string>
+    <string name="account_deletion_warning">Deleting your account will remove all saved artifacts, collections, and activity history from TAAM permanently.</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="permanent_warning">This action is permanent and cannot be undone</string>
 
 
 </resources>
