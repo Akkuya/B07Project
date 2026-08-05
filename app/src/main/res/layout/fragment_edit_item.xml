@@ -30,7 +30,7 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewItemDetDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/editItemDetDesc" />
 
 
     <ImageView
@@ -208,7 +208,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <EditText
-        android:id="@+id/textViewItemDetDesc"
+        android:id="@+id/editItemDetDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
@@ -385,7 +385,7 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewItemDetDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/editItemDetDesc" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -404,20 +404,9 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="205dp" />
 
-    <ImageButton
-        android:id="@+id/deleteItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/imageView6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_delete" />
-
 
     <ImageButton
-        android:id="@+id/editItem"
+        android:id="@+id/editItem_e"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -432,7 +421,7 @@
         android:id="@+id/saveEdit"
         android:layout_width="82dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/bg_card_gold"
         android:gravity="center"
         android:text="Save"

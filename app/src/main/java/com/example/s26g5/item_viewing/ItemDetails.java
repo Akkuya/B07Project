@@ -119,7 +119,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         buttonEdit = view.findViewById(R.id.editItem);
         buttonDelete = view.findViewById(R.id.deleteItem);
 
-        if(getSessionInstance.isAdmin()) {//TODO: Make sure up to date with correct session syntax
+        if(SessionManager.getInstance().isAdmin()) {//TODO: Make sure up to date with correct session syntax
             buttonEdit.setVisibility(View.VISIBLE);
             buttonDelete.setVisibility(View.VISIBLE);
 

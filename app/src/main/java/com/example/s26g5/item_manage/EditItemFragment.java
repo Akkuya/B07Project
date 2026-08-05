@@ -28,11 +28,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class EditItemFragment extends Fragment{
-    private EditText artifactName;
-    private Spinner spinnerCategory;
-    private EditText lotNum;
+    Item item = null;
+    //TextView category;
+    EditText material;
+    EditText dynasty;
+    EditText culturalOrigin;
+    EditText dimensions;
+    EditText conditionReport;
+    EditText desc;
+    EditText currentLocation;
+    EditText acquisition;
+    EditText provenance;
+    EditText accession;
+    EditText notes;
+    ImageView image;
 
-    private ImageButton buttonDelete;
+    ImageButton buttonEdit;
     private Button buttonSave;
     private FirebaseDatabase db;
     private DatabaseReference itemsRef;
@@ -41,12 +52,20 @@ public class EditItemFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_item, container, false);
-//
-//        spinnerCategory = view.findViewById(R.id.spinnerCategory);
-//        buttonDelete = view.findViewById(R.id.buttonDelete);
-//        buttonBack = view.findViewById(R.id.buttonBack_e);
-//        lotNum = view.findViewById(R.id.lotNumber_d);
-//        artifactName = view.findViewById(R.id.itemName_d);
+
+        material = view.findViewById(R.id.editItemDetMaterial);
+        dynasty = view.findViewById(R.id.editItemDetDynasty);
+        culturalOrigin = view.findViewById(R.id.editItemDetCulturalOrigin);
+        dimensions = view.findViewById(R.id.editItemDetDimensions);
+        conditionReport = view.findViewById(R.id.editItemDetConditionReport);
+        desc = view.findViewById(R.id.editItemDetDesc);
+        currentLocation = view.findViewById(R.id.editItemDetCurrentLocation);
+        acquisition = view.findViewById(R.id.editItemDetAcquisition);
+        provenance = view.findViewById(R.id.editItemDetProvenance);
+        accession = view.findViewById(R.id.editItemDetAccession);
+        notes = view.findViewById(R.id.editItemDetNotes);
+        image = view.findViewById(R.id.imageViewItemD);
+        buttonEdit = view.findViewById(R.id.editItem_e);
 //
 //        db = FirebaseDatabase.getInstance();
 //
