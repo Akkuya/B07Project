@@ -183,7 +183,7 @@
         android:layout_width="167dp"
         android:layout_height="175dp"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewItemDetTitle"
         tools:srcCompat="@tools:sample/avatars" />
@@ -207,7 +207,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="10dp"
         android:width="372dp"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         android:textColor="@color/text"
@@ -221,12 +221,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="16dp"
         android:text="Category:"
         android:textColor="@color/text"
         android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/imageViewItemD"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItemDetTitle"
         app:lineHeight="19dp" />
 
     <TextView
@@ -234,13 +234,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="16dp"
         android:width="140dp"
         android:text="empty"
         android:textColor="@color/text"
         android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@+id/c_textViewItemDetCategory"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItemDetTitle"
         app:lineHeight="19dp" />
 
     <TextView

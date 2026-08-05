@@ -1,6 +1,6 @@
 package com.example.s26g5.item_viewing;
 
-import android.net.Uri;
+import com.squareup.picasso.Picasso;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +21,11 @@ import com.example.s26g5.data.FirebaseDBManager;
 import com.example.s26g5.user.UICallbackInterface;
 import com.google.firebase.database.DataSnapshot;
 
+import java.io.File;
+
 public class ItemDetails extends Fragment implements UICallbackInterface {
     Item item = null;
+    TextView itemName;
     //TextView category;
     TextView material;
     TextView dynasty;
@@ -54,6 +57,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         DataSnapshot itemJson = (DataSnapshot) result;
         item = itemJson.getValue(Item.class);
 
+        itemName.setText(item.getArtifactName());
 //        category.setText(item.get);
         material.setText(item.getMaterials());
         dynasty.setText(item.getDynasty());
@@ -62,11 +66,15 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         conditionReport.setText(item.getConditionReport());
         desc.setText(item.getDescription());
         currentLocation.setText(item.getCurrentLocation());
-        acquisition.setText(item.getAccessionNumber());
+        acquisition.setText(item.getAcquisitionMethod());
         provenance.setText(item.getProvenance());
         accession.setText(item.getAccessionNumber());
         notes.setText(item.getNotes());
-        image.setImageURI(Uri.parse(item.getImage()));
+        Picasso.get()
+                .load(item.getImage())
+                .fit()
+                .centerCrop()
+                .into(image);
 
     }
 
@@ -90,6 +98,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         String lotNumber = getArguments().getString("lotNumber");
         db.getInfo("artifacts/"+lotNumber, ItemDetails.this);
 
+        itemName = view.findViewById(R.id.textViewItemDetTitle);
         //        TextView category = view.findViewById(R.id.textViewItemDetCategory);
         material = view.findViewById(R.id.textViewItemDetMaterial);
         dynasty = view.findViewById(R.id.textViewItemDetDynasty);
