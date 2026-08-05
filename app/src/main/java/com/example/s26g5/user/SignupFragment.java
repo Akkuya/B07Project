@@ -20,12 +20,12 @@ import com.example.s26g5.MainActivity;
 
 public class SignupFragment extends Fragment implements UICallbackInterface {
     @Override
-    public void onSuccess() {
+    public void onSuccess(Object result) {
         loadFragment(new HomeFragment());
     }
 
     @Override
-    public void onFailure() {
+    public void onFailure(Object result) {
         Toast.makeText(
                         getContext(),
                         "Username and/or password is incorrect",

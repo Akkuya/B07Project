@@ -23,12 +23,12 @@ public class LoginFragment extends Fragment implements UICallbackInterface {
     EditText passwordField;
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(Object result) {
         loadFragment(new HomeFragment());
     }
 
     @Override
-    public void onFailure() {
+    public void onFailure(Object result) {
             emailField.setText("");
             passwordField.setText("");
             Toast.makeText(

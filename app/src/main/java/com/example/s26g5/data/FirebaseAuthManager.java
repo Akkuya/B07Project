@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 
@@ -26,25 +27,6 @@ public final class FirebaseAuthManager {
         return FirebaseAuthInstance;
     }
 
-    private void addUser(String userUID, String email, String username) {
-        String path = "users/"+userUID;
-        HashMap<String, String> user = new HashMap<String, String>();
-        user.put("email", email);
-        user.put("username", username);
-        user.put("role", "visitor");
-        user.put("saved_artifacts", null);
-
-
-        FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
-        boolean success = db.insertInfo(path, user);
-
-        if (success) Log.d("Signup", "Successful in attaching username");
-    }
-
-    private void getUserInfo(String userUID) {
-
-    }
-
     public void signupUser(String email, String password, String username, UICallbackInterface callback) {
         authManager.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -52,11 +34,11 @@ public final class FirebaseAuthManager {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 addUser(authManager.getUid(), email, username);
-                                callback.onSuccess();
-                                // startSession(getUserInfo());
+                                sessionInstance.setSession(authManager.getUid());
+                                callback.onSuccess(null);
                                 Log.d("Signup", "Success creating account");
                             } else {
-                                callback.onFailure();
+                                callback.onFailure(null);
                                 Log.w("Signup", "Failure creating account", task.getException());
                             }
                         }
@@ -70,11 +52,12 @@ public final class FirebaseAuthManager {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // create session, call UI callback, Log Success
-                                callback.onSuccess();
+                                sessionInstance.setSession(authManager.getUid());
+                                callback.onSuccess(null);
                                 Log.d("Login", "Success logging in");
                             } else {
                                 // call UI callback, Log Failure
-                                callback.onFailure();
+                                callback.onFailure(null);
                                 Log.w("Login", "Failure logging in", task.getException());
                             }
                         }
@@ -90,6 +73,23 @@ public final class FirebaseAuthManager {
         else {
             Log.w("Logout", "Error logging out");
         }
+    }
+
+    public FirebaseUser getUserInfo() {
+        return authManager.getCurrentUser();
+    }
+
+    private void addUser(String userUID, String email, String username) {
+        String path = "users/"+userUID;
+        HashMap<String, String> user = new HashMap<String, String>();
+        user.put("email", email);
+        user.put("username", username);
+        user.put("role", "visitor");
+        user.put("saved_artifacts", null);
+
+        boolean success = db.insertInfo(path, user);
+
+        if (success) Log.d("Signup", "Successful in attaching username");
     }
 
 }
