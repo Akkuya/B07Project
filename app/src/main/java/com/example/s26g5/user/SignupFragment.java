@@ -16,12 +16,15 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.s26g5.HomeFragment;
 import com.example.s26g5.R;
 import com.example.s26g5.data.FirebaseAuthManager;
+import com.example.s26g5.MainActivity;
 
 public class SignupFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflator, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflator.inflate(R.layout.signup, container, false);
+        ((MainActivity) requireActivity()).setNavigationVisible(false);
+
 
         Button backButton = view.findViewById(R.id.BackButton);
         FirebaseAuthManager authManager = FirebaseAuthManager.getFirebaseAuthInstance();
