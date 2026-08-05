@@ -55,4 +55,18 @@ public final class FirebaseDBManager {
         // TODO: Implement ItemDelete eventually
         return true;
     }
+
+    public Task<Void> deleteUserData(String uid) {
+        return db.child("users").child(uid).removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("Delete User", "User removed successfully");
+                        } else {
+                            Log.d("Delete User", "Error removing user: " + task.getException());
+                        }
+                    }
+                });
+    }
 }
