@@ -85,4 +85,5 @@ public final class FirebaseAuthManager {
             Log.w("Logout", "Error logging out");
         }
     }
+
 }

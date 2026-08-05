@@ -20,6 +20,8 @@ public class Item {
     private String notes;
     private Long timestamp;
     private List<String> liked;
+    private String key;
+    private String category;
 
     public Item() {
         // Required by Firebase
@@ -84,4 +86,8 @@ public class Item {
         return liked;
     }
     public void setLiked(List<String> liked) {this.liked = liked == null ? new ArrayList<>() : liked;}
+    public String getKey() {return key;}
+    public void setKey(String key) {this.key = key;}
+    public String getCategory() {return category;}
+    public void setCategory(String category) {this.category = category;}
 }
