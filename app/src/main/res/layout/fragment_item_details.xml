@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewItemDetConditionReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:width="105dp"
+        android:text="empty"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/c_textViewItemDetConditionReport"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetDimensions"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/textViewItemDetCommentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="176dp"
+        android:text="Comments"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItemDetDesc" />
+
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="156dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItemDetMoreInfoTitle"
+        app:srcCompat="@drawable/caret" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetCurrentLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="13dp"
+        android:text="Current location:"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/textViewItemDetCurrentLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="13dp"
+        android:width="105dp"
+        android:text="empty"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/c_textViewItemDetCurrentLocation"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="13dp"
+        android:width="170dp"
+        android:text="Notes:"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewItemDetCurrentLocation"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetNotes2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="5dp"
+        android:width="170dp"
+        android:text="N/A"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewItemDetAcquisition"
+        app:layout_constraintTop_toBottomOf="@+id/c_textViewItemDetNotes"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetAcquisition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="10dp"
+        android:text="Acquisition method:"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetCurrentLocation"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/textViewItemDetAcquisition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:width="90dp"
+        android:text="empty"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/c_textViewItemDetAcquisition"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetCurrentLocation"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetProvenance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="10dp"
+        android:text="Provenance:"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetAcquisition"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/textViewItemDetProvenance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:width="125dp"
+        android:text="empty"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/c_textViewItemDetProvenance"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetAcquisition"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetAccession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="10dp"
+        android:text="Accession number:"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetProvenance"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/textViewItemDetAccession"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:width="95dp"
+        android:text="empty"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/c_textViewItemDetAccession"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetProvenance"
+        app:lineHeight="19dp" />
+
+    <ImageView
+        android:id="@+id/imageViewItemD"
+        android:layout_width="167dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItemDetTitle"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textViewItemDetTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="31dp"
+        android:width="360dp"
+        android:text="Title"
+        android:textColor="@color/highlight"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewItemDetDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="22dp"
+        android:width="372dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewItemD"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="71dp"
+        android:text="Category:"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewItemD"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/textViewItemDetCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="71dp"
+        android:width="140dp"
+        android:text="empty"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/c_textViewItemDetCategory"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetMaterial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="10dp"
+        android:text="Material:"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewItemD"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetCategory"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/textViewItemDetMaterial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:width="145dp"
+        android:text="empty"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/c_textViewItemDetMaterial"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetCategory"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetDynasty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="10dp"
+        android:text="Dynasty/period:"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewItemD"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetMaterial"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/textViewItemDetDynasty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:width="115dp"
+        android:text="empty"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/c_textViewItemDetDynasty"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetMaterial"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetCulturalOrigin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="10dp"
+        android:text="Cultural Origin:"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewItemD"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetDynasty"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/textViewItemDetCulturalOrigin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:width="120dp"
+        android:text="empty"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/c_textViewItemDetCulturalOrigin"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetDynasty"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetDimensions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="10dp"
+        android:text="Dimensions:"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewItemD"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetCulturalOrigin"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/textViewItemDetDimensions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:width="130dp"
+        android:text="empty"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/c_textViewItemDetDimensions"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetCulturalOrigin"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/c_textViewItemDetConditionReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="10dp"
+        android:text="Condition Report:"
+        android:textColor="@color/text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewItemD"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemDetDimensions"
+        app:lineHeight="19dp" />
+
+    <TextView
+        android:id="@+id/textViewItemDetMoreInfoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="23dp"
+        android:text="More information"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItemDetDesc" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItemDetMoreInfoTitle"
+        app:srcCompat="@drawable/caret" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="205dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
