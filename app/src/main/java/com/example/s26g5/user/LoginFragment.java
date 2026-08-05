@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.s26g5.HomeFragment;
 import com.example.s26g5.R;
 import com.example.s26g5.data.FirebaseAuthManager;
+import com.example.s26g5.MainActivity;
 
 public class LoginFragment extends Fragment implements UICallbackInterface {
     EditText emailField;
@@ -41,6 +42,7 @@ public class LoginFragment extends Fragment implements UICallbackInterface {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflator, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflator.inflate(R.layout.login, container, false);
+        ((MainActivity) requireActivity()).setNavigationVisible(false);
 
         FirebaseAuthManager authManager = FirebaseAuthManager.getFirebaseAuthInstance();
         Button signupPromptButton = view.findViewById(R.id.signupPromptButton);

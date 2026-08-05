@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,16 +11,17 @@
         android:id="@+id/editTextLotNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Lot Number"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"
+        android:hint="Lot Number (Mandatory)"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextArtifactName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="ArtifactName"
+        android:hint="Artifact Name (Mandatory)"
         app:layout_constraintTop_toBottomOf="@id/editTextLotNumber"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -28,7 +30,7 @@
         android:id="@+id/editTextDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Description"
+        android:hint="Description (Mandatory)"
         app:layout_constraintTop_toBottomOf="@+id/editTextArtifactName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -60,15 +62,87 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText
+        android:id="@+id/editTextCulturalOrigin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Cultural Origin"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextDimensions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Dimensions"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCulturalOrigin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextConditionReport"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Condition"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDimensions"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextCurrentLocation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Current Location"
+        app:layout_constraintTop_toBottomOf="@+id/editTextConditionReport"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextAcquisitionMethod"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="AcquisitionMethod"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCurrentLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextProvenance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Provenance"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAcquisitionMethod"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextAccessionNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Accession Number"
+        app:layout_constraintTop_toBottomOf="@+id/editTextProvenance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextNotes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Notes"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAccessionNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
         android:id="@+id/editTextImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Select Image(Optional)"
+        android:hint="Select Image"
         android:clickable="true"
         android:focusable="false"
         android:cursorVisible="false"
         android:inputType="none"
-        app:layout_constraintTop_toBottomOf="@id/spinnerCategory"
+        app:layout_constraintTop_toBottomOf="@id/editTextNotes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -80,4 +154,4 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout >
