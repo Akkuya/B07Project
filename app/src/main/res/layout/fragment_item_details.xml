@@ -84,7 +84,7 @@
         app:lineHeight="19dp" />
 
     <TextView
-        android:id="@+id/c_textViewItemDetNotes2"
+        android:id="@+id/textViewItemDetNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"

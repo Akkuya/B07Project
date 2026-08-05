@@ -197,7 +197,7 @@ public class AddItemFragment extends Fragment {
         String AccessionNumber = editTextAccessionNumber.getText().toString().trim();
         String ConditionReport = editTextConditionReport.getText().toString().trim();
         String Notes = editTextNotes.getText().toString().trim();
-        Object timestamp = ServerValue.TIMESTAMP;
+        Long timestamp = System.currentTimeMillis();
         ArrayList<String> liked = new ArrayList<>();
 
 

@@ -18,7 +18,7 @@ public class Item {
     private String accessionNumber;
     private String conditionReport;
     private String notes;
-    private Object timestamp;
+    private Long timestamp;
     private List<String> liked;
 
     public Item() {
@@ -26,7 +26,7 @@ public class Item {
     }
 
     public Item(String lotNumber, String materials, String artifactName, String dynasty, String image, String description, String CulturalOrigin, String Dimensions,
-                String CurrentLocation, String AcquisitionMethod, String Provenance, String AccessionNumber, String ConditionReport, String Notes, Object timestamp, List<String> liked) {
+                String CurrentLocation, String AcquisitionMethod, String Provenance, String AccessionNumber, String ConditionReport, String Notes, Long timestamp, List<String> liked) {
 
         this.lotNumber = lotNumber;
         this.materials = materials;
@@ -75,8 +75,8 @@ public class Item {
     public void setConditionReport(String conditionReport) {this.conditionReport = conditionReport;}
     public String getNotes() {return notes;}
     public void setNotes(String notes) {this.notes = notes;}
-    public Object getTimestamp() {return timestamp;}
-    public void setTimestamp(Object timestamp) {this.timestamp = timestamp;}
+    public Long getTimestamp() {return timestamp;}
+    public void setTimestamp(Long timestamp) {this.timestamp = timestamp;}
     public List<String> getLiked() {
         if (liked == null) {
             liked = new ArrayList<>();
