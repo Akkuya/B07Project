@@ -1,10 +1,12 @@
 package com.example.s26g5.item_viewing;
 
+import android.app.AlertDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,12 +16,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.s26g5.ArtifactBrowserFragment;
+import com.example.s26g5.item_manage.EditItemFragment;
 import com.example.s26g5.HomeFragment;
 import com.example.s26g5.Item;
 import com.example.s26g5.R;
 import com.example.s26g5.data.FirebaseDBManager;
+import com.example.s26g5.user.SessionManager;
 import com.example.s26g5.user.UICallbackInterface;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ItemDetails extends Fragment implements UICallbackInterface {
     Item item = null;
@@ -36,6 +45,10 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
     TextView accession;
     TextView notes;
     ImageView image;
+
+    ImageButton buttonEdit;
+    ImageButton buttonDelete;
+    private DatabaseReference itemsRef;
 
     // Use ItemDetails.display(some_lot_number) to show customized page. Don't use `new`
     public static ItemDetails display(String lotNumber) {
@@ -103,7 +116,39 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         accession = view.findViewById(R.id.textViewItemDetAccession);
         notes = view.findViewById(R.id.textViewItemDetNotes);
         image = view.findViewById(R.id.imageViewItemD);
+        buttonEdit = view.findViewById(R.id.editItem);
+        buttonDelete = view.findViewById(R.id.deleteItem);
 
+        if(getSessionInstance.isAdmin()) {//TODO: Make sure up to date with correct session syntax
+            buttonEdit.setVisibility(View.VISIBLE);
+            buttonDelete.setVisibility(View.VISIBLE);
+
+            buttonEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadFragment(new EditItemFragment());
+                }
+            });
+
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(requireContext())
+                            .setTitle("Delete Artifact")
+                            .setMessage("Are you sure you want to delete this item?")
+                            .setPositiveButton("Delete", (dialog, which) -> {
+                                deleteItemByLotNumber(lotNumber);
+                            })
+                            .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+        }
+        else {
+            buttonEdit.setVisibility(View.GONE);
+            buttonDelete.setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -112,5 +157,52 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void deleteItemByLotNumber(String lotNumber) {
+        FirebaseDatabase database;
+        database = FirebaseDatabase.getInstance();
+
+        if (lotNumber.isEmpty()) {
+            Toast.makeText(getContext(), "Unable to delete Item", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        itemsRef = database.getReference("artifacts/"+lotNumber);
+        itemsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean itemFound = false;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Item item = snapshot.getValue(Item.class);
+                    if (item != null && item.getLotNumber().equalsIgnoreCase(lotNumber)) {
+                        snapshot.getRef().removeValue().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                if(!isAdded() || getView() == null){
+                                    return;
+                                }
+                                Toast.makeText(getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
+                                loadFragment(new ArtifactBrowserFragment());
+                            } else {
+                                if(!isAdded() || getView() == null){
+                                    return;
+                                }
+                                Toast.makeText(getContext(), "Failed to delete item", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        itemFound = true;
+                        break;
+                    }
+                }
+                if (!itemFound) {
+                    Toast.makeText(getContext(), "Item not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

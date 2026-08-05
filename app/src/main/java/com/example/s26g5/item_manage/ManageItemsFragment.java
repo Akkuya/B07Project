@@ -33,13 +33,13 @@ public class ManageItemsFragment extends Fragment {
             }
         });
 
-        frameDeleteLayout.setOnClickListener(v -> loadFragment(new DeleteItemFragment()));
+        //frameDeleteLayout.setOnClickListener(v -> loadFragment(new DeleteItemFragment()));
 
         //frameEditLayout.setOnClickListener(v -> loadFragment(new EditItemFragment()));
 
         //frameCommentLayout.setOnClickListener(v -> loadFragment(new DeleteItemFragment()));
 
-        buttonBack.setOnClickListener(v -> loadFragment(new HomeFragment()));
+//        buttonBack.setOnClickListener(v -> loadFragment(new HomeFragment()));
 
         return view;
     }
