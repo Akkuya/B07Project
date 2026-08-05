@@ -18,7 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.s26g5.ArtifactBrowserFragment;
-import com.example.s26g5.item_manage.DeleteItemFragment;
+//import com.example.s26g5.item_manage.DeleteItemFragment;
 import com.example.s26g5.item_manage.EditItemFragment;
 import com.example.s26g5.HomeFragment;
 import com.example.s26g5.Item;

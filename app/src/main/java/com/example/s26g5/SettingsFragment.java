@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.s26g5.data.FirebaseAuthManager;
 import com.example.s26g5.data.FirebaseDBManager;
+import com.example.s26g5.user.SessionManager;
 import com.example.s26g5.user.LoginFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
