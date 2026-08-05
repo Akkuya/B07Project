@@ -20,7 +20,7 @@ public class SettingsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_layout, container, false);
+        View view = inflater.inflate(R.layout.accountinfo_layout, container, false);
 
         view.findViewById(R.id.buttonBack).setOnClickListener(v ->
                 getParentFragmentManager().popBackStack());
