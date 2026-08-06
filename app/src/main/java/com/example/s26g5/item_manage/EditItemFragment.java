@@ -184,7 +184,7 @@ public class EditItemFragment extends Fragment implements UICallbackInterface{
                     @Override
                     public void onImageSelected(Uri imageUri) {
                         if (e_image != null) {
-                            //e_image.setText("Uploading...");
+
                         }
                         if (buttonSave != null) {
                             buttonSave.setEnabled(false);
