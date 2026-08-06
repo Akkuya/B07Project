@@ -1,5 +1,6 @@
 package com.example.s26g5.item_viewing;
 
+import com.example.s26g5.user.SessionManager;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,8 +32,8 @@ import com.example.s26g5.data.FirebaseDBManager;
 import com.example.s26g5.user.UICallbackInterface;
 import com.google.firebase.database.DataSnapshot;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ItemDetails extends Fragment implements UICallbackInterface {
@@ -50,9 +53,13 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
     TextView notes;
     ImageView image;
 
+    EditText comment;
+    Button post;
+
     CommentAdapter commentAdapter;
     List<Comment> commentList;
     FirebaseDBManager db;
+    SessionManager sm;
 
     // Use ItemDetails.display(some_lot_number) to show customized page. Don't use `new`
     public static ItemDetails display(String lotNumber) {
@@ -101,12 +108,15 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
                 .show();
     }
 
+    @SuppressLint("WrongViewCast")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_item_details, container, false);
         db = FirebaseDBManager.getFirebaseDBInstance();
+        sm = SessionManager.getSessionInstance();
+
         String lotNumber = getArguments().getString("lotNumber");
         db.getInfo("artifacts/"+lotNumber, ItemDetails.this);
 
@@ -127,6 +137,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         image = view.findViewById(R.id.imageViewItemD);
 
 
+
         // =======================Set Comments==============================================
         RecyclerView recyclerView;
         recyclerView = view.findViewById(R.id.comment_recycler);
@@ -135,6 +146,27 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         commentAdapter = new CommentAdapter(commentList);
         recyclerView.setAdapter(commentAdapter);
         fetchComments(lotNumber);
+
+
+        // =======================Post Comments==============================================
+        comment = view.findViewById(R.id.editTextCommentContent);
+        post = view.findViewById(R.id.editTextCommentButton);
+        HashMap<String, Object> commentObj = new HashMap<>();
+        commentObj.put("lotNumber", lotNumber);
+        commentObj.put("username", sm.getUsername());
+        commentObj.put("uid", sm.getUid());
+        commentObj.put("content", comment);
+        commentObj.put("timestamp", System.currentTimeMillis());
+        post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String commentPath = "/comments"+lotNumber+commentList.size();
+                db.insertInfo(commentPath, commentObj);
+            }
+        });
+
+
+
 
         return view;
     }
