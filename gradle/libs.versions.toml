@@ -12,6 +12,7 @@ firebaseDatabase = "21.0.0"
 firebaseAuth = "23.1.0"
 cardview = "1.0.0"
 room = "2.6.1"
+firebaseAuthVersion = "24.2.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -26,6 +27,7 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
+google-firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuthVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
