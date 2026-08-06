@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.s26g5.user.UICallbackInterface;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +22,21 @@ public final class FirebaseDBManager {
     public static FirebaseDBManager getFirebaseDBInstance() {
         if (FirebaseDBInstance == null) { FirebaseDBInstance = new FirebaseDBManager(); }
         return FirebaseDBInstance;
+    }
+
+    public void getInfo(String path, UICallbackInterface callback) {
+        db.child(path).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    callback.onSuccess(task.getResult());
+                }
+                else {
+                    callback.onFailure(null);
+                    Log.d("Retrieve Info", "Error fetching data");
+                }
+            }
+        });
     }
 
     public boolean insertInfo(String path, Object item) {
