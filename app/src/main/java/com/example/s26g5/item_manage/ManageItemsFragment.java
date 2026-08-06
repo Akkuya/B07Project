@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.item_manage;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.s26g5.R;
 
 public class ManageItemsFragment extends Fragment {
     @Nullable
@@ -31,13 +33,13 @@ public class ManageItemsFragment extends Fragment {
             }
         });
 
-        frameDeleteLayout.setOnClickListener(v -> loadFragment(new DeleteItemFragment()));
+        //frameDeleteLayout.setOnClickListener(v -> loadFragment(new DeleteItemFragment()));
 
         //frameEditLayout.setOnClickListener(v -> loadFragment(new EditItemFragment()));
 
         //frameCommentLayout.setOnClickListener(v -> loadFragment(new DeleteItemFragment()));
 
-        buttonBack.setOnClickListener(v -> loadFragment(new HomeFragment()));
+//        buttonBack.setOnClickListener(v -> loadFragment(new HomeFragment()));
 
         return view;
     }

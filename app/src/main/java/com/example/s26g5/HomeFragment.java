@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.s26g5.item_manage.ManageItemsFragment;
+
 public class HomeFragment extends Fragment {
     @Nullable
     @Override

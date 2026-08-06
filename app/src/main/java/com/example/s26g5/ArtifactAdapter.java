@@ -13,9 +13,14 @@ import java.util.List;
 
 public class ArtifactAdapter extends RecyclerView.Adapter<ArtifactAdapter.ArtifactViewHolder> {
     private List<Item> artifactList;
+    private OnArtifactClickListener listener;
 
-    public ArtifactAdapter(List<Item> artifactList) {
+    public interface OnArtifactClickListener {
+        void onArtifactClick(Item artifact, int position);
+    }
+    public ArtifactAdapter(List<Item> artifactList, OnArtifactClickListener listener) {
         this.artifactList = artifactList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -48,16 +53,25 @@ public class ArtifactAdapter extends RecyclerView.Adapter<ArtifactAdapter.Artifa
         return artifactList.size();
     }
 
-    public static class ArtifactViewHolder extends RecyclerView.ViewHolder {
+    public class ArtifactViewHolder extends RecyclerView.ViewHolder {
         ImageView artifactImage;
         TextView artifactName;
-
 
         public ArtifactViewHolder(@NonNull View itemView) {
             super(itemView);
             artifactImage = itemView.findViewById(R.id.imageArtifact);
             artifactName = itemView.findViewById(R.id.textArtifactName);
 
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    int position = getAdapterPosition();
+
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onArtifactClick(artifactList.get(position), position);
+                    }
+                }
+            });
         }
     }
 }
