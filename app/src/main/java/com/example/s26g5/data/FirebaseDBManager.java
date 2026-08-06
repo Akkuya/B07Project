@@ -10,35 +10,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
+
 
 public final class FirebaseDBManager {
-    private final DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference db = FirebaseDatabase.getInstance("https://cscb07s26g5-default-rtdb.firebaseio.com/").getReference();
     private static FirebaseDBManager FirebaseDBInstance;
     private FirebaseDBManager() { }
 
     public static FirebaseDBManager getFirebaseDBInstance() {
         if (FirebaseDBInstance == null) { FirebaseDBInstance = new FirebaseDBManager(); }
         return FirebaseDBInstance;
-    }
-
-    public Object getInfo(String path) {
-        Object result = null;
-        db.child(path).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-//                    result = task.getResult().getValue();
-//                    System.out.println("DEBUGGING " + task.getResult().getValue());
-                }
-                else {
-                    Log.d("Retrieve Info", "Error fetching data");
-                }
-            }
-        });
-        return result;
     }
 
     public boolean insertInfo(String path, Object item) {
