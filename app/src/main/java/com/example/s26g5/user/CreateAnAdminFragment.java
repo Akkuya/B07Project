@@ -14,11 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.s26g5.HomeFragment;
+import com.example.s26g5.MainActivity;
 import com.example.s26g5.R;
 import com.example.s26g5.data.FirebaseAuthManager;
-import com.example.s26g5.MainActivity;
 
-public class SignupFragment extends Fragment implements UICallbackInterface {
+public class CreateAnAdminFragment extends Fragment implements UICallbackInterface {
     @Override
     public void onSuccess(Object result) {
         loadFragment(new HomeFragment());
@@ -28,7 +28,7 @@ public class SignupFragment extends Fragment implements UICallbackInterface {
     public void onFailure(Object result) {
         Toast.makeText(
                         getContext(),
-                        "Error with signing up",
+                        "Problem with creating an admin",
                         Toast.LENGTH_SHORT)
                 .show();
     }
@@ -36,13 +36,14 @@ public class SignupFragment extends Fragment implements UICallbackInterface {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflator, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflator.inflate(R.layout.signup, container, false);
+        View view = inflator.inflate(R.layout.create_admin, container, false);
         ((MainActivity) requireActivity()).setNavigationVisible(false);
+        SessionManager sm = SessionManager.getSessionInstance();
 
 
-        Button backButton = view.findViewById(R.id.BackButton);
+        Button backButton = view.findViewById(R.id.CreateAdminBackButton);
         FirebaseAuthManager authManager = FirebaseAuthManager.getFirebaseAuthInstance();
-        Button signupButton = view.findViewById(R.id.SignUpButton);
+        Button signupButton = view.findViewById(R.id.CreateAdminSignUpButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,9 +53,9 @@ public class SignupFragment extends Fragment implements UICallbackInterface {
         signupButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText emailField = view.findViewById(R.id.EmailField);
-                EditText passwordField = view.findViewById(R.id.PasswordField);
-                EditText usernameField = view.findViewById(R.id.UsernameField);
+                EditText emailField = view.findViewById(R.id.CreateAdminEmailField);
+                EditText passwordField = view.findViewById(R.id.CreateAdminPasswordField);
+                EditText usernameField = view.findViewById(R.id.CreateAdminUsernameField);
                 String email = emailField.getText().toString().trim();
                 String password = passwordField.getText().toString().trim();
                 String username = usernameField.getText().toString().trim();
@@ -69,7 +70,7 @@ public class SignupFragment extends Fragment implements UICallbackInterface {
                             .show();
                     return;
                 }
-                authManager.signupUser(email, password, username, "visitor", SignupFragment.this);
+                authManager.signupUser(email, password, username, "admin", CreateAnAdminFragment.this);
             }
         }));
 

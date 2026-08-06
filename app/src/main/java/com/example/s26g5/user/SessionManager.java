@@ -2,11 +2,19 @@ package com.example.s26g5.user;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.example.s26g5.data.FirebaseDBManager;
 import com.google.firebase.database.DataSnapshot;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Objects;
 
 public class SessionManager implements  UICallbackInterface{
@@ -52,7 +60,7 @@ public class SessionManager implements  UICallbackInterface{
         // add key-value pair
         DataSnapshot json = (DataSnapshot) result;
         for (DataSnapshot child : json.getChildren()) {
-           user.put(child.getKey(), child.getValue());
+            user.put(child.getKey(), child.getValue());
         }
 
         //fill in rest of the fields
@@ -60,8 +68,10 @@ public class SessionManager implements  UICallbackInterface{
         username = Objects.requireNonNull(user.get("username")).toString();
         email = Objects.requireNonNull(user.get("email")).toString();
         role = Objects.requireNonNull(user.get("role")).toString();
-        saved_artifacts = (List<String>) user.get("saved_artifacts");
-        isAdmin = role.equals("admin");
+        saved_artifacts = user.get("saved_artifacts") != null
+                ? (List<String>) user.get("saved_artifacts")
+                : new ArrayList<>();
+        isAdmin = user.get("role").equals("admin");
 
     }
 
