@@ -6,6 +6,28 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textViewItemDetCommentTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="156dp"
+        android:text="Related Artifacts"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItemDetDesc" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="136dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItemDetMoreInfoTitle"
+        app:srcCompat="@drawable/caret" />
+
+    <TextView
         android:id="@+id/textViewItemDetConditionReport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,25 +41,25 @@
         app:layout_constraintTop_toBottomOf="@id/textViewItemDetDimensions"
         app:lineHeight="19dp" />
 
+
     <TextView
         android:id="@+id/textViewItemDetCommentTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="332dp"
         android:text="Comments"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewItemDetDesc" />
 
-
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="316dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewItemDetMoreInfoTitle"
         app:srcCompat="@drawable/caret" />
@@ -194,6 +216,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
         android:layout_marginTop="31dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:width="360dp"
         android:text="Title"
         android:textColor="@color/highlight"
@@ -392,5 +416,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="205dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/related_recycler"
+        android:layout_width="364dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.446"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,13 @@
 package com.example.s26g5.item_viewing;
 
+import com.example.s26g5.ArtifactAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.s26g5.HomeFragment;
 import com.example.s26g5.Item;
@@ -22,8 +30,11 @@ import com.example.s26g5.user.UICallbackInterface;
 import com.google.firebase.database.DataSnapshot;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class ItemDetails extends Fragment implements UICallbackInterface {
+    private final DatabaseReference db = FirebaseDatabase.getInstance().getReference("artifacts");
     Item item = null;
     TextView itemName;
     //TextView category;
@@ -39,6 +50,10 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
     TextView accession;
     TextView notes;
     ImageView image;
+
+    private ArrayList<Item> items;
+
+    private ArtifactAdapter adapter;
 
     // Use ItemDetails.display(some_lot_number) to show customized page. Don't use `new`
     public static ItemDetails display(String lotNumber) {
@@ -75,6 +90,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
                 .fit()
                 .centerCrop()
                 .into(image);
+        loadRelated(item);
 
     }
 
@@ -94,6 +110,16 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_item_details, container, false);
         FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
+        RecyclerView related = view.findViewById(R.id.related_recycler);
+        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 3);
+        related.setLayoutManager(layoutManager);
+
+
+        items = new ArrayList<Item>();
+
+        adapter = new ArtifactAdapter(items);
+        related.setAdapter(adapter);
+
 
         String lotNumber = getArguments().getString("lotNumber");
         db.getInfo("artifacts/"+lotNumber, ItemDetails.this);
@@ -112,10 +138,35 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         accession = view.findViewById(R.id.textViewItemDetAccession);
         notes = view.findViewById(R.id.textViewItemDetNotes);
         image = view.findViewById(R.id.imageViewItemD);
-
         return view;
     }
 
+    private void loadRelated(Item artifact) {
+        String selected_category = artifact.getCategory();
+        db.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DataSnapshot snapshot = task.getResult();
+                    items.clear();
+                    for (DataSnapshot itemChild : snapshot.getChildren()) {
+                        Item db_artifact = itemChild.getValue(Item.class);
+                        if (db_artifact != null && selected_category != null && selected_category.equals(db_artifact.getCategory()) && !Objects.equals(db_artifact.getLotNumber(), artifact.getLotNumber())) {
+                            items.add(db_artifact);
+                        }
+                    }
+
+                    while (items.size() > 3) {
+                        items.remove(items.size() - 1);
+                    }
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Log.e("ItemDetails", "There was a problem querying the DB", task.getException());
+                }
+            }
+        });
+
+    }
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
