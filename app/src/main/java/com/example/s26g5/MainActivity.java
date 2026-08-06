@@ -106,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
         myRef.child("movies").setValue("B07 Demo!");
 
         if (savedInstanceState == null) {
-            loadFragment(ItemDetails.display("SONG-BOWLS-537A82"));
-//            loadFragment(new LoginFragment());
+            //loadFragment(ItemDetails.display("SONG-BOWLS-537A82"));
+            loadFragment(new LoginFragment());
         }
 
     }

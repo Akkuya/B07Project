@@ -86,7 +86,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
             Glide.with(this).load(item.getImage()).into(image);
         }
 
-        if(SessionManager.getInstance().isAdmin()) {//TODO: Make sure up to date with correct session syntax
+        if(SessionManager.getSessionInstance().isAdmin()) {//TODO: Make sure up to date with correct session syntax
             buttonEdit.setVisibility(View.VISIBLE);
             buttonDelete.setVisibility(View.VISIBLE);
 
