@@ -184,7 +184,7 @@ public class EditItemFragment extends Fragment implements UICallbackInterface{
                     @Override
                     public void onImageSelected(Uri imageUri) {
                         if (e_image != null) {
-                            //e_image.setText("Uploading...");
+
                         }
                         if (buttonSave != null) {
                             buttonSave.setEnabled(false);
@@ -242,7 +242,7 @@ public class EditItemFragment extends Fragment implements UICallbackInterface{
         buttonCancel.setOnClickListener(new View.OnClickListener(){
             @Override
              public void onClick(View v) {
-                loadFragment(ItemDetails.display(lotNumber));
+                getParentFragmentManager().popBackStack();
             }
         });
 
