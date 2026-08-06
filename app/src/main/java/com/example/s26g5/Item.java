@@ -6,6 +6,7 @@ public class Item {
 
     private String lotNumber;
     private String artifactName;
+    private String artifactNameLower;
     private String image;
     private String description;
     private String materials;
@@ -32,6 +33,7 @@ public class Item {
         this.lotNumber = lotNumber;
         this.materials = materials;
         this.artifactName = artifactName;
+        this.artifactNameLower = artifactName.toLowerCase();
         this.dynasty = dynasty;
         this.image = image;
         this.description = description;
@@ -52,6 +54,8 @@ public class Item {
     public void setLotNumber(String lotNumber) {this.lotNumber = lotNumber;}
     public String getArtifactName() {return artifactName;}
     public void setArtifactName(String artifactName) {this.artifactName = artifactName;}
+    public String getArtifactNameLower() {return artifactNameLower;}
+    public void setArtifactNameLower() {this.artifactNameLower = artifactName.toLowerCase();}
     public String getImage() {return image;}
     public void setImage(String image) {this.image = image;}
     public String getDescription() {return description;}
