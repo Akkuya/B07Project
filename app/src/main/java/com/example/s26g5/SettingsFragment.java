@@ -40,18 +40,18 @@ public class SettingsFragment extends Fragment {
 
             FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
             db.deleteUserData(uid)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+              .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(getContext(),
-                                        "Failed to delete data: " + task.getException().getMessage(),
-                                        Toast.LENGTH_LONG).show();
+                                      "Failed to delete data: " + task.getException().getMessage(),
+                                      Toast.LENGTH_LONG).show();
                                 return;
                             }
 
                             auth.getUserInfo().delete()
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> deleteTask) {
                                             if (deleteTask.isSuccessful()) {
