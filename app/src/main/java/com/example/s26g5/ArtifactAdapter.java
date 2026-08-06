@@ -33,7 +33,14 @@ public class ArtifactAdapter extends RecyclerView.Adapter<ArtifactAdapter.Artifa
                 .placeholder(R.drawable.ic_default_image)
                 .centerCrop()
                 .into(holder.artifactImage);
-        holder.artifactName.setText(artifact.getArtifactName());
+        holder.artifactName.setText(truncate(artifact.getArtifactName()));
+    }
+
+    private String truncate(String name) {
+        if (name != null && name.length() > 15) {
+            return name.substring(0, 15) + "...";
+        }
+        return name;
     }
 
     @Override
