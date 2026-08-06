@@ -74,8 +74,14 @@ public class RecyclerViewFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 itemList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Item item = snapshot.getValue(Item.class);
-                    itemList.add(item);
+                    try {
+                        Item item = snapshot.getValue(Item.class);
+                        if (item != null) {
+                            itemList.add(item);
+                        }
+                    } catch (Exception e) {
+                        // Skip malformed data
+                    }
                 }
                 itemAdapter.notifyDataSetChanged();
             }

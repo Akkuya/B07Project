@@ -139,11 +139,15 @@ public class ArtifactBrowserFragment extends Fragment {
                     allArtifacts.clear();
                     for (DataSnapshot category : snapshot.getChildren()) {
                         for (DataSnapshot itemChild : category.getChildren()) {
-                            Item artifact = itemChild.getValue(Item.class);
-                            if (artifact != null) {
-                                artifact.setKey(itemChild.getKey());
-                                artifact.setCategory(category.getKey());
-                                allArtifacts.add(artifact);
+                            try {
+                                Item artifact = itemChild.getValue(Item.class);
+                                if (artifact != null) {
+                                    artifact.setKey(itemChild.getKey());
+                                    artifact.setCategory(category.getKey());
+                                    allArtifacts.add(artifact);
+                                }
+                            } catch (Exception e) {
+                                Log.e("ArtifactBrowserFragment", "Malformed artifact data at " + itemChild.getKey(), e);
                             }
                         }
                     }
@@ -168,14 +172,24 @@ public class ArtifactBrowserFragment extends Fragment {
             case 1:
                 filtered.sort(new Comparator<Item>() {
                     public int compare(Item artifact1, Item artifact2) {
-                        return artifact1.getLotNumber().compareTo(artifact2.getLotNumber());
+                        String lot1 = artifact1.getLotNumber();
+                        String lot2 = artifact2.getLotNumber();
+                        if (lot1 == null && lot2 == null) return 0;
+                        if (lot1 == null) return 1;
+                        if (lot2 == null) return -1;
+                        return lot1.compareTo(lot2);
                     }
                 });
                 break;
             case 2:
                 filtered.sort(new Comparator<Item>() {
                     public int compare(Item artifact1, Item artifact2) {
-                        return ((Long) artifact1.getTimestamp()).compareTo((Long) artifact2.getTimestamp());
+                        Long ts1 = artifact1.getTimestamp();
+                        Long ts2 = artifact2.getTimestamp();
+                        if (ts1 == null && ts2 == null) return 0;
+                        if (ts1 == null) return 1;
+                        if (ts2 == null) return -1;
+                        return ts1.compareTo(ts2);
                     }
                 });
                 break;

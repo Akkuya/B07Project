@@ -89,6 +89,29 @@
     <string name="account_deletion_warning">Deleting your account will remove all saved artifacts, collections, and activity history from TAAM permanently.</string>
     <string name="delete_account">Delete Account</string>
     <string name="permanent_warning">This action is permanent and cannot be undone</string>
+    <string name="save_artifact_button">Save Button</string>
+    <string name="artifact_browser">Artifact Browser</string>
+    <string name="settings">Settings</string>
+    <string name="button">Button</string>
+    <string name="empty">empty</string>
+    <string name="comments">Comments</string>
+    <string name="current_location">Current location:</string>
+    <string name="notes">Notes:</string>
+    <string name="n_a">N/A</string>
+    <string name="acquisition_method">Acquisition method:</string>
+    <string name="provenance">Provenance:</string>
+    <string name="accession_number">Accession number:</string>
+    <string name="title">Title</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="category">Category:</string>
+    <string name="material">Material:</string>
+    <string name="dynasty_period">Dynasty/period:</string>
+    <string name="cultural_origin">Cultural Origin:</string>
+    <string name="dimensions">Dimensions:</string>
+    <string name="condition_report">Condition Report:</string>
+    <string name="more_information">More information</string>
+    <string name="artifact_image">Artifact Image</string>
+    <string name="item_details">Item Details</string>
 
 
 </resources>

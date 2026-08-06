@@ -1,10 +1,19 @@
 package com.example.s26g5.item_viewing;
 
+import com.example.s26g5.ArtifactSaved;
+import android.util.Log;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +30,7 @@ import com.example.s26g5.data.FirebaseDBManager;
 import com.example.s26g5.user.UICallbackInterface;
 import com.google.firebase.database.DataSnapshot;
 
-import java.io.File;
+import java.util.Objects;
 
 public class ItemDetails extends Fragment implements UICallbackInterface {
     Item item = null;
@@ -40,6 +49,8 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
     TextView notes;
     ImageView image;
 
+    ImageButton saveButton;
+
     // Use ItemDetails.display(some_lot_number) to show customized page. Don't use `new`
     public static ItemDetails display(String lotNumber) {
         ItemDetails fragment = new ItemDetails();
@@ -55,7 +66,18 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
     @Override
     public void onSuccess(Object result) {
         DataSnapshot itemJson = (DataSnapshot) result;
-        item = itemJson.getValue(Item.class);
+        try {
+            item = itemJson.getValue(Item.class);
+        } catch (Exception e) {
+            Log.e("ItemDetails", "Error parsing item data", e);
+            onFailure("Item data is malformed");
+            return;
+        }
+
+        if (item == null) {
+            onFailure("Item not found");
+            return;
+        }
 
         itemName.setText(item.getArtifactName());
 //        category.setText(item.get);
@@ -75,7 +97,64 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
                 .fit()
                 .centerCrop()
                 .into(image);
+        saveButton.setEnabled(true);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (item == null) return;
 
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user == null) {
+                    Toast.makeText(getContext(), "Please login to save artifacts", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String uid = user.getUid();
+
+                DatabaseReference savedRef = FirebaseDatabase.getInstance("https://cscb07s26g5-default-rtdb.firebaseio.com/")
+                        .getReference("users")
+                        .child(uid)
+                        .child("saved_artifacts");
+
+                savedRef.child(item.getLotNumber()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            Toast.makeText(getContext(), "Artifact already saved", Toast.LENGTH_SHORT).show();
+                        } else {
+                            FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
+                            db.insertInfo("users/" + uid + "/saved_artifacts/" + item.getLotNumber(), item);
+                            Toast.makeText(getContext(), "Artifact saved", Toast.LENGTH_SHORT).show();
+                            saveButton.setSelected(true);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        // Check if already saved to update button state
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
+            DatabaseReference savedRef = FirebaseDatabase.getInstance("https://cscb07s26g5-default-rtdb.firebaseio.com/")
+                    .getReference("users")
+                    .child(uid)
+                    .child("saved_artifacts");
+            savedRef.child(item.getLotNumber()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        saveButton.setSelected(true);
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {}
+            });
+        }
     }
 
     @Override
@@ -112,9 +191,13 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         accession = view.findViewById(R.id.textViewItemDetAccession);
         notes = view.findViewById(R.id.textViewItemDetNotes);
         image = view.findViewById(R.id.imageViewItemD);
+        saveButton = view.findViewById(R.id.saveButton);
+        saveButton.setEnabled(false);
 
         return view;
     }
+
+
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
