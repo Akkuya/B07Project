@@ -1,5 +1,6 @@
-package com.example.s26g5;
+package com.example.s26g5.item_manage;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.net.Uri;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.ServerValue;
 
 import android.util.Log;
 import java.util.ArrayList;
@@ -122,6 +122,7 @@ public class AddItemFragment extends Fragment {
         );
     }
 
+    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -168,12 +169,12 @@ public class AddItemFragment extends Fragment {
         spinnerCategory.setAdapter(adapter);
 
         ArrayAdapter<CharSequence> materialAdapter = ArrayAdapter.createFromResource(requireContext(),
-                        R.array.materials_array, android.R.layout.simple_spinner_item);
+                R.array.materials_array, android.R.layout.simple_spinner_item);
         materialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMaterial.setAdapter(materialAdapter);
 
         ArrayAdapter<CharSequence> dynastyAdapter = ArrayAdapter.createFromResource(requireContext(),
-                        R.array.dynasties_array, android.R.layout.simple_spinner_item);
+                R.array.dynasties_array, android.R.layout.simple_spinner_item);
         dynastyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDynasty.setAdapter(dynastyAdapter);
 
@@ -316,8 +317,8 @@ public class AddItemFragment extends Fragment {
                             ).show();
                         } else {
                             String message = saveTask.getException() == null
-                                            ? "Failed to add item"
-                                            : saveTask.getException().getMessage();
+                                    ? "Failed to add item"
+                                    : saveTask.getException().getMessage();
                             Toast.makeText(
                                     requireContext(),
                                     message,

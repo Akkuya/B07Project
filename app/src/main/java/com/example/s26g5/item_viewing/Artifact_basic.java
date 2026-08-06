@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.item_viewing;
 
 public class Artifact_basic {
     private String accessionNumber; // year.accessiongrp.objectnum
@@ -23,7 +23,7 @@ public class Artifact_basic {
     }
     Artifact_basic(){
     }
-    Artifact_basic(String artifactName, String lotNumber, String culturalOrigin, String image){
+    protected Artifact_basic(String artifactName, String lotNumber, String culturalOrigin, String image){
         this.lotNumber = lotNumber;
         this.artifactName = artifactName;
         this.culturalOrigin = culturalOrigin;

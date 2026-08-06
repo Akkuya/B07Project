@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.item_viewing;
 
 import android.content.Context;
 
@@ -11,6 +11,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.example.s26g5.AppDatabase;
+import com.example.s26g5.ArtifactSaved;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,15 @@ public class DashboardPresenter implements Dashboard.Presenter {
             return;
         }
         String uid = user.getUid();
+                //To retrieve locally stored saved artifacts
+                new Thread(() -> {
+                    AppDatabase local_db = AppDatabase.getInstance(context);
+                    List<SavedArtifactEntity> savedArtifacts = local_db.artifactDao().getAllSavedArtifacts();
+                    List<ArtifactSaved> fetchedArtifacts = new ArrayList<>();
+                    for (SavedArtifactEntity savedArtifact : savedArtifacts) {
+                        ArtifactSaved UArtifact = new ArtifactSaved(savedArtifact.getName(), savedArtifact.getLotNumber(), savedArtifact.getCulturalOrigin(), savedArtifact.getImage(), true);
+                        fetchedArtifacts.add(UArtifact);
+                    }
 
         MyRef = FirebaseDatabase.getInstance("https://cscb07s26g5-default-rtdb.firebaseio.com/")
                 .getReference("users")

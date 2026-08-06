@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.item_viewing;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.s26g5.Item;
+import com.example.s26g5.R;
+
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
@@ -64,24 +68,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            textViewLotNumber =
-                    itemView.findViewById(R.id.textViewLotNumber);
-
-            textViewArtifactName =
-                    itemView.findViewById(R.id.textViewArtifactName);
-
-            textViewMaterials =
-                    itemView.findViewById(R.id.textViewMaterials);
-
-            textViewDynasty =
-                    itemView.findViewById(R.id.textViewDynasty);
-
-            textViewDescription =
-                    itemView.findViewById(R.id.textViewDescription);
-
-            textViewImage =
-                    itemView.findViewById(R.id.textViewImage);
+            textViewLotNumber = itemView.findViewById(R.id.textViewCommentTimestamp);
+            textViewArtifactName = itemView.findViewById(R.id.textViewCommentContent);
+            textViewMaterials = itemView.findViewById(R.id.textViewCommentUsername);
+            textViewDynasty = itemView.findViewById(R.id.textViewDynasty);
+            textViewDescription = itemView.findViewById(R.id.textViewDescription);
+            textViewImage = itemView.findViewById(R.id.textViewImage);
         }
     }
 }

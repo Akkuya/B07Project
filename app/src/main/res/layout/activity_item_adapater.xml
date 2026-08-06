@@ -8,7 +8,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/textViewArtifactName"
+        android:id="@+id/textViewCommentContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Artifact Name"
@@ -19,20 +19,20 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textViewLotNumber"
+        android:id="@+id/textViewCommentTimestamp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Lot Number"
-        app:layout_constraintTop_toBottomOf="@id/textViewArtifactName"
+        app:layout_constraintTop_toBottomOf="@id/textViewCommentContent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textViewMaterials"
+        android:id="@+id/textViewCommentUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Materials"
-        app:layout_constraintTop_toBottomOf="@id/textViewLotNumber"
+        app:layout_constraintTop_toBottomOf="@id/textViewCommentTimestamp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -41,7 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Dynasty"
-        app:layout_constraintTop_toBottomOf="@id/textViewMaterials"
+        app:layout_constraintTop_toBottomOf="@id/textViewCommentUsername"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

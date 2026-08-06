@@ -17,6 +17,7 @@ import com.example.s26g5.HomeFragment;
 import com.example.s26g5.R;
 import com.example.s26g5.data.FirebaseAuthManager;
 import com.example.s26g5.MainActivity;
+import com.example.s26g5.item_viewing.ItemDetails;
 
 public class LoginFragment extends Fragment implements UICallbackInterface {
     EditText emailField;
