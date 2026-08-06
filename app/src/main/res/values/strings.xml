@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Toronto Asian Arts Museum App</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">TAAM</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delete_item">Delete Item</string>
     <string name="add_item">Add Item</string>
@@ -9,6 +8,11 @@
     <string name="scroller">Scroller</string>
     <string name="spinner">Spinner</string>
     <string name="manage_items">Manage Items</string>
+    <string name="artifact">Artifact</string><![CDATA[
+    ]]><string name="saved_artefacts"><u>Saved Artefacts</u></string>
+    <string name="cultural_origin">Cultural origin</string>
+    <string name="description">Description</string>
+    <string name="save_artifact_button">Save artifact button</string>
 
     <string-array name="categories_array">
         <item>Select Category (Mandatory)</item>
@@ -28,6 +32,12 @@
         <item>Daily-use Items</item>
         <item>Weaponry</item>
         <item>Miscellaneous Artifacts</item>
+    </string-array>
+
+    <string-array name="sort_options">
+        <item>Default</item>
+        <item>Lot Number</item>
+        <item>Timestamp</item>
     </string-array>
 
     <string-array name="materials_array">
@@ -67,6 +77,11 @@
         <item>Republic of China Period (1912-1949 CE)</item>
     </string-array>
 
+    <string-array name="sort_array">
+        <item>Default</item>
+        <item>Lot Number</item>
+        <item>Newest</item>
+    </string-array>
 
     <string name="supabase_url">https://stnlsqpruhjfocqldrmv.supabase.co</string>
     <string name="supabase_anon_key">sb_publishable_OhANNKijx0JTEYKqw3skSA_E6rvO1YJ</string>
