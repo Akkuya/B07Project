@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.s26g5.item_manage.AddItemFragment;
 import com.example.s26g5.item_viewing.ItemDetails;
 import com.example.s26g5.item_viewing.SavedArtifactsFragment;
 import com.example.s26g5.user.LoginFragment;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             closeDrawer();
         });
         menuAdminDashboard.setOnClickListener(v -> {
-            // navigateToFragment();
+            navigateToFragment(new AdminDashboardFragment());
         });
         buttonOpenDrawer.setOnClickListener(v -> {
                 SessionManager sessionManager = SessionManager.getSessionInstance();
@@ -202,6 +203,14 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
         closeDrawer();
+    }
+
+    public void openArtifactBrowser() {
+        navigateToFragment(new ArtifactBrowserFragment());
+    }
+
+    public void openAddArtifactPage() {
+        navigateToFragment(new AddItemFragment());
     }
 
 

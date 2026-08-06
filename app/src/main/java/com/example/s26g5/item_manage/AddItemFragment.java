@@ -19,6 +19,7 @@ import com.example.s26g5.data.UploadImagePicker;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.net.Uri;
+import android.widget.ImageButton;
 
 import android.util.Log;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class AddItemFragment extends Fragment {
 
     private UploadImagePicker uploadImagePicker;
     private String uploadedImageUrl;
+    private Button buttonBack;
 
     private static final String TAG = "AddItemFragment";
 
@@ -122,6 +124,12 @@ public class AddItemFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_item, container, false);
+
+
+        ImageButton backButton = view.findViewById(R.id.buttonBack);
+        backButton.setOnClickListener(v ->
+                getParentFragmentManager().popBackStack()
+        );
 
         editTextLotNumber = view.findViewById(R.id.editTextLotNumber);
         editTextArtifactName = view.findViewById(R.id.editTextArtifactName);
