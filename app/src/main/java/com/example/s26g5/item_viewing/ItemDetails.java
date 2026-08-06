@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,7 +55,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
     ImageView image;
 
     EditText comment;
-    Button post;
+    AppCompatImageButton post;
 
     CommentAdapter commentAdapter;
     List<Comment> commentList;
@@ -149,19 +150,20 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
 
 
         // =======================Post Comments==============================================
-        comment = view.findViewById(R.id.editTextCommentContent);
         post = view.findViewById(R.id.editTextCommentButton);
-        HashMap<String, Object> commentObj = new HashMap<>();
-        commentObj.put("lotNumber", lotNumber);
-        commentObj.put("username", sm.getUsername());
-        commentObj.put("uid", sm.getUid());
-        commentObj.put("content", comment);
-        commentObj.put("timestamp", System.currentTimeMillis());
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String commentPath = "/comments"+lotNumber+commentList.size();
+                comment = view.findViewById(R.id.editTextCommentContent);
+                Comment commentObj = new Comment();
+                commentObj.setLotNumber(lotNumber);
+                commentObj.setUsername(sm.getUsername());
+                commentObj.setUID(sm.getUid());
+                commentObj.setContent(comment.getText().toString().trim());
+                commentObj.setTimestamp(System.currentTimeMillis() / 1000L);
+                String commentPath = "/comments/"+lotNumber+"/"+commentList.size()+"/";
                 db.insertInfo(commentPath, commentObj);
+                comment.setText("");
             }
         });
 
@@ -178,16 +180,14 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("COMMENTS", "REACHED============~~~~~~~~~~~~~~~~~~~~~~~~");
                 commentList.clear();
-                Log.d("COMMENTS", "lotNumber = [" + lotNumber + "]");
-                Log.d("COMMENTS", "Children: " + dataSnapshot.getChildrenCount());
-                Log.d("COMMENTS", "Exists: " + dataSnapshot.exists());
+//                Log.d("COMMENTS", "lotNumber = [" + lotNumber + "]");
+//                Log.d("COMMENTS", "Children: " + dataSnapshot.getChildrenCount());
+//                Log.d("COMMENTS", "Exists: " + dataSnapshot.exists());
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Log.d("COMMENTS", "Key: " + snapshot.getKey());
-                    Log.d("COMMENTS", "Data: " + snapshot.getValue());
+//                    Log.d("COMMENTS", "Key: " + snapshot.getKey());
+//                    Log.d("COMMENTS", "Data: " + snapshot.getValue());
                     Comment comment = snapshot.getValue(Comment.class);
-                    Log.d("COMMENTS", snapshot.getValue().toString());
                     commentList.add(comment);
                 }
                 commentAdapter.notifyDataSetChanged();
@@ -206,3 +206,5 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         transaction.commit();
     }
 }
+
+

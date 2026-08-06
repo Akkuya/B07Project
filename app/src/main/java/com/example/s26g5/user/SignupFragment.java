@@ -69,7 +69,7 @@ public class SignupFragment extends Fragment implements UICallbackInterface {
                             .show();
                     return;
                 }
-                authManager.signupUser(email, password, username, SignupFragment.this);
+                authManager.signupUser(email, password, username, "visitor", SignupFragment.this);
             }
         }));
 
