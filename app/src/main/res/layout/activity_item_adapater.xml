@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,10 +8,10 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/textViewTitle"
+        android:id="@+id/textViewArtifactName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Title"
+        android:text="Artifact Name"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,20 +19,29 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textViewAuthor"
+        android:id="@+id/textViewLotNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Author"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        android:text="Lot Number"
+        app:layout_constraintTop_toBottomOf="@id/textViewArtifactName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textViewGenre"
+        android:id="@+id/textViewMaterials"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Genre"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAuthor"
+        android:text="Materials"
+        app:layout_constraintTop_toBottomOf="@id/textViewLotNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewDynasty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dynasty"
+        app:layout_constraintTop_toBottomOf="@id/textViewMaterials"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -40,7 +50,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Description"
-        app:layout_constraintTop_toBottomOf="@+id/textViewGenre"
+        app:layout_constraintTop_toBottomOf="@id/textViewDynasty"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Image URL"
+        app:layout_constraintTop_toBottomOf="@id/textViewDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
