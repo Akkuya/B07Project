@@ -30,7 +30,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -49,5 +48,4 @@ dependencies {
 
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation(platform("com.google.firebase:firebase-bom:34.16.0"))
-    implementation("com.google.firebase:firebase-database")
 }
