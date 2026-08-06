@@ -6,8 +6,9 @@ public class Comment {
     String username;
     Long timestamp;
     String content;
+    private String key;
 
-    Comment() { };
+    public Comment() { }
     public Comment(String lotNumber, String UID, String username, Long timestamp, String content) {
         this.lotNumber = lotNumber;
         this.UID = UID;
@@ -31,4 +32,6 @@ public class Comment {
     public void setUsername(String username) { this.username = username; }
     public void setTimestamp(Long timestamp) { this.timestamp = timestamp; }
     public void setContent(String content) { this.content = content; }
+    public String getKey() {return key;}
+    public void setKey(String key) {this.key = key;}
 }
