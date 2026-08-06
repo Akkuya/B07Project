@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.item_viewing;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
+import android.widget.ImageButton;
+import com.bumptech.glide.Glide;
+import com.example.s26g5.AppDatabase;
+import com.example.s26g5.ArtifactSaved;
+import com.example.s26g5.R;
 
 import java.util.List;
 

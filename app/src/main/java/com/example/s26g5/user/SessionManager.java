@@ -60,7 +60,7 @@ public class SessionManager implements  UICallbackInterface{
         // add key-value pair
         DataSnapshot json = (DataSnapshot) result;
         for (DataSnapshot child : json.getChildren()) {
-           user.put(child.getKey(), child.getValue());
+            user.put(child.getKey(), child.getValue());
         }
 
         //fill in rest of the fields

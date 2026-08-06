@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.item_viewing;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.s26g5.Item;
+import com.example.s26g5.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
