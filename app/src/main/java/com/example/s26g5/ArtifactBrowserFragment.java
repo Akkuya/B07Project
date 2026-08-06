@@ -1,11 +1,14 @@
 package com.example.s26g5;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,7 +29,7 @@ import java.util.List;
 
 public class ArtifactBrowserFragment extends Fragment {
 
-    private final DatabaseReference db = FirebaseDatabase.getInstance().getReference("categories");
+    private final DatabaseReference db = FirebaseDatabase.getInstance().getReference("artifacts");
     private RecyclerView recycler;
     private ArtifactAdapter adapter;
     private List<Item> artifactList;
@@ -36,6 +39,8 @@ public class ArtifactBrowserFragment extends Fragment {
     private String lastlotNumber = null;
     private String lastKey = null;
     private TextView pageNum;
+    private boolean isSearchActive = false;
+    private EditText searchCriteria;
 
 
 
@@ -46,11 +51,37 @@ public class ArtifactBrowserFragment extends Fragment {
         View view = inflater.inflate(R.layout.artifact_browser_fragment, container, false);
 
         recycler = view.findViewById(R.id.recycler_artifacts);
-
-        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 3);
+        searchCriteria = view.findViewById(R.id.search_bar);
+        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2); //temp change from span = 3 to 2 to match saved artifacts
         recycler.setLayoutManager(layoutManager);
 
         artifactList = new ArrayList<>();
+        searchCriteria.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String query = editable.toString();
+                if (query.isEmpty()) {
+                    isSearchActive = false;
+                    loadPageFromFirebase(currPage);
+                } else {
+                    isSearchActive = true;
+                    search(query);
+                }
+
+            }
+        });
+
+
+
+
 
         loadPageFromFirebase(currPage);//Get First Page of data from database
 
@@ -182,4 +213,38 @@ public class ArtifactBrowserFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    private void search(String query){
+        query = query.toLowerCase();
+        db.orderByChild("artifactNameLower")
+                .startAt(query)
+                .endAt(query + "\uf8ff")
+                .limitToFirst(ITEMS_PER_PAGE)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("ArtifactBrowserFragment", "Error getting data", task.getException());
+                            return;
+                        }
+                        if (!isSearchActive) return;
+
+                        DataSnapshot snapshot = task.getResult();
+                        if (snapshot == null) return;
+
+                        Log.d("ArtifactBrowserFragment", "Search results: " + snapshot.getChildrenCount());
+                        artifactList.clear();
+                        for (DataSnapshot child : snapshot.getChildren()) {
+                            Item artifact = child.getValue(Item.class);
+                            if (artifact != null) {
+                                artifact.setKey(child.getKey());
+                                artifactList.add(artifact);
+                            }
+                        }
+                        pageNum.setText(artifactList.isEmpty() ? "0" : String.valueOf(currPage + 1));
+                        adapter.notifyDataSetChanged();
+                    }
+                    });
+                }
 }
