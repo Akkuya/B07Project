@@ -20,7 +20,7 @@ public class SettingsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_layout, container, false);
+        View view = inflater.inflate(R.layout.accountinfo_layout, container, false);
 
         view.findViewById(R.id.buttonBack).setOnClickListener(v ->
                 getParentFragmentManager().popBackStack());
@@ -36,27 +36,38 @@ public class SettingsFragment extends Fragment {
 
             uid = auth.getUserInfo().getUid();
 
-            auth.getUserInfo().delete()
+            FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
+            db.deleteUserData(uid)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
-                                db.deleteUserData(uid);
-
-                                SessionManager.getInstance().clearSession();
-                                Toast.makeText(getContext(), "Account deleted", Toast.LENGTH_SHORT).show();
-
-                                getParentFragmentManager().popBackStack(null, 0);
-                                getParentFragmentManager()
-                                        .beginTransaction()
-                                        .replace(R.id.fragment_container, new LoginFragment())
-                                        .commit();
-                            } else {
+                            if (!task.isSuccessful()) {
                                 Toast.makeText(getContext(),
-                                        "Failed to delete account: " + task.getException().getMessage(),
+                                        "Failed to delete data: " + task.getException().getMessage(),
                                         Toast.LENGTH_LONG).show();
+                                return;
                             }
+
+                            auth.getUserInfo().delete()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> deleteTask) {
+                                            if (deleteTask.isSuccessful()) {
+                                                SessionManager.getInstance().clearSession();
+                                                Toast.makeText(getContext(), "Account deleted", Toast.LENGTH_SHORT).show();
+
+                                                getParentFragmentManager().popBackStack(null, 0);
+                                                getParentFragmentManager()
+                                                        .beginTransaction()
+                                                        .replace(R.id.fragment_container, new LoginFragment())
+                                                        .commit();
+                                            } else {
+                                                Toast.makeText(getContext(),
+                                                        "Failed to delete account: " + deleteTask.getException().getMessage(),
+                                                        Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
                         }
                     });
         });
