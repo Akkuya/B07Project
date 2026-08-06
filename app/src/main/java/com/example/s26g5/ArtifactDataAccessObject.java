@@ -19,4 +19,7 @@ public interface ArtifactDataAccessObject {
 
     @Query("SELECT EXISTS(SELECT 1 FROM saved_artifacts WHERE lot_number = :lotNumber)")
     boolean isSaved(String lotNumber);
+
+    @Query("DELETE FROM saved_artifacts")
+    void clearAllSavedArtifacts();
 }

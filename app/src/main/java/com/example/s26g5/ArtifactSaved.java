@@ -1,9 +1,9 @@
 package com.example.s26g5;
 public class ArtifactSaved extends Artifact_basic {
 
-    private Boolean isSaved;
+    private boolean isSaved;
 
-    ArtifactSaved(String name, String lotNumber, String culturalOrigin, String image, Boolean isSaved) {
+    ArtifactSaved(String name, String lotNumber, String culturalOrigin, String image, boolean isSaved) {
         super(name,
                 lotNumber,
                 culturalOrigin,
@@ -11,10 +11,14 @@ public class ArtifactSaved extends Artifact_basic {
         this.isSaved = isSaved;
     }
 
-    public Boolean getIsSaved() {
+    public ArtifactSaved() {
+        super();
+    }
+
+    public boolean getIsSaved() {
         return isSaved;
     }
-    public void setIsSaved(Boolean isSaved) {
+    public void setIsSaved(boolean isSaved) {
         this.isSaved = isSaved;
     }
 }
