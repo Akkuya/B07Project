@@ -5,6 +5,10 @@ import android.util.Log;
 import com.example.s26g5.data.FirebaseDBManager;
 import com.google.firebase.database.DataSnapshot;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+
 public class SessionManager implements  UICallbackInterface{
     private static SessionManager instance;
     private final FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
@@ -13,7 +17,7 @@ public class SessionManager implements  UICallbackInterface{
     private String username;
     private String email;
     private String role;
-    private String[] saved_artifacts;
+    private List<String> saved_artifacts;
     private boolean isAdmin;
 
     // Singleton Design Pattern
@@ -23,7 +27,6 @@ public class SessionManager implements  UICallbackInterface{
     }
 
     public void setSession(String uid) {
-        this.UID = uid;
         db.getInfo("users/"+uid, SessionManager.this);
     }
 
@@ -40,23 +43,30 @@ public class SessionManager implements  UICallbackInterface{
     public String getUsername() { return username; }
     public String getEmail() { return email; }
     public String getRole() { return role; }
-    public String[] getSavedItems() { return saved_artifacts; }
+    public List<String> getSavedItems() { return saved_artifacts; }
 
     @Override
     public void onSuccess(Object result) {
+        HashMap<String, Object> user = new HashMap<String, Object>();
+
+        // add key-value pair
         DataSnapshot json = (DataSnapshot) result;
         for (DataSnapshot child : json.getChildren()) {
-            Object value = child.getValue();
-
-            Log.d(
-                    "SESSION",
-                    child.getKey() + " = " + value
-            );
+           user.put(child.getKey(), child.getValue());
         }
+
+        //fill in rest of the fields
+        UID = Objects.requireNonNull(user.get("uid")).toString();
+        username = Objects.requireNonNull(user.get("username")).toString();
+        email = Objects.requireNonNull(user.get("email")).toString();
+        role = Objects.requireNonNull(user.get("role")).toString();
+        saved_artifacts = (List<String>) user.get("saved_artifacts");
+        isAdmin = role.equals("admin");
+
     }
 
     @Override
     public void onFailure(Object result) {
-
+        Log.w("Session", "Failed to create session");
     }
 }
