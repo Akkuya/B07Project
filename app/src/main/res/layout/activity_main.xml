@@ -93,6 +93,17 @@
             android:textSize="22sp" />
 
         <TextView
+            android:id="@+id/menuProfileSetting"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingStart="32dp"
+            android:text="Profile Setting"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+
+        <TextView
             android:id="@+id/menuWebsite"
             android:layout_width="match_parent"
             android:layout_height="64dp"
@@ -116,14 +127,14 @@
             android:textSize="22sp" />
 
         <TextView
-            android:id="@+id/menuAddAdmin"
+            android:id="@+id/menuAdminDashboard"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginTop="48dp"
             android:background="?attr/selectableItemBackground"
             android:gravity="center_vertical"
             android:paddingStart="32dp"
-            android:text="Add Admin"
+            android:text="Admin Dashboard"
             android:textColor="#C9A95E"
             android:textSize="22sp" />
 

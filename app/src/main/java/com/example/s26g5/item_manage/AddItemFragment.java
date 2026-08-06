@@ -1,6 +1,5 @@
 package com.example.s26g5.item_manage;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.s26g5.Item;
 import com.example.s26g5.R;
@@ -21,7 +19,6 @@ import com.example.s26g5.data.UploadImagePicker;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.net.Uri;
-import com.google.firebase.database.DataSnapshot;
 
 import android.util.Log;
 import java.util.ArrayList;
@@ -47,12 +44,9 @@ public class AddItemFragment extends Fragment {
     private Button buttonAdd;
 
     private FirebaseDatabase db;
-    private DatabaseReference itemsRef;
 
     private UploadImagePicker uploadImagePicker;
     private String uploadedImageUrl;
-
-    private Button buttonBack_a;
 
     private static final String TAG = "AddItemFragment";
 
@@ -124,13 +118,11 @@ public class AddItemFragment extends Fragment {
         );
     }
 
-    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_item, container, false);
 
-        buttonBack_a = view.findViewById(R.id.button_bk);
         editTextLotNumber = view.findViewById(R.id.editTextLotNumber);
         editTextArtifactName = view.findViewById(R.id.editTextArtifactName);
         spinnerMaterial = view.findViewById(R.id.spinnerMaterial);
@@ -157,13 +149,6 @@ public class AddItemFragment extends Fragment {
 
         db = FirebaseDatabase.getInstance();
 
-        buttonBack_a.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new ManageItemsFragment());
-            }
-        });
-
         // Set up the spinner with categories
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.categories_array, android.R.layout.simple_spinner_item);
@@ -171,12 +156,12 @@ public class AddItemFragment extends Fragment {
         spinnerCategory.setAdapter(adapter);
 
         ArrayAdapter<CharSequence> materialAdapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.materials_array, android.R.layout.simple_spinner_item);
+                        R.array.materials_array, android.R.layout.simple_spinner_item);
         materialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMaterial.setAdapter(materialAdapter);
 
         ArrayAdapter<CharSequence> dynastyAdapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.dynasties_array, android.R.layout.simple_spinner_item);
+                        R.array.dynasties_array, android.R.layout.simple_spinner_item);
         dynastyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDynasty.setAdapter(dynastyAdapter);
 
@@ -233,9 +218,10 @@ public class AddItemFragment extends Fragment {
             return;
         }
 
-        DatabaseReference categoriesRef = db.getReference("categories");
+        DatabaseReference artifactsRef = db.getReference("artifacts");
+        DatabaseReference artifactRef = artifactsRef.child(lotNumber);
 
-        categoriesRef.get().addOnCompleteListener(checkTask -> {
+        artifactRef.get().addOnCompleteListener(checkTask -> {
             if (!checkTask.isSuccessful()) {
                 String message = checkTask.getException() == null
                         ? "Could not check lot number"
@@ -248,41 +234,10 @@ public class AddItemFragment extends Fragment {
                 return;
             }
 
-            boolean duplicateFound = false;
-
-            for (DataSnapshot categorySnapshot
-                    : checkTask.getResult().getChildren()) {
-                for (DataSnapshot itemSnapshot
-                        : categorySnapshot.getChildren()) {
-                    String existingLotNumber = itemSnapshot.child("lotNumber").getValue(String.class);
-                    if (existingLotNumber != null && existingLotNumber.equalsIgnoreCase(lotNumber)) {
-                        duplicateFound = true;
-                        break;
-                    }
-                }
-
-                if (duplicateFound) {
-                    break;
-                }
-            }
-
-            if (duplicateFound) {
+            if (checkTask.getResult().exists()) {
                 Toast.makeText(
                         requireContext(),
                         "This lot number already exists",
-                        Toast.LENGTH_SHORT
-                ).show();
-
-                return;
-            }
-
-            itemsRef = db.getReference("categories").child(category);
-            String id = itemsRef.push().getKey();
-
-            if (id == null) {
-                Toast.makeText(
-                        requireContext(),
-                        "Could not generate item ID",
                         Toast.LENGTH_SHORT
                 ).show();
 
@@ -294,6 +249,7 @@ public class AddItemFragment extends Fragment {
                     materials,
                     artifactName,
                     dynasty,
+                    category,
                     image,
                     description,
                     CulturalOrigin,
@@ -308,7 +264,7 @@ public class AddItemFragment extends Fragment {
                     liked
             );
 
-            itemsRef.child(id)
+            artifactRef
                     .setValue(item)
                     .addOnCompleteListener(saveTask -> {
                         if (saveTask.isSuccessful()) {
@@ -321,6 +277,7 @@ public class AddItemFragment extends Fragment {
                             String message = saveTask.getException() == null
                                     ? "Failed to add item"
                                     : saveTask.getException().getMessage();
+
                             Toast.makeText(
                                     requireContext(),
                                     message,
@@ -328,6 +285,9 @@ public class AddItemFragment extends Fragment {
                             ).show();
                         }
                     });
+
+
+
         });
     }
 
@@ -352,12 +312,6 @@ public class AddItemFragment extends Fragment {
         editTextNotes = null;
         editTextConditionReport = null;
 
-    }
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
 }

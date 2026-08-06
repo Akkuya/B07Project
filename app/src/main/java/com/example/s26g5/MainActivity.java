@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.s26g5.item_viewing.ItemDetails;
 import com.example.s26g5.item_viewing.SavedArtifactsFragment;
 import com.example.s26g5.user.LoginFragment;
+import com.example.s26g5.user.SessionManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.content.ActivityNotFoundException;
@@ -16,10 +17,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
-
+import android.util.Log;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import com.example.s26g5.item_viewing.ArtifactBrowserFragment;
+
 
 import com.example.s26g5.data.FirebaseAuthManager;
 
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         drawerLayout = findViewById(R.id.drawerLayout);
         headerLayout = findViewById(R.id.headerLayout);
         sidebarLayout = findViewById(R.id.sidebarLayout);
@@ -46,46 +50,39 @@ public class MainActivity extends AppCompatActivity {
         View menuSavedArtifacts = findViewById(R.id.menuSavedArtifacts);
         View menuWebsite = findViewById(R.id.menuWebsite);
         View menuLogout = findViewById(R.id.menuLogout);
-        View menuAddAdmin = findViewById(R.id.menuAddAdmin);
+        View menuAdminDashboard = findViewById(R.id.menuAdminDashboard);
         View buttonLogo = findViewById(R.id.headerLogo);
+        View menuProfileSetting = findViewById(R.id.menuProfileSetting);
         // Temporary testing value:
         // true = admin
         // false = normal user
-        boolean isStaff = false;
 
-        if (isStaff) {
-            menuAddAdmin.setVisibility(View.VISIBLE);
-        } else {
-            menuAddAdmin.setVisibility(View.GONE);
-        }
-
-        menuAddAdmin.setOnClickListener(v -> {
-            Toast.makeText(
-                    this,
-                    "Add Admin page has not been created yet",
-                    Toast.LENGTH_SHORT
-            ).show();
-
-            closeDrawer();
-        });
         buttonLogo.setOnClickListener(v -> {
             showHomePage();
             closeDrawer();
         });
-        menuAddAdmin.setOnClickListener(v -> {
-            Toast.makeText(this, "Add Admin page has not been created yet", Toast.LENGTH_SHORT).show();
-            closeDrawer();
+        menuAdminDashboard.setOnClickListener(v -> {
+            // navigateToFragment();
         });
-        buttonOpenDrawer.setOnClickListener(v ->
-                drawerLayout.openDrawer(GravityCompat.START)
-        );
+        buttonOpenDrawer.setOnClickListener(v -> {
+                SessionManager sessionManager = SessionManager.getSessionInstance();
+
+                boolean isLoggedIn = sessionManager.isLoggedIn();
+                boolean isAdmin = sessionManager.isAdmin();
+                boolean isStaff = isLoggedIn && isAdmin;
+
+                Log.d("MainActivity", "isLoggedIn = " + isLoggedIn);
+                Log.d("MainActivity", "isAdmin = " + isAdmin);
+                Log.d("MainActivity", "isStaff = " + isStaff);
+                menuAdminDashboard.setVisibility(isStaff ? View.VISIBLE : View.GONE);
+
+                drawerLayout.openDrawer(GravityCompat.START);
+        });
         menuBrowse.setOnClickListener(v -> {
-            loadFragment(new RecyclerViewFragment());
-            closeDrawer();
+            navigateToFragment(new ArtifactBrowserFragment());
         });
         menuSavedArtifacts.setOnClickListener(v -> {
-            Toast.makeText(this, "Saved Artifacts page has not been created yet", Toast.LENGTH_SHORT).show();
-            closeDrawer();
+            navigateToFragment(new SavedArtifactsFragment());
         });
         menuWebsite.setOnClickListener(v -> {
             openWebsite("https://www.taam.ca/index.php/en/");
@@ -96,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
 
             setNavigationVisible(false);
             showLoginPage();
+        });
+        menuProfileSetting.setOnClickListener(v -> {
+            navigateToFragment(new SettingsFragment());
         });
 
         db = FirebaseDatabase.getInstance("https://b07-demo-summer-2024-default-rtdb.firebaseio.com/");
@@ -184,13 +184,26 @@ public class MainActivity extends AppCompatActivity {
         setNavigationVisible(true);
     }
 
-    public void navigateToSavedArtifactsFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new SavedArtifactsFragment())
-                .addToBackStack(null)
+    private void navigateToFragment(Fragment destinationFragment) {
+        Fragment currentFragment = getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_container);
+
+        if (currentFragment != null
+                && currentFragment.getClass().equals(destinationFragment.getClass())) {
+            closeDrawer();
+            return;
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, destinationFragment)
+                .addToBackStack(destinationFragment.getClass().getSimpleName())
                 .setReorderingAllowed(true)
                 .commit();
+
+        closeDrawer();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -198,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
             closeDrawer();
             return;
         }
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
         } else {
             super.onBackPressed();

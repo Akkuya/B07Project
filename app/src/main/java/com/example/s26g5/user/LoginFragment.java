@@ -17,7 +17,6 @@ import com.example.s26g5.HomeFragment;
 import com.example.s26g5.R;
 import com.example.s26g5.data.FirebaseAuthManager;
 import com.example.s26g5.MainActivity;
-import com.example.s26g5.item_viewing.ItemDetails;
 
 public class LoginFragment extends Fragment implements UICallbackInterface {
     EditText emailField;
@@ -25,8 +24,7 @@ public class LoginFragment extends Fragment implements UICallbackInterface {
 
     @Override
     public void onSuccess(Object result) {
-//        loadFragment(new HomeFragment());
-        loadFragment(ItemDetails.display("SONG-BOWLS-537A82"));
+        loadFragment(new HomeFragment());
     }
 
     @Override
