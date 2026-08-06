@@ -21,8 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -207,6 +209,29 @@ public class ArtifactBrowserFragment extends Fragment {
                     });
         }
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Pulls back the lot number that was packed into the Bundle above
+        String lotNumber = getArguments() != null ? getArguments().getString("lotNumber") : null;
+
+        if (lotNumber != null) {
+            // Fetch the full artefact record using this lot number,
+            // same pattern as your other single-record reads
+            db.getRef().child("artifacts").child(lotNumber)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Item artifact = snapshot.getValue(Item.class);
+                            // populate the detail screen's views with `artifact`
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) { }
+                    });
+        }
+    }
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
@@ -215,10 +240,8 @@ public class ArtifactBrowserFragment extends Fragment {
     }
 
     private void search(String query){
-        query = query.toLowerCase();
-        db.orderByChild("artifactNameLower")
-                .startAt(query)
-                .endAt(query + "\uf8ff")
+        String lowerQuery = query.toLowerCase();
+        db.orderByChild("artifactName")
                 .limitToFirst(ITEMS_PER_PAGE)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -237,7 +260,9 @@ public class ArtifactBrowserFragment extends Fragment {
                         artifactList.clear();
                         for (DataSnapshot child : snapshot.getChildren()) {
                             Item artifact = child.getValue(Item.class);
-                            if (artifact != null) {
+                            if (artifact != null
+                                    && artifact.getArtifactName() != null
+                                    && artifact.getArtifactName().toLowerCase().startsWith(lowerQuery)) {
                                 artifact.setKey(child.getKey());
                                 artifactList.add(artifact);
                             }

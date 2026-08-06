@@ -6,7 +6,6 @@
     android:layout_margin="6dp"
     android:background="@drawable/bg_card"
     android:padding="10dp">
-
     <ImageView
         android:id="@+id/imageArtifact"
         android:layout_width="0dp"
