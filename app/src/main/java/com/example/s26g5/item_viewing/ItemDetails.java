@@ -59,6 +59,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
 
     CommentAdapter commentAdapter;
     List<Comment> commentList;
+    DatabaseReference commentsRef;
     FirebaseDBManager db;
     SessionManager sm;
 
@@ -120,6 +121,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
 
         String lotNumber = getArguments().getString("lotNumber");
         db.getInfo("artifacts/"+lotNumber, ItemDetails.this);
+        commentsRef = db.getDBRef().child("comments/"+lotNumber);
 
         // =======================Set Item Info==============================================
         itemName = view.findViewById(R.id.textViewItemDetTitle);
@@ -161,7 +163,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
                 commentObj.setUID(sm.getUid());
                 commentObj.setContent(comment.getText().toString().trim());
                 commentObj.setTimestamp(System.currentTimeMillis() / 1000L);
-                String commentPath = "/comments/"+lotNumber+"/"+commentList.size()+"/";
+                String commentPath = "/comments/"+lotNumber+"/"+commentsRef.push().getKey()+"/";
                 db.insertInfo(commentPath, commentObj);
                 comment.setText("");
             }
@@ -174,8 +176,6 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
     }
 
     private void fetchComments(String lotNumber) {
-        DatabaseReference commentsRef;
-        commentsRef = db.getDBRef().child("comments/"+lotNumber);
         commentsRef.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
