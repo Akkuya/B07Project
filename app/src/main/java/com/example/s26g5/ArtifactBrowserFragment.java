@@ -30,7 +30,7 @@ import java.util.List;
 
 public class ArtifactBrowserFragment extends Fragment {
 
-    private final DatabaseReference db = FirebaseDatabase.getInstance().getReference("categories");
+    private final DatabaseReference db = FirebaseDatabase.getInstance().getReference("artifacts");
     private RecyclerView recycler;
     private ArtifactAdapter adapter;
     private List<Item> artifactList;
@@ -43,7 +43,7 @@ public class ArtifactBrowserFragment extends Fragment {
     private String filterCurrentLocation;
     private String filterAcquisitionMethod;
     private String filterConditionReport;
-    private final int ITEMS_PER_PAGE = 12;
+    private final int ITEMS_PER_PAGE = 9;
     private int currPage = 0;
     private TextView pageNum;
 
@@ -137,15 +137,13 @@ public class ArtifactBrowserFragment extends Fragment {
                 if (task.isSuccessful()) {
                     DataSnapshot snapshot = task.getResult();
                     allArtifacts.clear();
-                    for (DataSnapshot category : snapshot.getChildren()) {
-                        for (DataSnapshot itemChild : category.getChildren()) {
-                            Item artifact = itemChild.getValue(Item.class);
-                            if (artifact != null) {
-                                artifact.setKey(itemChild.getKey());
-                                artifact.setCategory(category.getKey());
-                                allArtifacts.add(artifact);
-                            }
+                    for (DataSnapshot itemChild : snapshot.getChildren()) {
+
+                        Item artifact = itemChild.getValue(Item.class);
+                        if (artifact != null) {
+                            allArtifacts.add(artifact);
                         }
+
                     }
                     refresh();
                 } else {

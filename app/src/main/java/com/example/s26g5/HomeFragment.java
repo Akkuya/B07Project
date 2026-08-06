@@ -16,6 +16,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ((MainActivity) requireActivity()).setNavigationVisible(true);
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
 
         Button buttonRecyclerView = view.findViewById(R.id.buttonRecyclerView);
