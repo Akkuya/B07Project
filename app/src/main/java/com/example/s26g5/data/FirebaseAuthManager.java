@@ -1,7 +1,6 @@
 package com.example.s26g5.data;
 
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.example.s26g5.user.UICallbackInterface;
@@ -10,6 +9,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 
@@ -20,6 +20,7 @@ public final class FirebaseAuthManager {
     private final FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
 
     private static FirebaseAuthManager FirebaseAuthInstance;
+
     private FirebaseAuthManager() { }
     public static FirebaseAuthManager getFirebaseAuthInstance() {
         if (FirebaseAuthInstance == null) { FirebaseAuthInstance = new FirebaseAuthManager(); }
@@ -42,7 +43,7 @@ public final class FirebaseAuthManager {
     }
 
     private void getUserInfo(String userUID) {
-
+        return authManager.getCurrentUser();
     }
 
     public void signupUser(String email, String password, String username, UICallbackInterface callback) {

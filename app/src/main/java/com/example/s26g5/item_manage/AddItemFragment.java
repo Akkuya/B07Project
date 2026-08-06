@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.s26g5.Item;
+import com.example.s26g5.R;
 import com.example.s26g5.data.UploadImagePicker;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -195,7 +197,7 @@ public class AddItemFragment extends Fragment {
         String AccessionNumber = editTextAccessionNumber.getText().toString().trim();
         String ConditionReport = editTextConditionReport.getText().toString().trim();
         String Notes = editTextNotes.getText().toString().trim();
-        long timestamp = System.currentTimeMillis();
+        Object timestamp = ServerValue.TIMESTAMP;
         ArrayList<String> liked = new ArrayList<>();
 
 
