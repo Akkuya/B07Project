@@ -6,33 +6,210 @@
     android:layout_height="match_parent"
     tools:context=".item_manage.ManageItemsFragment">
 
-    <Button
-        android:id="@+id/buttonAddItem"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/add_item"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <TextView
+        android:id="@+id/artifactManager"
+        android:layout_width="434dp"
+        android:layout_height="126dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_card"
+        android:gravity="center"
+        android:text="Artifact Manager"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/buttonDeleteItem"/>
-
-    <Button
-        android:id="@+id/buttonDeleteItem"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_item"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAddItem"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/buttonBack"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonBack"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/back"
-        app:layout_constraintTop_toBottomOf="@+id/buttonDeleteItem"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="62dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="24dp"
+        android:backgroundTint="@color/grey"
+        android:foregroundGravity="center_vertical"
+        android:gravity="center"
+        android:text="&lt;"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/artifactManager"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037" />
+
+    <FrameLayout
+        android:id="@+id/frameAddLayout"
+        android:layout_width="354dp"
+        android:layout_height="127dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artifactManager"
+        app:layout_constraintVertical_bias="0.065">
+
+        <TextView
+            android:id="@+id/buttonAddItem"
+            android:layout_width="348dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_card_gold"
+            android:gravity="bottom"
+            android:paddingStart="10dp"
+            android:paddingBottom="5dp"
+            android:text="Add Artifact"
+            android:textColor="@color/grey"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="72dp"
+            android:layout_height="76dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/ic_add_circle"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="250dp" />
+
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frameDeleteLayout"
+        android:layout_width="354dp"
+        android:layout_height="127dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="27dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artifactManager"
+        app:layout_constraintVertical_bias="0.355">
+
+        <TextView
+            android:id="@+id/delete_artifact"
+            android:layout_width="348dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_card_gold"
+            android:gravity="bottom"
+            android:paddingStart="10dp"
+            android:paddingBottom="5dp"
+            android:text="Delete Artifact"
+            android:textColor="@color/grey"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="72dp"
+            android:layout_height="76dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/ic_delete"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="250dp" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frameEditLayout"
+        android:layout_width="354dp"
+        android:layout_height="127dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="30dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artifactManager"
+        app:layout_constraintVertical_bias="0.646">
+
+
+        <TextView
+            android:id="@+id/edit_artifact"
+            android:layout_width="348dp"
+            android:layout_height="127dp"
+
+            android:layout_marginBottom="228dp"
+            android:background="@drawable/bg_card_gold"
+            android:gravity="bottom"
+            android:paddingStart="10dp"
+            android:paddingBottom="5dp"
+            android:text="Edit Artifact"
+            android:textColor="@color/grey"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="72dp"
+            android:layout_height="76dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/ic_edit"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="250dp" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frameCommentLayout"
+        android:layout_width="354dp"
+        android:layout_height="127dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="28dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artifactManager"
+        app:layout_constraintVertical_bias="0.986">
+
+        <TextView
+            android:id="@+id/manage_comments"
+            android:layout_width="348dp"
+            android:layout_height="127dp"
+            android:layout_marginBottom="228dp"
+            android:background="@drawable/bg_card_gold"
+            android:gravity="bottom"
+            android:paddingStart="10dp"
+            android:paddingBottom="5dp"
+            android:text="Manage Comments"
+            android:textColor="@color/grey"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.55"
+            app:layout_constraintStart_toEndOf="@+id/edit_artifact" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="72dp"
+            android:layout_height="76dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/ic_comment"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="250dp" />
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

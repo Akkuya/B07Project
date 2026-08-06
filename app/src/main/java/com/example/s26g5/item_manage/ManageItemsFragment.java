@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,20 +20,26 @@ public class ManageItemsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage_items, container, false);
 
-        Button buttonAddItem = view.findViewById(R.id.buttonAddItem);
-        Button buttonDeleteItem = view.findViewById(R.id.buttonDeleteItem);
+        FrameLayout frameAddLayout = view.findViewById(R.id.frameAddLayout);
+        FrameLayout frameDeleteLayout = view.findViewById(R.id.frameDeleteLayout);
+        FrameLayout frameEditLayout = view.findViewById(R.id.frameEditLayout);
+        FrameLayout frameCommentLayout = view.findViewById(R.id.frameCommentLayout);
         Button buttonBack = view.findViewById(R.id.buttonBack);
 
-        buttonAddItem.setOnClickListener(new View.OnClickListener() {
+        frameAddLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadFragment(new AddItemFragment());
             }
         });
 
-        buttonDeleteItem.setOnClickListener(v -> loadFragment(new DeleteItemFragment()));
+        frameDeleteLayout.setOnClickListener(v -> loadFragment(new DeleteItemFragment()));
 
-        buttonBack.setOnClickListener(v -> getParentFragmentManager().popBackStack());
+        //frameEditLayout.setOnClickListener(v -> loadFragment(new EditItemFragment()));
+
+        //frameCommentLayout.setOnClickListener(v -> loadFragment(new DeleteItemFragment()));
+
+        buttonBack.setOnClickListener(v -> loadFragment(new HomeFragment()));
 
         return view;
     }
