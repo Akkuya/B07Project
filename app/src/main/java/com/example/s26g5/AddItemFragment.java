@@ -127,7 +127,7 @@ public class AddItemFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_item, container, false);
 
-        buttonBack_a = view.findViewById(R.id.buttonBack_a);
+        buttonBack_a = view.findViewById(R.id.button_bk);
         editTextLotNumber = view.findViewById(R.id.editTextLotNumber);
         editTextArtifactName = view.findViewById(R.id.editTextArtifactName);
         spinnerMaterial = view.findViewById(R.id.spinnerMaterial);

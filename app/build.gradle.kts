@@ -44,6 +44,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.room.runtime)
     implementation(libs.room.compiler)
+    implementation(libs.picasso)
 
     configurations.all {
         exclude(group = "com.intellij", module = "annotations")
