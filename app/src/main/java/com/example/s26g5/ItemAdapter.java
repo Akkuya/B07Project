@@ -46,6 +46,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.textViewImage.setText(item.getImage());
     }
 
+
+
     @Override
     public int getItemCount() {
         return itemList == null ? 0 : itemList.size();

@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
             loadFragment(ItemDetails.display("SONG-BOWLS-537A82"));
 //            loadFragment(new LoginFragment());
         }
+
     }
 
     private void loadFragment(Fragment fragment) {
@@ -184,6 +185,14 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
         setNavigationVisible(true);
+    }
+
+    public void navigateToSavedArtifactsFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new SavedArtifactsFragment())
+                .addToBackStack(null)
+                .setReorderingAllowed(true)
+                .commit();
     }
 
     @Override
