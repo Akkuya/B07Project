@@ -10,8 +10,7 @@
         android:id="@+id/buttonRecyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/recyclerview"
-        app:layout_constraintBottom_toTopOf="@+id/buttonScroller"
+        android:text="Artifact Browser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +25,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/buttonSpinner"/>
+
+    <Button
+        android:id="@+id/buttonSettings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRecyclerView"
+        app:layout_constraintVertical_bias="0.833" />
 
     <Button
         android:id="@+id/buttonSpinner"

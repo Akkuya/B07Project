@@ -30,13 +30,15 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.google.firebase.auth)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.auth)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -51,5 +53,4 @@ dependencies {
 
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation(platform("com.google.firebase:firebase-bom:34.16.0"))
-    implementation("com.google.firebase:firebase-database")
 }
