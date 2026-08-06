@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.s26g5.data.FirebaseDBManager;
 import com.example.s26g5.item_viewing.ItemDetails;
+import com.example.s26g5.item_viewing.SavedArtifactsFragment;
 import com.example.s26g5.user.LoginFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

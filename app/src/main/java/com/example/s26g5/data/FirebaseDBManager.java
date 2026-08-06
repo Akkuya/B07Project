@@ -24,6 +24,10 @@ public final class FirebaseDBManager {
         return FirebaseDBInstance;
     }
 
+    public DatabaseReference getDBRef() {
+        return db;
+    }
+
     public void getInfo(String path, UICallbackInterface callback) {
         db.child(path).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override

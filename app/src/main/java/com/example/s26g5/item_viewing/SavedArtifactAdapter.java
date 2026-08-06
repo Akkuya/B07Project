@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.item_viewing;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.widget.ImageButton;
 import com.bumptech.glide.Glide;
+import com.example.s26g5.AppDatabase;
+import com.example.s26g5.ArtifactSaved;
+import com.example.s26g5.R;
+
 import java.util.List;
 
 public class SavedArtifactAdapter extends RecyclerView.Adapter<SavedArtifactAdapter.ItemViewHolder> {
