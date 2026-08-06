@@ -132,7 +132,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         recyclerView = view.findViewById(R.id.comment_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(commentList);
+        commentAdapter = new CommentAdapter(commentList, lotNumber);
         recyclerView.setAdapter(commentAdapter);
         fetchComments(lotNumber);
 
@@ -155,8 +155,10 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
                     Log.d("COMMENTS", "Key: " + snapshot.getKey());
                     Log.d("COMMENTS", "Data: " + snapshot.getValue());
                     Comment comment = snapshot.getValue(Comment.class);
-                    Log.d("COMMENTS", snapshot.getValue().toString());
-                    commentList.add(comment);
+                    if (comment != null) {
+                        comment.setKey(snapshot.getKey());
+                        commentList.add(comment);
+                    }
                 }
                 commentAdapter.notifyDataSetChanged();
             }
