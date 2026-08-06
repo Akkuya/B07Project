@@ -7,12 +7,11 @@
     tools:context=".HomeFragment">
 
     <Button
-        android:id="@+id/buttonRecyclerView"
+        android:id="@+id/buttonArtifactView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="248dp"
         android:text="Artifact Browser"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +22,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/scroller"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/buttonArtifactView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/buttonSpinner"/>
@@ -37,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/buttonArtifactView"
         app:layout_constraintVertical_bias="0.833" />
 
     <Button
@@ -61,12 +60,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="13dp"
-        tools:layout_editor_absoluteY="50dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/homepage_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toronto Asian Art Museum"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/highlight"
+            tools:layout_editor_absoluteX="141dp"
+            tools:layout_editor_absoluteY="90dp" />
+
+        <TextView
+            android:id="@+id/homepage_desc"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="TAAM was established in response to a recognized gap in the representation of Asian art and cultural narratives in local museums. With the generous support of community members and local partners, TAAM has built a growing collection of over 2,000 artifacts, spanning thousands of years of history from across East, South, and Southeast Asia."
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="134dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
