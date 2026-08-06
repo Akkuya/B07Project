@@ -42,7 +42,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.room.runtime)
-    implementation(libs.room.compiler)
+    annotationProcessor(libs.room.compiler)
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation(platform("com.google.firebase:firebase-bom:34.16.0"))
 }
