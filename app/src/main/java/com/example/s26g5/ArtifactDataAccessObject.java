@@ -6,6 +6,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.s26g5.item_viewing.SavedArtifactEntity;
+
 import java.util.List;
 
 @Dao

@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.s26g5.data.FirebaseAuthManager;
 import com.example.s26g5.data.FirebaseDBManager;
 import com.example.s26g5.user.LoginFragment;
+import com.example.s26g5.user.SessionManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -26,15 +27,16 @@ public class SettingsFragment extends Fragment {
                 getParentFragmentManager().popBackStack());
 
         view.findViewById(R.id.btnDeleteAccount).setOnClickListener(v -> {
-            FirebaseAuthManager auth = FirebaseAuthManager.getFirebaseAuthInstance(); // TODO: This needs to be switched to utilize SessionManager once it is properly utilized
+            SessionManager sm = SessionManager.getSessionInstance();
+            FirebaseAuthManager auth = FirebaseAuthManager.getFirebaseAuthInstance();
             final String uid;
 
-            if (auth.getUserInfo() == null) {
+            if (sm.isLoggedIn()) {
                 Toast.makeText(getContext(), "No user logged in", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            uid = auth.getUserInfo().getUid();
+            uid = sm.getUid();
 
             FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
             db.deleteUserData(uid)
@@ -53,7 +55,7 @@ public class SettingsFragment extends Fragment {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> deleteTask) {
                                             if (deleteTask.isSuccessful()) {
-                                                SessionManager.getInstance().clearSession();
+                                                sm.clearSession();
                                                 Toast.makeText(getContext(), "Account deleted", Toast.LENGTH_SHORT).show();
 
                                                 getParentFragmentManager().popBackStack(null, 0);

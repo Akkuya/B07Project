@@ -1,4 +1,4 @@
-package com.example.s26g5;
+package com.example.s26g5.item_viewing;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
