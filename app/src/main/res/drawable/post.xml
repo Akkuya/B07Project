@@ -5,9 +5,9 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
 
-<!--    <path-->
-<!--        android:fillColor="@color/highlight"-->
-<!--        android:pathData="M0,0h24v24H0z" />-->
+    <path
+        android:fillColor="@color/highlight"
+        android:pathData="M0,0h24v24H0z" />
 
     <path
         android:fillColor="#FFFFFF"
