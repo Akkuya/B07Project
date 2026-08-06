@@ -31,7 +31,6 @@ android {
 
 dependencies {
     implementation(libs.appcompat)
-    implementation(libs.cardview)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
@@ -43,6 +42,11 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.room.runtime)
     implementation(libs.room.compiler)
+
+    configurations.all {
+        exclude(group = "com.intellij", module = "annotations")
+    }
+
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation(platform("com.google.firebase:firebase-bom:34.16.0"))
 }
