@@ -1,6 +1,4 @@
-package com.example.s26g5.item_viewing;
-
-import com.example.s26g5.ArtifactSaved;
+package com.example.s26g5;
 
 import java.util.List;
 

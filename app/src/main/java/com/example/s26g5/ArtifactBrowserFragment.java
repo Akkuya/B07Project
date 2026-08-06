@@ -1,4 +1,4 @@
-package com.example.s26g5.item_viewing;
+package com.example.s26g5;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -18,9 +18,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.s26g5.HomeFragment;
-import com.example.s26g5.Item;
-import com.example.s26g5.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -80,10 +77,8 @@ public class ArtifactBrowserFragment extends Fragment {
         pageNum = view.findViewById(R.id.page_num);
 
         Spinner spinner = view.findViewById(R.id.sort_spinner);
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
-                getContext(),
-                R.array.sort_options,
-                android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getContext(),
+                R.array.sort_options, android.R.layout.simple_spinner_item);
 
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter1);
@@ -230,7 +225,6 @@ public class ArtifactBrowserFragment extends Fragment {
         });
         dialog.show(getParentFragmentManager(), "filters");
     }
-
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
