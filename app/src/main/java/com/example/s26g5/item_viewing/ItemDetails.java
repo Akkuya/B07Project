@@ -40,7 +40,7 @@ import java.util.List;
 public class ItemDetails extends Fragment implements UICallbackInterface {
     Item item = null;
     TextView itemName;
-    //TextView category;
+    TextView category;
     TextView material;
     TextView dynasty;
     TextView culturalOrigin;
@@ -80,7 +80,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         item = itemJson.getValue(Item.class);
 
         itemName.setText(item.getArtifactName());
-//        category.setText(item.get);
+        category.setText(item.getCategory());
         material.setText(item.getMaterials());
         dynasty.setText(item.getDynasty());
         culturalOrigin.setText(item.getCulturalOrigin());
@@ -125,7 +125,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
 
         // =======================Set Item Info==============================================
         itemName = view.findViewById(R.id.textViewItemDetTitle);
-        //        TextView category = view.findViewById(R.id.textViewItemDetCategory);
+        category = view.findViewById(R.id.textViewItemDetCategory);
         material = view.findViewById(R.id.textViewItemDetMaterial);
         dynasty = view.findViewById(R.id.textViewItemDetDynasty);
         culturalOrigin = view.findViewById(R.id.textViewItemDetCulturalOrigin);
@@ -157,19 +157,23 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
             @Override
             public void onClick(View v) {
                 comment = view.findViewById(R.id.editTextCommentContent);
+                String commentBody = comment.getText().toString().trim();
+                if (commentBody.isEmpty() ) {
+                    Toast.makeText( getContext(), "Empty comment can't be posted", Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
                 Comment commentObj = new Comment();
                 commentObj.setLotNumber(lotNumber);
                 commentObj.setUsername(sm.getUsername());
                 commentObj.setUID(sm.getUid());
-                commentObj.setContent(comment.getText().toString().trim());
+                commentObj.setContent(commentBody);
                 commentObj.setTimestamp(System.currentTimeMillis() / 1000L);
                 String commentPath = "/comments/"+lotNumber+"/"+commentsRef.push().getKey()+"/";
                 db.insertInfo(commentPath, commentObj);
                 comment.setText("");
             }
         });
-
-
 
 
         return view;
@@ -181,12 +185,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 commentList.clear();
-//                Log.d("COMMENTS", "lotNumber = [" + lotNumber + "]");
-//                Log.d("COMMENTS", "Children: " + dataSnapshot.getChildrenCount());
-//                Log.d("COMMENTS", "Exists: " + dataSnapshot.exists());
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    Log.d("COMMENTS", "Key: " + snapshot.getKey());
-//                    Log.d("COMMENTS", "Data: " + snapshot.getValue());
                     Comment comment = snapshot.getValue(Comment.class);
                     commentList.add(comment);
                 }
