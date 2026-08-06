@@ -1,5 +1,6 @@
-package com.example.s26g5;
+package com.example.s26g5.item_manage;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.s26g5.Item;
 import com.example.s26g5.R;
@@ -20,7 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.net.Uri;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.ServerValue;
 
 import android.util.Log;
 import java.util.ArrayList;
@@ -50,6 +51,8 @@ public class AddItemFragment extends Fragment {
 
     private UploadImagePicker uploadImagePicker;
     private String uploadedImageUrl;
+
+    private Button buttonBack_a;
 
     private static final String TAG = "AddItemFragment";
 
@@ -121,11 +124,13 @@ public class AddItemFragment extends Fragment {
         );
     }
 
+    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_item, container, false);
 
+        buttonBack_a = view.findViewById(R.id.button_bk);
         editTextLotNumber = view.findViewById(R.id.editTextLotNumber);
         editTextArtifactName = view.findViewById(R.id.editTextArtifactName);
         spinnerMaterial = view.findViewById(R.id.spinnerMaterial);
@@ -152,6 +157,13 @@ public class AddItemFragment extends Fragment {
 
         db = FirebaseDatabase.getInstance();
 
+        buttonBack_a.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new ManageItemsFragment());
+            }
+        });
+
         // Set up the spinner with categories
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.categories_array, android.R.layout.simple_spinner_item);
@@ -159,12 +171,12 @@ public class AddItemFragment extends Fragment {
         spinnerCategory.setAdapter(adapter);
 
         ArrayAdapter<CharSequence> materialAdapter = ArrayAdapter.createFromResource(requireContext(),
-                        R.array.materials_array, android.R.layout.simple_spinner_item);
+                R.array.materials_array, android.R.layout.simple_spinner_item);
         materialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMaterial.setAdapter(materialAdapter);
 
         ArrayAdapter<CharSequence> dynastyAdapter = ArrayAdapter.createFromResource(requireContext(),
-                        R.array.dynasties_array, android.R.layout.simple_spinner_item);
+                R.array.dynasties_array, android.R.layout.simple_spinner_item);
         dynastyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDynasty.setAdapter(dynastyAdapter);
 
@@ -197,7 +209,7 @@ public class AddItemFragment extends Fragment {
         String AccessionNumber = editTextAccessionNumber.getText().toString().trim();
         String ConditionReport = editTextConditionReport.getText().toString().trim();
         String Notes = editTextNotes.getText().toString().trim();
-        Object timestamp = ServerValue.TIMESTAMP;
+        long timestamp = System.currentTimeMillis();
         ArrayList<String> liked = new ArrayList<>();
 
 
@@ -307,8 +319,8 @@ public class AddItemFragment extends Fragment {
                             ).show();
                         } else {
                             String message = saveTask.getException() == null
-                                            ? "Failed to add item"
-                                            : saveTask.getException().getMessage();
+                                    ? "Failed to add item"
+                                    : saveTask.getException().getMessage();
                             Toast.makeText(
                                     requireContext(),
                                     message,
@@ -340,6 +352,12 @@ public class AddItemFragment extends Fragment {
         editTextNotes = null;
         editTextConditionReport = null;
 
+    }
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }

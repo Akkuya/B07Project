@@ -1,6 +1,10 @@
-package com.example.s26g5;
+package com.example.s26g5.item_viewing;
 
 import android.content.Context;
+
+import com.example.s26g5.AppDatabase;
+import com.example.s26g5.ArtifactSaved;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +44,8 @@ public class DashboardPresenter implements Dashboard.Presenter {
                     List<SavedArtifactEntity> savedArtifacts = local_db.artifactDao().getAllSavedArtifacts();
                     List<ArtifactSaved> fetchedArtifacts = new ArrayList<>();
                     for (SavedArtifactEntity savedArtifact : savedArtifacts) {
-                        ArtifactSaved UIartifact = new ArtifactSaved(savedArtifact.getName(), savedArtifact.getLotNumber(), savedArtifact.getCulturalOrigin(), savedArtifact.getImage(), true);
-                        fetchedArtifacts.add(UIartifact);
+                        ArtifactSaved UArtifact = new ArtifactSaved(savedArtifact.getName(), savedArtifact.getLotNumber(), savedArtifact.getCulturalOrigin(), savedArtifact.getImage(), true);
+                        fetchedArtifacts.add(UArtifact);
                     }
 
                     if (fetchedArtifacts.isEmpty()) {

@@ -42,7 +42,7 @@ public final class FirebaseAuthManager {
         if (success) Log.d("Signup", "Successful in attaching username");
     }
 
-    private void getUserInfo(String userUID) {
+    public FirebaseUser getUserInfo() {
         return authManager.getCurrentUser();
     }
 
@@ -53,11 +53,11 @@ public final class FirebaseAuthManager {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 addUser(authManager.getUid(), email, username);
-                                callback.onSuccess();
+                                callback.onSuccess(null);
                                 // startSession(getUserInfo());
                                 Log.d("Signup", "Success creating account");
                             } else {
-                                callback.onFailure();
+                                callback.onFailure(null);
                                 Log.w("Signup", "Failure creating account", task.getException());
                             }
                         }
@@ -71,11 +71,11 @@ public final class FirebaseAuthManager {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // create session, call UI callback, Log Success
-                                callback.onSuccess();
+                                callback.onSuccess(null);
                                 Log.d("Login", "Success logging in");
                             } else {
                                 // call UI callback, Log Failure
-                                callback.onFailure();
+                                callback.onFailure(null);
                                 Log.w("Login", "Failure logging in", task.getException());
                             }
                         }

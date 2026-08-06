@@ -1,7 +1,13 @@
 package com.example.s26g5.item_viewing;
 
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.s26g5.HomeFragment;
 import com.example.s26g5.Item;
@@ -22,6 +30,8 @@ import com.example.s26g5.user.UICallbackInterface;
 import com.google.firebase.database.DataSnapshot;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemDetails extends Fragment implements UICallbackInterface {
     Item item = null;
@@ -40,11 +50,14 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
     TextView notes;
     ImageView image;
 
+    CommentAdapter commentAdapter;
+    List<Comment> commentList;
+    FirebaseDBManager db;
+
     // Use ItemDetails.display(some_lot_number) to show customized page. Don't use `new`
     public static ItemDetails display(String lotNumber) {
         ItemDetails fragment = new ItemDetails();
 
-        // add params to savedInstanceState
         Bundle parameters = new Bundle();
         parameters.putString("lotNumber", lotNumber);
         fragment.setArguments(parameters);
@@ -93,11 +106,11 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_item_details, container, false);
-        FirebaseDBManager db = FirebaseDBManager.getFirebaseDBInstance();
-
+        db = FirebaseDBManager.getFirebaseDBInstance();
         String lotNumber = getArguments().getString("lotNumber");
         db.getInfo("artifacts/"+lotNumber, ItemDetails.this);
 
+        // =======================Set Item Info==============================================
         itemName = view.findViewById(R.id.textViewItemDetTitle);
         //        TextView category = view.findViewById(R.id.textViewItemDetCategory);
         material = view.findViewById(R.id.textViewItemDetMaterial);
@@ -113,9 +126,47 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         notes = view.findViewById(R.id.textViewItemDetNotes);
         image = view.findViewById(R.id.imageViewItemD);
 
+
+        // =======================Set Comments==============================================
+        RecyclerView recyclerView;
+        recyclerView = view.findViewById(R.id.comment_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        commentList = new ArrayList<>();
+        commentAdapter = new CommentAdapter(commentList);
+        recyclerView.setAdapter(commentAdapter);
+        fetchComments(lotNumber);
+
         return view;
     }
 
+    private void fetchComments(String lotNumber) {
+        DatabaseReference commentsRef;
+        commentsRef = db.getDBRef().child("comments/"+lotNumber);
+        commentsRef.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("COMMENTS", "REACHED============~~~~~~~~~~~~~~~~~~~~~~~~");
+                commentList.clear();
+                Log.d("COMMENTS", "lotNumber = [" + lotNumber + "]");
+                Log.d("COMMENTS", "Children: " + dataSnapshot.getChildrenCount());
+                Log.d("COMMENTS", "Exists: " + dataSnapshot.exists());
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Log.d("COMMENTS", "Key: " + snapshot.getKey());
+                    Log.d("COMMENTS", "Data: " + snapshot.getValue());
+                    Comment comment = snapshot.getValue(Comment.class);
+                    Log.d("COMMENTS", snapshot.getValue().toString());
+                    commentList.add(comment);
+                }
+                commentAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle possible errors
+            }
+        });
+    }
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
