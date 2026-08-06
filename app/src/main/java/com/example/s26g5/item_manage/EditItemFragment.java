@@ -6,10 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,9 +37,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class EditItemFragment extends Fragment implements UICallbackInterface{
     String lotNumber;
     Item item = null;
-    //TextView category;
-    EditText e_material;
-    EditText e_dynasty;
+    EditText e_name;
+    Spinner e_category;
+    Spinner e_material;
+    Spinner e_dynasty;
     EditText e_culturalOrigin;
     EditText e_dimensions;
     EditText e_conditionReport;
@@ -50,6 +53,7 @@ public class EditItemFragment extends Fragment implements UICallbackInterface{
     ImageView e_image;
 
     private Button buttonSave;
+    private Button buttonCancel;
     private UploadImagePicker uploadImagePicker;
     private String editedImageUrl;
 
@@ -72,8 +76,38 @@ public class EditItemFragment extends Fragment implements UICallbackInterface{
         DataSnapshot itemJson = (DataSnapshot) result;
         item = itemJson.getValue(Item.class);
 
-        e_material.setText(item.getMaterials());
-        e_dynasty.setText(item.getDynasty());
+        e_name.setText(item.getArtifactName());
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.categories_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        e_category.setAdapter(adapter);
+
+        ArrayAdapter<CharSequence> materialAdapter = ArrayAdapter.createFromResource(requireContext(),
+                R.array.materials_array, android.R.layout.simple_spinner_item);
+        materialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        e_material.setAdapter(materialAdapter);
+
+        ArrayAdapter<CharSequence> dynastyAdapter = ArrayAdapter.createFromResource(requireContext(),
+                R.array.dynasties_array, android.R.layout.simple_spinner_item);
+        dynastyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        e_dynasty.setAdapter(dynastyAdapter);
+
+        int pos_cat = adapter.getPosition(item.getCategory());
+        if (pos_cat >= 0) {
+            e_category.setSelection(pos_cat);
+        }
+
+        int pos_mat = materialAdapter.getPosition(item.getMaterials());
+        if (pos_mat >= 0) {
+            e_material.setSelection(pos_mat);
+        }
+
+        int pos_dyn = dynastyAdapter.getPosition(item.getDynasty());
+        if (pos_dyn >= 0) {
+            e_dynasty.setSelection(pos_dyn);
+        }
+
         e_culturalOrigin.setText(item.getCulturalOrigin());
         e_dimensions.setText(item.getDimensions());
         e_conditionReport.setText(item.getConditionReport());
@@ -108,6 +142,8 @@ public class EditItemFragment extends Fragment implements UICallbackInterface{
         lotNumber = getArguments().getString("lotNumber");
         db.getInfo("artifacts/" + lotNumber, EditItemFragment.this);
 
+        e_name = view.findViewById(R.id.editItemDetTitle);
+        e_category = view.findViewById(R.id.editItemDetCategory);
         e_material = view.findViewById(R.id.editItemDetMaterial);
         e_dynasty = view.findViewById(R.id.editItemDetDynasty);
         e_culturalOrigin = view.findViewById(R.id.editItemDetCulturalOrigin);
@@ -121,6 +157,23 @@ public class EditItemFragment extends Fragment implements UICallbackInterface{
         e_notes = view.findViewById(R.id.editItemDetNotes);
         e_image = view.findViewById(R.id.imageViewItemD);
         buttonSave = view.findViewById(R.id.saveEdit);
+        buttonCancel = view.findViewById(R.id.cancelEdit);
+
+        // Set up the spinner with categories
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.categories_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        e_category.setAdapter(adapter);
+
+        ArrayAdapter<CharSequence> materialAdapter = ArrayAdapter.createFromResource(requireContext(),
+                R.array.materials_array, android.R.layout.simple_spinner_item);
+        materialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        e_material.setAdapter(materialAdapter);
+
+        ArrayAdapter<CharSequence> dynastyAdapter = ArrayAdapter.createFromResource(requireContext(),
+                R.array.dynasties_array, android.R.layout.simple_spinner_item);
+        dynastyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        e_dynasty.setAdapter(dynastyAdapter);
 
         uploadImagePicker = new UploadImagePicker(
                 requireContext(),
@@ -185,14 +238,37 @@ public class EditItemFragment extends Fragment implements UICallbackInterface{
                 saveEdits();
             }
         });
+
+        buttonCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+             public void onClick(View v) {
+                loadFragment(ItemDetails.display(lotNumber));
+            }
+        });
+
         return view;
     }
     private void saveEdits(){
         if (item == null){
             return;
         }
-        item.setMaterials(e_material.getText().toString());
-        item.setDynasty(e_dynasty.getText().toString());
+        if((e_name.getText().toString()).isEmpty()
+                || (e_desc.getText().toString()).isEmpty()
+                || e_category.getSelectedItemPosition() == 0
+                || e_material.getSelectedItemPosition() == 0
+                || e_dynasty.getSelectedItemPosition() == 0){
+            Toast.makeText(
+                    requireContext(),
+                    "Please fill out all the Mandatory fields",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
+        item.setArtifactName(e_name.getText().toString());
+        item.setCategory(e_category.getSelectedItem().toString());
+        item.setMaterials(e_material.getSelectedItem().toString().trim());
+        item.setDynasty(e_dynasty.getSelectedItem().toString().trim());
         item.setCulturalOrigin(e_culturalOrigin.getText().toString());
         item.setDimensions(e_dimensions.getText().toString());
         item.setConditionReport(e_conditionReport.getText().toString());

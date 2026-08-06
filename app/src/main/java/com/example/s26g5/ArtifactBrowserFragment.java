@@ -72,7 +72,6 @@ public class ArtifactBrowserFragment extends Fragment {
         adapter = new ArtifactAdapter(artifactList, new ArtifactAdapter.OnArtifactClickListener(){
             @Override
             public void onArtifactClick(Item item, int position){
-                Toast.makeText(getContext(), "Clicked: " + item.getLotNumber(), Toast.LENGTH_SHORT).show();
                 loadFragment(ItemDetails.display(item.getLotNumber()));
             }
         });
