@@ -51,7 +51,7 @@ public class RecyclerViewFragment extends Fragment {
         itemAdapter = new SavedArtifactAdapter(itemList);
         recyclerView.setAdapter(itemAdapter);
 
-        db = FirebaseDatabase.getInstance("https://cscb07s26g5-default-rtdb.firebaseio.com//");
+        db = FirebaseDatabase.getInstance();
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
