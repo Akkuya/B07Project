@@ -29,7 +29,7 @@ public class SettingsFragment extends Fragment {
             FirebaseAuthManager auth = FirebaseAuthManager.getFirebaseAuthInstance(); // TODO: This needs to be switched to utilize SessionManager once it is properly utilized
             final String uid;
 
-            if (auth.getUserInfo() == null) {
+            if (auth.getUserInfo(null) == null) {
                 Toast.makeText(getContext(), "No user logged in", Toast.LENGTH_SHORT).show();
                 return;
             }
