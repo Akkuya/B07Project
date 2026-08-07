@@ -21,11 +21,12 @@ import com.example.s26g5.MainActivity;
 public class LoginFragment extends Fragment {
     EditText emailField;
     EditText passwordField;
+    View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflator, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflator.inflate(R.layout.login, container, false);
+        view = inflator.inflate(R.layout.login, container, false);
         ((MainActivity) requireActivity()).setNavigationVisible(false);
 
         FirebaseAuthManager authManager = FirebaseAuthManager.getFirebaseAuthInstance();
@@ -42,23 +43,37 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emailField = view.findViewById(R.id.EmailField);
-                passwordField = view.findViewById(R.id.PasswordField);
-                String email = emailField.getText().toString().trim();
-                String password = passwordField.getText().toString().trim();
-
-                String message = presenter.checkCreds(email, password);
-                if (message != null)
-                    makeToast(message);
-                else
-                    presenter.login(email, password);
-
-                emailField.setText("");
-                passwordField.setText("");
+                String message = presenter.checkCreds();
+                if (message != null) makeToast(message);
+                else presenter.login();
+                clearFields();
             }
         }));
 
         return view;
+    }
+
+    public String getEmail() {
+        emailField = view.findViewById(R.id.EmailField);
+        return emailField.getText().toString().trim();
+    }
+
+    public String getPassword() {
+        passwordField = view.findViewById(R.id.PasswordField);
+        return passwordField.getText().toString().trim();
+    }
+
+    public void onSuccess() {
+        loadFragment(new HomeFragment());
+    }
+
+    public void onFailure() {
+        makeToast("Username/password incorrect");
+    }
+
+    public void clearFields() {
+        emailField.setText("");
+        passwordField.setText("");
     }
 
     public void makeToast(String message) {

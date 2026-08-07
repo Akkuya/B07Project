@@ -14,20 +14,24 @@ public class LoginPresenter implements UICallbackInterface {
         this.model = model;
     }
 
-    public String checkCreds(String email, String password) {
+    public String checkCreds() {
+        String email = view.getEmail();
+        String password = view.getPassword();
         if (email.isEmpty() || password.isEmpty()) {
             return "Email and password must be entered";
         }
         return null;
     }
 
-    public void login(String email, String password){
+    public void login(){
+        String email = view.getEmail();
+        String password = view.getPassword();
         model.loginUser(email, password, LoginPresenter.this);
     }
 
     @Override
-    public void onSuccess(Object result) { view.loadFragment(new HomeFragment()); }
+    public void onSuccess(Object result) { view.onSuccess(); }
 
     @Override
-    public void onFailure(Object result) { view.makeToast("Username/password incorrect"); }
+    public void onFailure(Object result) { view.onFailure(); }
 }
