@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".item_manage.DeleteItemFragment">
+
+
+    <TextView
+        android:id="@+id/artifactManager_d"
+        android:layout_width="434dp"
+        android:layout_height="126dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_card"
+        android:gravity="center"
+        android:text="Artifact Manager"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBack_d"
+        android:layout_width="62dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="24dp"
+        android:backgroundTint="@color/grey"
+        android:foregroundGravity="center_vertical"
+        android:gravity="center"
+        android:text="&lt;"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/artifactManager_d"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037" />
+
+
+    <LinearLayout
+        android:layout_width="333dp"
+        android:layout_height="435dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/artifactManager_d"
+        app:layout_constraintVertical_bias="0.361">
+
+        <TextView
+            android:id="@+id/pageConfirmation_d"
+            android:layout_width="304dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="Are you sure you want to delete this item?"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:layout_marginTop="25dp"/>
+
+        <TextView
+            android:id="@+id/itemName_d"
+            android:layout_width="245dp"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_card"
+            android:gravity="center_vertical"
+            android:hint="Artifact Name"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/lotNumber_d"
+            android:layout_width="245dp"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_card"
+            android:gravity="center_vertical"
+            android:hint="Lot Number"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/confirmation_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            android:text="This action is permanent and cannot be undone"
+            app:layout_constraintBottom_toTopOf="@+id/buttonDelete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lotNumber_d"
+            app:layout_constraintVertical_bias="0.666" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:id="@+id/buttonCancel_d"
+                android:layout_marginRight="60dp"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:text="Cancel" />
+            <Button
+                android:id="@+id/buttonDelete_d"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/delete_red"
+                android:text="Delete"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.s26g5.item_viewing.ItemDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -87,7 +89,13 @@ public class ArtifactBrowserFragment extends Fragment {
         });
 
 
-        adapter = new ArtifactAdapter(artifactList);
+        adapter = new ArtifactAdapter(artifactList, new ArtifactAdapter.OnArtifactClickListener(){
+            @Override
+            public void onArtifactClick(Item item, int position){
+                loadFragment(ItemDetails.display(item.getLotNumber()));
+            }
+        });
+
         recycler.setAdapter(adapter);
 
         Button button_bk = view.findViewById(R.id.button_bk);
