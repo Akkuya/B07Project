@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START)
         );
         menuBrowse.setOnClickListener(v -> {
-            loadFragment(new RecyclerViewFragment());
+            loadFragment(new ArtifactBrowserFragment());
             closeDrawer();
         });
         menuSavedArtifacts.setOnClickListener(v -> {
@@ -102,11 +102,9 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance("https://b07-demo-summer-2024-default-rtdb.firebaseio.com/");
         DatabaseReference myRef = db.getReference("testDemo");
 
-//        myRef.setValue("B07 Demo!");
         myRef.child("movies").setValue("B07 Demo!");
 
         if (savedInstanceState == null) {
-            //loadFragment(ItemDetails.display("SONG-BOWLS-537A82"));
             loadFragment(new LoginFragment());
         }
 

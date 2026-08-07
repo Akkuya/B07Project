@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="422dp"
-        android:layout_height="330dp"
+        android:layout_width="419dp"
+        android:layout_height="306dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,41 +60,36 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Browse our selection"
-            android:textSize="14sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/buttonArtifactView"
             android:layout_width="185dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/bg_card"
             android:text="Artifact Browser"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Check out your profile"
+            android:textSize="20sp" />
         <Button
             android:id="@+id/buttonSettings"
             android:layout_width="185dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/bg_card"
             android:text="Settings"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-
-        <Button
-            android:id="@+id/buttonManageItems"
-            android:layout_width="185dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/bg_card"
-            android:text="@string/manage_items"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="485dp" />
 
     </LinearLayout>
 

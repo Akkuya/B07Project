@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.s26g5.item_manage.ManageItemsFragment;
 
 public class HomeFragment extends Fragment {
     @Nullable
@@ -20,7 +19,6 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
 
         Button buttonArtifactView = view.findViewById(R.id.buttonArtifactView);
-        Button buttonManageItems = view.findViewById(R.id.buttonManageItems);
         Button buttonSettings = view.findViewById(R.id.buttonSettings);
 
         buttonArtifactView.setOnClickListener(new View.OnClickListener() {
@@ -30,11 +28,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-        buttonManageItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new ManageItemsFragment());}
-        });
 
         buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
