@@ -67,12 +67,16 @@ public class ArtifactBrowserFragment extends Fragment {
         artifactList = new ArrayList<>();
         allArtifacts = new ArrayList<>();
 
+        loadAllArtifacts();
+
         searchCriteria.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -82,7 +86,6 @@ public class ArtifactBrowserFragment extends Fragment {
             }
         });
 
-        loadAllArtifacts();
 
         adapter = new ArtifactAdapter(artifactList);
         recycler.setAdapter(adapter);
@@ -108,7 +111,8 @@ public class ArtifactBrowserFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         button_bk.setOnClickListener(new View.OnClickListener() {
@@ -177,7 +181,8 @@ public class ArtifactBrowserFragment extends Fragment {
         }
 
         switch (sort_field) {
-            case 0: break;
+            case 0:
+                break;
             case 1:
                 filtered.sort(new Comparator<Item>() {
                     public int compare(Item artifact1, Item artifact2) {
@@ -209,8 +214,8 @@ public class ArtifactBrowserFragment extends Fragment {
     }
 
     private boolean matchesFilters(Item artifact) {
-        boolean matchesSearch = searchQuery.isEmpty() || 
-            (artifact.getArtifactName() != null && artifact.getArtifactName().toLowerCase().contains(searchQuery));
+        boolean matchesSearch = searchQuery.isEmpty() ||
+                (artifact.getArtifactName() != null && artifact.getArtifactName().toLowerCase().contains(searchQuery));
 
         return matchesSearch
                 && matches(artifact.getCategory(), filterCategory)
@@ -260,22 +265,26 @@ public class ArtifactBrowserFragment extends Fragment {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             Item artifact = snapshot.getValue(Item.class);
                         }
+
                         @Override
-                        public void onCancelled(@NonNull DatabaseError error) { }
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
                     });
         }
     }
+
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
+}
 
-    private void search(String query){
+    /*private void search(String query){
         String lowerQuery = query.toLowerCase();
         db.orderByChild("artifactName")
-                .limitToFirst(ITEMS_PER_PAGE)
+                .limitToFirst(35)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
@@ -305,4 +314,4 @@ public class ArtifactBrowserFragment extends Fragment {
                     }
                     });
                 }
-}
+} */
