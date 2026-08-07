@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             closeDrawer();
         });
         menuSavedArtifacts.setOnClickListener(v -> {
-            Toast.makeText(this, "Saved Artifacts page has not been created yet", Toast.LENGTH_SHORT).show();
+            loadFragment(new SavedArtifactsFragment());
             closeDrawer();
         });
         menuWebsite.setOnClickListener(v -> {
