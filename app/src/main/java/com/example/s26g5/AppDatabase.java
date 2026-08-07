@@ -13,11 +13,11 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null) {
             synchronized (AppDatabase.class) {
                 instance = Room.databaseBuilder(context.getApplicationContext(),
-                        AppDatabase.class, "app_database")
+                                AppDatabase.class, "app_database")
                         .build();
             }
 
-            }
+        }
         return instance;
     }
 
