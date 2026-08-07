@@ -55,11 +55,9 @@ public class SavedArtifactsFragment extends Fragment implements Dashboard.View {
 
     @Override
     public void showError(String message) {
-        if (isAdded() && getActivity() != null) {
-            getActivity().runOnUiThread(() -> {
+            if(getContext() != null){
                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            });
-        }
+            }
     }
 
     @Override
