@@ -32,9 +32,9 @@
                 android:backgroundTint="@color/highlight"
                 android:backgroundTintMode="add"
                 android:ems="10"
+                android:hint="▪▪▪▪▪▪▪"
                 android:inputType="textPassword"
                 android:paddingBottom="10dp"
-                android:text="password"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/SignUpButton"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/loginwelcline"
+                android:id="@+id/signupwelcline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
@@ -88,13 +88,13 @@
                 android:backgroundTint="@color/highlight"
                 android:backgroundTintMode="add"
                 android:ems="10"
+                android:hint="email@address.com"
                 android:inputType="textEmailAddress"
                 android:paddingBottom="10dp"
-                android:text="Email address"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/PasswordField"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/loginwelcline" />
+                app:layout_constraintTop_toBottomOf="@id/signupwelcline" />
 
             <Button
                 android:id="@+id/SignUpButton"

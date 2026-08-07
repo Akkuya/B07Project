@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="353dp"
+        android:layout_height="532dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginEnd="30dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="497dp">
+
+            <EditText
+                android:id="@+id/CreateAdminPasswordField"
+                android:layout_width="310dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:autofillHints=""
+                android:backgroundTint="@color/highlight"
+                android:backgroundTintMode="add"
+                android:ems="10"
+                android:hint="▪▪▪▪▪▪"
+                android:inputType="textPassword"
+                android:paddingBottom="10dp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/CreateAdminSignUpButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CreateAdminEmailField" />
+
+            <EditText
+                android:id="@+id/CreateAdminUsernameField"
+                android:layout_width="310dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="@color/highlight"
+                android:backgroundTintMode="add"
+                android:ems="10"
+                android:hint="Username"
+                android:inputType="text"
+                android:paddingBottom="10dp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/CreateAdminEmailField"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CreateAdminSignUpTitle" />
+
+            <TextView
+                android:id="@+id/CreateAdminSignUpTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Create an Admin account"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <EditText
+                android:id="@+id/CreateAdminEmailField"
+                android:layout_width="310dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:autofillHints=""
+                android:backgroundTint="@color/highlight"
+                android:backgroundTintMode="add"
+                android:ems="10"
+                android:hint="email@mail.com"
+                android:inputType="textEmailAddress"
+                android:paddingBottom="10dp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/CreateAdminPasswordField"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/CreateAdminUsernameField" />
+
+            <Button
+                android:id="@+id/CreateAdminSignUpButton"
+                style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+                android:layout_width="310dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="76dp"
+                android:backgroundTint="@color/highlight"
+                android:backgroundTintMode="add"
+                android:drawableTint="@color/black"
+                android:elevation="20dp"
+                android:fadingEdge="vertical"
+                android:shadowColor="@color/black"
+                android:text="Confirm account creation"
+                android:textColor="@color/white"
+                app:cornerRadius="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CreateAdminPasswordField" />
+
+            <Button
+                android:id="@+id/CreateAdminBackButton"
+                android:layout_width="30dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:background="#00FFFFFF"
+                android:fontFamily="sans-serif-light"
+                android:padding="0dp"
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="0dp"
+                android:paddingRight="0dp"
+                android:paddingBottom="0dp"
+                android:text="&lt;"
+                android:textColor="@color/black"
+                android:textColorLink="@color/black"
+                android:textSize="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/CreateAdminpasswordLengthLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
+                android:text="* Password has to be more than 6 characters"
+                android:textColor="#888686"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CreateAdminPasswordField" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
