@@ -71,12 +71,12 @@ public class SavedArtifactAdapter extends RecyclerView.Adapter<SavedArtifactAdap
 
             new Thread(() -> {
                 SavedArtifactEntity entity = new SavedArtifactEntity(
-                        item.getArtifactName(), 
-                        item.getLotNumber(), 
-                        item.getCulturalOrigin(), 
+                        item.getArtifactName(),
+                        item.getLotNumber(),
+                        item.getCulturalOrigin(),
                         item.getImage()
                 );
-                
+
                 if (newState) {
                     localDb.artifactDao().insertSavedArtifact(entity);
                     if (firebaseRef != null) {

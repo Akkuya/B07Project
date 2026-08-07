@@ -25,6 +25,7 @@ public class LoginFragment extends Fragment implements UICallbackInterface {
     @Override
     public void onSuccess(Object result) {
         loadFragment(new HomeFragment());
+//        loadFragment(ItemDetails.display("SONG-BOWLS-537A82"));
     }
 
     @Override

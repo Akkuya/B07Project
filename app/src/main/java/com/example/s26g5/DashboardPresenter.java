@@ -44,9 +44,9 @@ public class DashboardPresenter implements Dashboard.Presenter {
         String uid = user.getUid();
 
         MyRef = FirebaseDatabase.getInstance("https://cscb07s26g5-default-rtdb.firebaseio.com/")
-                        .getReference("users")
-                        .child(uid)
-                        .child("saved_artifacts");
+                .getReference("users")
+                .child(uid)
+                .child("saved_artifacts");
         listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
