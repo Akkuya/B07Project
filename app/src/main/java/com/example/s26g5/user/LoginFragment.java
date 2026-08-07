@@ -18,25 +18,9 @@ import com.example.s26g5.R;
 import com.example.s26g5.data.FirebaseAuthManager;
 import com.example.s26g5.MainActivity;
 
-public class LoginFragment extends Fragment implements UICallbackInterface {
+public class LoginFragment extends Fragment {
     EditText emailField;
     EditText passwordField;
-
-    @Override
-    public void onSuccess(Object result) {
-        loadFragment(new HomeFragment());
-    }
-
-    @Override
-    public void onFailure(Object result) {
-            emailField.setText("");
-            passwordField.setText("");
-            Toast.makeText(
-                            getContext(),
-                            "Username and/or password is incorrect",
-                            Toast.LENGTH_SHORT)
-                    .show();
-    }
 
     @Nullable
     @Override
@@ -45,9 +29,10 @@ public class LoginFragment extends Fragment implements UICallbackInterface {
         ((MainActivity) requireActivity()).setNavigationVisible(false);
 
         FirebaseAuthManager authManager = FirebaseAuthManager.getFirebaseAuthInstance();
+        LoginPresenter presenter = new LoginPresenter(this, authManager);
+
         Button signupPromptButton = view.findViewById(R.id.signupPromptButton);
         Button loginButton = view.findViewById(R.id.SignUpButton);
-
 
         signupPromptButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,21 +47,25 @@ public class LoginFragment extends Fragment implements UICallbackInterface {
                 String email = emailField.getText().toString().trim();
                 String password = passwordField.getText().toString().trim();
 
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText( getContext(), "Enter email and password", Toast.LENGTH_SHORT)
-                         .show();
-                    return;
-                }
+                String message = presenter.checkCreds(email, password);
+                if (message != null)
+                    makeToast(message);
+                else
+                    presenter.login(email, password);
 
-                // If success, send to Browser Grid, else stay
-                authManager.loginUser(email, password, LoginFragment.this);
+                emailField.setText("");
+                passwordField.setText("");
             }
         }));
 
         return view;
     }
 
-    private void loadFragment(Fragment fragment) {
+    public void makeToast(String message) {
+        Toast.makeText( getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
