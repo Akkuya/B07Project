@@ -1,6 +1,6 @@
-package com.example.s26g5.item_manage;
+package com.example.s26g5;
 
-public class ArtifactStringField extends ArtifactField<String> {
+public class ArtifactStringField extends ArtifactField<String>{
     private String value;
 
     public ArtifactStringField(String name, boolean mandatory, String value){

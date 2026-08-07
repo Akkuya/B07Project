@@ -36,7 +36,6 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
-    implementation(libs.picasso)
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     testImplementation(libs.junit)
@@ -45,6 +44,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.room.runtime)
     implementation(libs.room.compiler)
+    implementation(libs.picasso)
 
     configurations.all {
         exclude(group = "com.intellij", module = "annotations")

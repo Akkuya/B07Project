@@ -6,8 +6,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.s26g5.item_viewing.SavedArtifactEntity;
-
 import java.util.List;
 
 @Dao
@@ -21,4 +19,7 @@ public interface ArtifactDataAccessObject {
 
     @Query("SELECT EXISTS(SELECT 1 FROM saved_artifacts WHERE lot_number = :lotNumber)")
     boolean isSaved(String lotNumber);
+
+    @Query("DELETE FROM saved_artifacts")
+    void clearAllSavedArtifacts();
 }

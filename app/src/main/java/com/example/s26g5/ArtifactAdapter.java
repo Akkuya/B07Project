@@ -1,4 +1,4 @@
-package com.example.s26g5.item_viewing;
+package com.example.s26g5;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-import com.example.s26g5.Item;
-import com.example.s26g5.R;
-
 import java.util.List;
 
 

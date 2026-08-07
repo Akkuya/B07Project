@@ -5,8 +5,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import android.content.Context;
 
-import com.example.s26g5.item_viewing.SavedArtifactEntity;
-
 @Database(entities = {SavedArtifactEntity.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase instance;
@@ -15,11 +13,11 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null) {
             synchronized (AppDatabase.class) {
                 instance = Room.databaseBuilder(context.getApplicationContext(),
-                        AppDatabase.class, "app_database")
+                                AppDatabase.class, "app_database")
                         .build();
             }
 
-            }
+        }
         return instance;
     }
 

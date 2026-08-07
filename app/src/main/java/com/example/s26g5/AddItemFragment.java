@@ -1,4 +1,4 @@
-package com.example.s26g5.item_manage;
+package com.example.s26g5;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,13 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.s26g5.Item;
-import com.example.s26g5.R;
 import com.example.s26g5.data.UploadImagePicker;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.net.Uri;
 import android.widget.ImageButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.ServerValue;
 
 import android.util.Log;
 import java.util.ArrayList;
@@ -283,9 +283,8 @@ public class AddItemFragment extends Fragment {
                             ).show();
                         } else {
                             String message = saveTask.getException() == null
-                                    ? "Failed to add item"
-                                    : saveTask.getException().getMessage();
-
+                                            ? "Failed to add item"
+                                            : saveTask.getException().getMessage();
                             Toast.makeText(
                                     requireContext(),
                                     message,

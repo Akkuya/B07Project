@@ -6,6 +6,7 @@ public class Item {
 
     private String lotNumber;
     private String artifactName;
+    private String artifactNameLower;
     private String image;
     private String description;
     private String materials;
@@ -54,6 +55,7 @@ public class Item {
     public void setLotNumber(String lotNumber) {this.lotNumber = lotNumber;}
     public String getArtifactName() {return artifactName;}
     public void setArtifactName(String artifactName) {this.artifactName = artifactName;}
+
     public String getImage() {return image;}
     public void setImage(String image) {this.image = image;}
     public String getDescription() {return description;}

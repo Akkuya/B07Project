@@ -1,6 +1,8 @@
-package com.example.s26g5.item_viewing;
+package com.example.s26g5;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -18,14 +21,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.s26g5.HomeFragment;
-import com.example.s26g5.Item;
-import com.example.s26g5.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -49,11 +51,8 @@ public class ArtifactBrowserFragment extends Fragment {
     private final int ITEMS_PER_PAGE = 9;
     private int currPage = 0;
     private TextView pageNum;
-
-
-
-
-
+    private String searchQuery = "";
+    private EditText searchCriteria;
 
     @Nullable
     @Override
@@ -61,14 +60,32 @@ public class ArtifactBrowserFragment extends Fragment {
         View view = inflater.inflate(R.layout.artifact_browser_fragment, container, false);
 
         recycler = view.findViewById(R.id.recycler_artifacts);
-
-        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 3);
+        searchCriteria = view.findViewById(R.id.search_bar);
+        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
         recycler.setLayoutManager(layoutManager);
 
-        artifactList = new ArrayList<>(); // Will only hold artifacts that match the filters and sort.
-        allArtifacts = new ArrayList<>(); // Will hold all artifacts
+        artifactList = new ArrayList<>();
+        allArtifacts = new ArrayList<>();
 
-        loadAllArtifacts(); // Populate allArtifacts
+        loadAllArtifacts();
+
+        searchCriteria.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                searchQuery = editable.toString().toLowerCase();
+                currPage = 0;
+                refresh();
+            }
+        });
+
 
         adapter = new ArtifactAdapter(artifactList);
         recycler.setAdapter(adapter);
@@ -80,10 +97,8 @@ public class ArtifactBrowserFragment extends Fragment {
         pageNum = view.findViewById(R.id.page_num);
 
         Spinner spinner = view.findViewById(R.id.sort_spinner);
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
-                getContext(),
-                R.array.sort_options,
-                android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getContext(),
+                R.array.sort_options, android.R.layout.simple_spinner_item);
 
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter1);
@@ -138,12 +153,11 @@ public class ArtifactBrowserFragment extends Fragment {
                     DataSnapshot snapshot = task.getResult();
                     allArtifacts.clear();
                     for (DataSnapshot itemChild : snapshot.getChildren()) {
-
                         Item artifact = itemChild.getValue(Item.class);
                         if (artifact != null) {
+                            artifact.setKey(itemChild.getKey());
                             allArtifacts.add(artifact);
                         }
-
                     }
                     refresh();
                 } else {
@@ -162,7 +176,8 @@ public class ArtifactBrowserFragment extends Fragment {
         }
 
         switch (sort_field) {
-            case 0: break;
+            case 0:
+                break;
             case 1:
                 filtered.sort(new Comparator<Item>() {
                     public int compare(Item artifact1, Item artifact2) {
@@ -186,13 +201,19 @@ public class ArtifactBrowserFragment extends Fragment {
         int to = Math.min(from + ITEMS_PER_PAGE, filtered.size());
 
         artifactList.clear();
-        artifactList.addAll(filtered.subList(from, to));
+        if (!filtered.isEmpty()) {
+            artifactList.addAll(filtered.subList(from, to));
+        }
         pageNum.setText(String.valueOf(currPage + 1));
         adapter.notifyDataSetChanged();
     }
 
     private boolean matchesFilters(Item artifact) {
-        return matches(artifact.getCategory(), filterCategory)
+        boolean matchesSearch = searchQuery.isEmpty() ||
+                (artifact.getArtifactName() != null && artifact.getArtifactName().toLowerCase().contains(searchQuery));
+
+        return matchesSearch
+                && matches(artifact.getCategory(), filterCategory)
                 && matches(artifact.getDynasty(), filterDynasty)
                 && matches(artifact.getMaterials(), filterMaterials)
                 && matches(artifact.getCulturalOrigin(), filterCulturalOrigin)
@@ -226,6 +247,27 @@ public class ArtifactBrowserFragment extends Fragment {
         dialog.show(getParentFragmentManager(), "filters");
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        String lotNumber = getArguments() != null ? getArguments().getString("lotNumber") : null;
+
+        if (lotNumber != null) {
+            db.child("artifacts").child(lotNumber)
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Item artifact = snapshot.getValue(Item.class);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+        }
+    }
+
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
@@ -233,3 +275,38 @@ public class ArtifactBrowserFragment extends Fragment {
         transaction.commit();
     }
 }
+
+    /*private void search(String query){
+        String lowerQuery = query.toLowerCase();
+        db.orderByChild("artifactName")
+                .limitToFirst(35)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("ArtifactBrowserFragment", "Error getting data", task.getException());
+                            return;
+                        }
+
+
+                        DataSnapshot snapshot = task.getResult();
+                        if (snapshot == null) return;
+
+                        Log.d("ArtifactBrowserFragment", "Search results: " + snapshot.getChildrenCount());
+                        artifactList.clear();
+                        for (DataSnapshot child : snapshot.getChildren()) {
+                            Item artifact = child.getValue(Item.class);
+                            if (artifact != null
+                                    && artifact.getArtifactName() != null
+                                    && artifact.getArtifactName().toLowerCase().startsWith(lowerQuery)) {
+                                artifact.setKey(child.getKey());
+                                artifactList.add(artifact);
+                            }
+                        }
+                        pageNum.setText(artifactList.isEmpty() ? "0" : String.valueOf(currPage + 1));
+                        adapter.notifyDataSetChanged();
+                    }
+                    });
+                }
+} */

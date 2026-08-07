@@ -1,4 +1,4 @@
-package com.example.s26g5.item_manage;
+package com.example.s26g5;
 
 public abstract class ArtifactField<T> {
     private String name;
