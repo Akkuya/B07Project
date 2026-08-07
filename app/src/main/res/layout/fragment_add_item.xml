@@ -5,153 +5,280 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddItemFragment">
+    tools:context=".item_manage.AddItemFragment">
 
-    <EditText
-        android:id="@+id/editTextLotNumber"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:hint="Lot Number (Mandatory)"
+    <TextView
+        android:id="@+id/artifactManager_a"
+        android:layout_width="434dp"
+        android:layout_height="126dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_card"
+        android:gravity="center"
+        android:text="Artifact Manager"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextArtifactName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Artifact Name (Mandatory)"
-        app:layout_constraintTop_toBottomOf="@id/editTextLotNumber"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <EditText
-        android:id="@+id/editTextDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Description (Mandatory)"
-        app:layout_constraintTop_toBottomOf="@+id/editTextArtifactName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <Spinner
-        android:id="@+id/spinnerMaterial"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editTextDescription"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Spinner
-        android:id="@+id/spinnerDynasty"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/spinnerMaterial"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-
-    <Spinner
-        android:id="@+id/spinnerCategory"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerDynasty"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <EditText
-        android:id="@+id/editTextCulturalOrigin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Cultural Origin"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <EditText
-        android:id="@+id/editTextDimensions"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Dimensions"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCulturalOrigin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <EditText
-        android:id="@+id/editTextConditionReport"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Condition"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDimensions"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <EditText
-        android:id="@+id/editTextCurrentLocation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Current Location"
-        app:layout_constraintTop_toBottomOf="@+id/editTextConditionReport"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <EditText
-        android:id="@+id/editTextAcquisitionMethod"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="AcquisitionMethod"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCurrentLocation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <EditText
-        android:id="@+id/editTextProvenance"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Provenance"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAcquisitionMethod"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <EditText
-        android:id="@+id/editTextAccessionNumber"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Accession Number"
-        app:layout_constraintTop_toBottomOf="@+id/editTextProvenance"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <EditText
-        android:id="@+id/editTextNotes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Notes"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAccessionNumber"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <EditText
-        android:id="@+id/editTextImage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Select Image"
-        android:clickable="true"
-        android:focusable="false"
-        android:cursorVisible="false"
-        android:inputType="none"
-        app:layout_constraintTop_toBottomOf="@id/editTextNotes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <Button
-        android:id="@+id/buttonAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_item"
-        app:layout_constraintTop_toBottomOf="@+id/editTextImage"
+        android:id="@+id/buttonBack_a"
+        android:layout_width="62dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="24dp"
+        android:backgroundTint="@color/grey"
+        android:foregroundGravity="center_vertical"
+        android:gravity="center"
+        android:text="&lt;"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/artifactManager_a"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037" />
+
+    <ScrollView
+        android:layout_width="419dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/artifactManager_a"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="710dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="139dp">
+
+            <TextView
+                android:id="@+id/pageTitle_a"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Item"
+                android:paddingTop="15dp"/>
+
+            <EditText
+                android:id="@+id/editTextLotNumber"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:hint="Lot Number (Mandatory)"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editTextArtifactName"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:hint="Artifact Name (Mandatory)"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextLotNumber" />
+
+            <EditText
+                android:id="@+id/editTextDescription"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:hint="Description (Mandatory)"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextArtifactName" />
+
+            <Spinner
+                android:id="@+id/spinnerMaterial"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:popupBackground="@color/grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextDescription" />
+
+            <Spinner
+                android:id="@+id/spinnerDynasty"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:popupBackground="@color/grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinnerMaterial" />
+
+
+            <Spinner
+                android:id="@+id/spinnerCategory"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:popupBackground="@color/grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerDynasty" />
+
+            <EditText
+                android:id="@+id/editTextCulturalOrigin"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:hint="Cultural Origin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
+
+            <EditText
+                android:id="@+id/editTextDimensions"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:hint="Dimensions"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextCulturalOrigin" />
+
+            <EditText
+                android:id="@+id/editTextConditionReport"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:hint="Condition"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextDimensions" />
+
+            <EditText
+                android:id="@+id/editTextCurrentLocation"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:hint="Current Location"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextConditionReport" />
+
+            <EditText
+                android:id="@+id/editTextAcquisitionMethod"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:hint="AcquisitionMethod"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextCurrentLocation" />
+
+            <EditText
+                android:id="@+id/editTextProvenance"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:hint="Provenance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextAcquisitionMethod" />
+
+            <EditText
+                android:id="@+id/editTextAccessionNumber"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:hint="Accession Number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextProvenance" />
+
+            <EditText
+                android:id="@+id/editTextNotes"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:hint="Notes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextAccessionNumber" />
+
+            <EditText
+                android:id="@+id/editTextImage"
+                android:layout_width="350dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_card"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:hint="Select Image"
+                android:inputType="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextNotes" />
+
+            <Button
+                android:id="@+id/buttonAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_card_gold"
+                android:paddingEnd="20dp"
+                android:text="@string/add_item"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextImage" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout >

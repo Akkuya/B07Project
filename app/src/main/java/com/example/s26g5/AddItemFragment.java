@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.s26g5.data.UploadImagePicker;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +49,8 @@ public class AddItemFragment extends Fragment {
 
     private UploadImagePicker uploadImagePicker;
     private String uploadedImageUrl;
+
+    private Button buttonBack_a;
 
     private static final String TAG = "AddItemFragment";
 
@@ -124,6 +127,7 @@ public class AddItemFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_item, container, false);
 
+        buttonBack_a = view.findViewById(R.id.button_bk);
         editTextLotNumber = view.findViewById(R.id.editTextLotNumber);
         editTextArtifactName = view.findViewById(R.id.editTextArtifactName);
         spinnerMaterial = view.findViewById(R.id.spinnerMaterial);
@@ -149,6 +153,13 @@ public class AddItemFragment extends Fragment {
 
 
         db = FirebaseDatabase.getInstance();
+
+        buttonBack_a.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new ManageItemsFragment());
+            }
+        });
 
         // Set up the spinner with categories
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
@@ -338,6 +349,12 @@ public class AddItemFragment extends Fragment {
         editTextNotes = null;
         editTextConditionReport = null;
 
+    }
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }
