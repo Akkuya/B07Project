@@ -13,25 +13,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.s26g5.HomeFragment;
 import com.example.s26g5.R;
 import com.example.s26g5.data.FirebaseAuthManager;
 import com.example.s26g5.MainActivity;
 
-public class SignupFragment extends Fragment implements UICallbackInterface {
-    @Override
-    public void onSuccess(Object result) {
-        loadFragment(new HomeFragment());
-    }
+public class SignupFragment extends Fragment {
 
-    @Override
-    public void onFailure(Object result) {
-        Toast.makeText(
-                        getContext(),
-                        "Username and/or password is incorrect",
-                        Toast.LENGTH_SHORT)
-                .show();
-    }
 
     @Nullable
     @Override
@@ -43,6 +30,8 @@ public class SignupFragment extends Fragment implements UICallbackInterface {
         Button backButton = view.findViewById(R.id.BackButton);
         FirebaseAuthManager authManager = FirebaseAuthManager.getFirebaseAuthInstance();
         Button signupButton = view.findViewById(R.id.SignUpButton);
+
+        SignupPresenter presenter = new SignupPresenter(this, authManager);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,17 +48,12 @@ public class SignupFragment extends Fragment implements UICallbackInterface {
                 String password = passwordField.getText().toString().trim();
                 String username = usernameField.getText().toString().trim();
 
-                if (email.isEmpty() || password.isEmpty() || username.isEmpty()) {
-                    Toast.makeText(getContext(), "Enter email, username and password", Toast.LENGTH_SHORT)
-                         .show();
-                    return;
-                }
-                if (password.length() < 6) {
-                    Toast.makeText(getContext(), "Password too small", Toast.LENGTH_SHORT)
-                            .show();
-                    return;
-                }
-                authManager.signupUser(email, password, username, "visitor", SignupFragment.this);
+                String message = presenter.checkCreds(username, email, password);
+                if (message != null)
+                    makeToast(message);
+                else
+                    presenter.signup(username, email, password);
+
             }
         }));
 
@@ -78,7 +62,11 @@ public class SignupFragment extends Fragment implements UICallbackInterface {
         return view;
     }
 
-    private void loadFragment(Fragment fragment) {
+    public void makeToast(String message) {
+        Toast.makeText( getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
