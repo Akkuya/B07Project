@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.compiler)
     implementation(libs.picasso)
+    implementation("org.mockito:mockito-core:5.18.0")
 
     configurations.all {
         exclude(group = "com.intellij", module = "annotations")
