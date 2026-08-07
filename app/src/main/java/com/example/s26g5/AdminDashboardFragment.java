@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.s26g5.item_manage.AddItemFragment;
-import com.example.s26g5.item_viewing.ArtifactBrowserFragment;
+import com.example.s26g5.AddItemFragment;
+import com.example.s26g5.ArtifactBrowserFragment;
 import com.example.s26g5.MainActivity;
 
 

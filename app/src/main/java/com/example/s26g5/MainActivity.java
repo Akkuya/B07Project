@@ -6,9 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.s26g5.item_manage.AddItemFragment;
-import com.example.s26g5.item_viewing.ItemDetails;
-import com.example.s26g5.item_viewing.SavedArtifactsFragment;
+import com.example.s26g5.AddItemFragment;
+import com.example.s26g5.SavedArtifactsFragment;
 import com.example.s26g5.user.LoginFragment;
 import com.example.s26g5.user.SessionManager;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +21,7 @@ import android.util.Log;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
-import com.example.s26g5.item_viewing.ArtifactBrowserFragment;
+import com.example.s26g5.ArtifactBrowserFragment;
 
 
 import com.example.s26g5.data.FirebaseAuthManager;
