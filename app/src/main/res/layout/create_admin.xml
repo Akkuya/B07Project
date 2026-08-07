@@ -3,21 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="@color/black">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="354dp"
-        android:layout_height="196dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toEndOf="@+id/cardView2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="353dp"
@@ -35,12 +22,13 @@
             android:layout_height="497dp">
 
             <EditText
-                android:id="@+id/PasswordField"
+                android:id="@+id/CreateAdminPasswordField"
                 android:layout_width="310dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="20dp"
+                android:autofillHints=""
                 android:backgroundTint="@color/highlight"
                 android:backgroundTintMode="add"
                 android:ems="10"
@@ -48,12 +36,12 @@
                 android:inputType="textPassword"
                 android:paddingBottom="10dp"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/SignUpButton"
+                app:layout_constraintBottom_toTopOf="@+id/CreateAdminSignUpButton"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EmailField" />
+                app:layout_constraintTop_toBottomOf="@+id/CreateAdminEmailField" />
 
             <EditText
-                android:id="@+id/UsernameField"
+                android:id="@+id/CreateAdminUsernameField"
                 android:layout_width="310dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
@@ -66,60 +54,49 @@
                 android:inputType="text"
                 android:paddingBottom="10dp"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/EmailField"
+                app:layout_constraintBottom_toTopOf="@+id/CreateAdminEmailField"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signupwelcline" />
+                app:layout_constraintTop_toBottomOf="@+id/CreateAdminSignUpTitle" />
 
             <TextView
-                android:id="@+id/SignUpTitle"
+                android:id="@+id/CreateAdminSignUpTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="70dp"
                 android:layout_marginEnd="16dp"
-                android:autoText="false"
                 android:fontFamily="sans-serif-black"
-                android:text="Sign Up"
+                android:text="Create an Admin account"
                 android:textAlignment="center"
                 android:textColor="#000000"
-                android:textSize="48sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/signupwelcline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="2dp"
-                android:text="Create an account"
-                app:layout_constraintBottom_toTopOf="@id/UsernameField"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/SignUpTitle" />
 
             <EditText
-                android:id="@+id/EmailField"
+                android:id="@+id/CreateAdminEmailField"
                 android:layout_width="310dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:autofillHints=""
                 android:backgroundTint="@color/highlight"
                 android:backgroundTintMode="add"
                 android:ems="10"
-                android:hint="email@address.com"
+                android:hint="email@mail.com"
                 android:inputType="textEmailAddress"
                 android:paddingBottom="10dp"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/PasswordField"
+                app:layout_constraintBottom_toTopOf="@+id/CreateAdminPasswordField"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/UsernameField" />
+                app:layout_constraintTop_toBottomOf="@id/CreateAdminUsernameField" />
 
             <Button
-                android:id="@+id/SignUpButton"
+                android:id="@+id/CreateAdminSignUpButton"
                 style="@style/Widget.Material3.Button.ElevatedButton.Icon"
                 android:layout_width="310dp"
                 android:layout_height="45dp"
@@ -131,14 +108,14 @@
                 android:elevation="20dp"
                 android:fadingEdge="vertical"
                 android:shadowColor="@color/black"
-                android:text="Sign Up"
+                android:text="Confirm account creation"
                 android:textColor="@color/white"
                 app:cornerRadius="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/PasswordField" />
+                app:layout_constraintTop_toBottomOf="@+id/CreateAdminPasswordField" />
 
             <Button
-                android:id="@+id/BackButton"
+                android:id="@+id/CreateAdminBackButton"
                 android:layout_width="30dp"
                 android:layout_height="56dp"
                 android:layout_marginStart="16dp"
@@ -159,15 +136,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/passwordLengthLine"
+                android:id="@+id/CreateAdminpasswordLengthLine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="4dp"
-                android:text="* Password has to be more than 5 characters"
+                android:text="* Password has to be more than 6 characters"
                 android:textColor="#888686"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/PasswordField" />
+                app:layout_constraintTop_toBottomOf="@+id/CreateAdminPasswordField" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -60,7 +60,7 @@ public class SessionManager implements  UICallbackInterface{
         // add key-value pair
         DataSnapshot json = (DataSnapshot) result;
         for (DataSnapshot child : json.getChildren()) {
-           user.put(child.getKey(), child.getValue());
+            user.put(child.getKey(), child.getValue());
         }
 
         //fill in rest of the fields
@@ -71,7 +71,7 @@ public class SessionManager implements  UICallbackInterface{
         saved_artifacts = user.get("saved_artifacts") != null
                 ? (List<String>) user.get("saved_artifacts")
                 : new ArrayList<>();
-        isAdmin = role.equals("admin");
+        isAdmin = user.get("role").equals("admin");
 
     }
 
