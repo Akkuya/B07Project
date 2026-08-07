@@ -9,7 +9,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.s26g5.data.FirebaseDBManager;
 import com.example.s26g5.item_viewing.ItemDetails;
 //import com.example.s26g5.data.FirebaseDBManager;
+import com.example.s26g5.AddItemFragment;
+import com.example.s26g5.SavedArtifactsFragment;
 import com.example.s26g5.user.LoginFragment;
+import com.example.s26g5.user.SessionManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.content.ActivityNotFoundException;
@@ -17,10 +20,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.widget.Toast;
-
+import android.util.Log;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import com.example.s26g5.ArtifactBrowserFragment;
+
 
 import com.example.s26g5.data.FirebaseAuthManager;
 
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         drawerLayout = findViewById(R.id.drawerLayout);
         headerLayout = findViewById(R.id.headerLayout);
         sidebarLayout = findViewById(R.id.sidebarLayout);
@@ -47,46 +53,39 @@ public class MainActivity extends AppCompatActivity {
         View menuSavedArtifacts = findViewById(R.id.menuSavedArtifacts);
         View menuWebsite = findViewById(R.id.menuWebsite);
         View menuLogout = findViewById(R.id.menuLogout);
-        View menuAddAdmin = findViewById(R.id.menuAddAdmin);
+        View menuAdminDashboard = findViewById(R.id.menuAdminDashboard);
         View buttonLogo = findViewById(R.id.headerLogo);
+        View menuProfileSetting = findViewById(R.id.menuProfileSetting);
         // Temporary testing value:
         // true = admin
         // false = normal user
-        boolean isStaff = false;
 
-        if (isStaff) {
-            menuAddAdmin.setVisibility(View.VISIBLE);
-        } else {
-            menuAddAdmin.setVisibility(View.GONE);
-        }
-
-        menuAddAdmin.setOnClickListener(v -> {
-            Toast.makeText(
-                    this,
-                    "Add Admin page has not been created yet",
-                    Toast.LENGTH_SHORT
-            ).show();
-
-            closeDrawer();
-        });
         buttonLogo.setOnClickListener(v -> {
             showHomePage();
             closeDrawer();
         });
-        menuAddAdmin.setOnClickListener(v -> {
-            Toast.makeText(this, "Add Admin page has not been created yet", Toast.LENGTH_SHORT).show();
-            closeDrawer();
+        menuAdminDashboard.setOnClickListener(v -> {
+            navigateToFragment(new AdminDashboardFragment());
         });
-        buttonOpenDrawer.setOnClickListener(v ->
-                drawerLayout.openDrawer(GravityCompat.START)
-        );
+        buttonOpenDrawer.setOnClickListener(v -> {
+                SessionManager sessionManager = SessionManager.getSessionInstance();
+
+                boolean isLoggedIn = sessionManager.isLoggedIn();
+                boolean isAdmin = sessionManager.isAdmin();
+                boolean isStaff = isLoggedIn && isAdmin;
+
+                Log.d("MainActivity", "isLoggedIn = " + isLoggedIn);
+                Log.d("MainActivity", "isAdmin = " + isAdmin);
+                Log.d("MainActivity", "isStaff = " + isStaff);
+                menuAdminDashboard.setVisibility(isStaff ? View.VISIBLE : View.GONE);
+
+                drawerLayout.openDrawer(GravityCompat.START);
+        });
         menuBrowse.setOnClickListener(v -> {
-            loadFragment(new RecyclerViewFragment());
-            closeDrawer();
+            navigateToFragment(new ArtifactBrowserFragment());
         });
         menuSavedArtifacts.setOnClickListener(v -> {
-            Toast.makeText(this, "Saved Artifacts page has not been created yet", Toast.LENGTH_SHORT).show();
-            closeDrawer();
+            navigateToFragment(new SavedArtifactsFragment());
         });
         menuWebsite.setOnClickListener(v -> {
             openWebsite("https://www.taam.ca/index.php/en/");
@@ -98,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
             setNavigationVisible(false);
             showLoginPage();
         });
+        menuProfileSetting.setOnClickListener(v -> {
+            navigateToFragment(new SettingsFragment());
+        });
 
         db = FirebaseDatabase.getInstance("https://b07-demo-summer-2024-default-rtdb.firebaseio.com/");
         DatabaseReference myRef = db.getReference("testDemo");
@@ -106,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         myRef.child("movies").setValue("B07 Demo!");
 
         if (savedInstanceState == null) {
-            //loadFragment(ItemDetails.display("SONG-BOWLS-537A82"));
             loadFragment(new LoginFragment());
         }
 
@@ -187,13 +188,34 @@ public class MainActivity extends AppCompatActivity {
         setNavigationVisible(true);
     }
 
-    public void navigateToSavedArtifactsFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new SavedArtifactsFragment())
-                .addToBackStack(null)
+    private void navigateToFragment(Fragment destinationFragment) {
+        Fragment currentFragment = getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_container);
+
+        if (currentFragment != null
+                && currentFragment.getClass().equals(destinationFragment.getClass())) {
+            closeDrawer();
+            return;
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, destinationFragment)
+                .addToBackStack(destinationFragment.getClass().getSimpleName())
                 .setReorderingAllowed(true)
                 .commit();
+
+        closeDrawer();
     }
+
+    public void openArtifactBrowser() {
+        navigateToFragment(new ArtifactBrowserFragment());
+    }
+
+    public void openAddArtifactPage() {
+        navigateToFragment(new AddItemFragment());
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -201,31 +223,10 @@ public class MainActivity extends AppCompatActivity {
             closeDrawer();
             return;
         }
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
         }
     }
 }
-
-
-//{
-// image=https://stnlsqpruhjfocqldrmv.supabase.co/storage/v1/object/public/artifact%20image/artifacts/SONG-BOWLS-537A82/134831.png,
-// notes=N/A,
-// acquisitionMethod=donation,
-// description=This tea bowl has a flared mouth, deep curved walls, and a short ring foot. The outer wall is carved with protruding large lotus petal motifs. The interior of the bowl has a ring-shaped unglazed area at the bottom, with a central lotus flower pattern. The tea bowl features a green-yellow glaze, which is thick in texture, and the entire piece is covered with fine crackle patterns.,
-// lotNumber=SONG-BOWLS-537A82,
-// accessionNumber=673,
-// currentLocation=taam-hall-d,
-// conditionReport=good,
-// provenance=china,
-// culturalOrigin=chinese,
-// dynasty=Song,
-// materials=porcelain,
-// artifactName=A 'Ding' Lotus Petal Pattern Tea Bowl,
-// Song Dynasty,
-// category=ancient-porcelain,
-// dimensions=3 × 6 inches,
-// likes=[FqgPyexXSvWooGMfmxMpKjOyD2M2]
-// }

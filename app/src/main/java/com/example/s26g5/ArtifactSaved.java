@@ -3,7 +3,7 @@ public class ArtifactSaved extends Artifact_basic {
 
     private Boolean isSaved;
 
-    ArtifactSaved(String name, String lotNumber, String culturalOrigin, String image, Boolean isSaved) {
+    ArtifactSaved(String name, String lotNumber, String culturalOrigin, String image, boolean isSaved) {
         super(name,
                 lotNumber,
                 culturalOrigin,

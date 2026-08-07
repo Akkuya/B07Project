@@ -3,19 +3,39 @@ package com.example.s26g5;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.widget.ImageButton;
-import com.bumptech.glide.Glide;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class SavedArtifactAdapter extends RecyclerView.Adapter<SavedArtifactAdapter.ItemViewHolder> {
-        private List<ArtifactSaved> itemList;
+    private final List<ArtifactSaved> itemList;
+    private final DatabaseReference firebaseRef;
 
     public SavedArtifactAdapter(List<ArtifactSaved> itemList) {
         this.itemList = itemList;
+        this.firebaseRef = getFirebaseRef();
+    }
+
+    private DatabaseReference getFirebaseRef() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            return FirebaseDatabase.getInstance("https://cscb07s26g5-default-rtdb.firebaseio.com/")
+                    .getReference("users")
+                    .child(user.getUid())
+                    .child("saved_artifacts");
+        }
+        return null;
     }
 
     @NonNull
@@ -28,28 +48,45 @@ public class SavedArtifactAdapter extends RecyclerView.Adapter<SavedArtifactAdap
     @Override
     public void onBindViewHolder(@NonNull SavedArtifactAdapter.ItemViewHolder holder, int position) {
         ArtifactSaved item = itemList.get(position);
-        AppDatabase db = AppDatabase.getInstance(holder.itemView.getContext());
+        AppDatabase localDb = AppDatabase.getInstance(holder.itemView.getContext());
 
         holder.textViewArtifactName.setText(item.getArtifactName());
         holder.textViewCulturalOrigin.setText(item.getCulturalOrigin());
 
-        Glide.with(holder.itemView.getContext())
-                .load(item.getImage())
-                .placeholder(R.drawable.placeholder) // Placeholder image
-                .error(R.drawable.error_image)
-                .into(holder.imageView);
+        if (item.getImage() != null && !item.getImage().isEmpty()) {
+            Picasso.get()
+                    .load(item.getImage())
+                    .fit()
+                    .centerCrop()
+                    .placeholder(android.R.drawable.ic_menu_report_image)
+                    .error(android.R.drawable.ic_menu_report_image)
+                    .into(holder.imageView);
+        }
 
         holder.saveButton.setSelected(item.getIsSaved());
         holder.saveButton.setOnClickListener(v -> {
-            boolean state = !item.getIsSaved();
-            item.setIsSaved(!item.getIsSaved());
-            holder.saveButton.setSelected(item.getIsSaved());
+            boolean newState = !item.getIsSaved();
+            item.setIsSaved(newState);
+            holder.saveButton.setSelected(newState);
 
             new Thread(() -> {
-                if (state) {
-                    db.artifactDao().insertSavedArtifact(new SavedArtifactEntity(item.getArtifactName(), item.getLotNumber(), item.getCulturalOrigin(), item.getImage()));
+                SavedArtifactEntity entity = new SavedArtifactEntity(
+                        item.getArtifactName(),
+                        item.getLotNumber(),
+                        item.getCulturalOrigin(),
+                        item.getImage()
+                );
+
+                if (newState) {
+                    localDb.artifactDao().insertSavedArtifact(entity);
+                    if (firebaseRef != null) {
+                        firebaseRef.child(item.getLotNumber()).setValue(true);
+                    }
                 } else {
-                    db.artifactDao().deleteSavedArtifact(new SavedArtifactEntity(item.getArtifactName(), item.getLotNumber(), item.getCulturalOrigin(), item.getImage()));
+                    localDb.artifactDao().deleteSavedArtifact(entity);
+                    if (firebaseRef != null) {
+                        firebaseRef.child(item.getLotNumber()).removeValue();
+                    }
                 }
             }).start();
         });

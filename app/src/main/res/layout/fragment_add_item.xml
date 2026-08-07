@@ -7,21 +7,31 @@
     android:layout_height="match_parent"
     tools:context=".item_manage.AddItemFragment">
 
-    <TextView
-        android:id="@+id/artifactManager_a"
-        android:layout_width="434dp"
-        android:layout_height="126dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/bg_card"
-        android:gravity="center"
-        android:text="Artifact Manager"
-        android:textColor="@color/black"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
+    <ImageButton
+        android:id="@+id/buttonBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_arrow_back"
+        android:contentDescription="@string/back"
+        android:padding="8dp"
+        android:scaleType="centerInside"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextLotNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Lot Number (Mandatory)"
+        app:layout_constraintTop_toBottomOf="@id/buttonBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/buttonBack_a"
