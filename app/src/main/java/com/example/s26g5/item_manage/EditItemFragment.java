@@ -79,17 +79,17 @@ public class EditItemFragment extends Fragment implements UICallbackInterface{
         e_name.setText(item.getArtifactName());
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.categories_array, android.R.layout.simple_spinner_item);
+                R.array.categories_array, R.layout.thin_spinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         e_category.setAdapter(adapter);
 
         ArrayAdapter<CharSequence> materialAdapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.materials_array, android.R.layout.simple_spinner_item);
+                R.array.materials_array, R.layout.thin_spinner);
         materialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         e_material.setAdapter(materialAdapter);
 
         ArrayAdapter<CharSequence> dynastyAdapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.dynasties_array, android.R.layout.simple_spinner_item);
+                R.array.dynasties_array, R.layout.thin_spinner);
         dynastyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         e_dynasty.setAdapter(dynastyAdapter);
 
@@ -161,17 +161,17 @@ public class EditItemFragment extends Fragment implements UICallbackInterface{
 
         // Set up the spinner with categories
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.categories_array, android.R.layout.simple_spinner_item);
+                R.array.categories_array, R.layout.thin_spinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         e_category.setAdapter(adapter);
 
         ArrayAdapter<CharSequence> materialAdapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.materials_array, android.R.layout.simple_spinner_item);
+                R.array.materials_array, R.layout.thin_spinner);
         materialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         e_material.setAdapter(materialAdapter);
 
         ArrayAdapter<CharSequence> dynastyAdapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.dynasties_array, android.R.layout.simple_spinner_item);
+                R.array.dynasties_array, R.layout.thin_spinner);
         dynastyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         e_dynasty.setAdapter(dynastyAdapter);
 
