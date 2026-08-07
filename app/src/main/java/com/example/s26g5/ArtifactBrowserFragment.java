@@ -115,12 +115,7 @@ public class ArtifactBrowserFragment extends Fragment {
             }
         });
 
-        button_bk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new HomeFragment());
-            }
-        });
+        button_bk.setOnClickListener(v -> getParentFragmentManager().popBackStack());
 
         button_filters.setOnClickListener(new View.OnClickListener() {
             @Override

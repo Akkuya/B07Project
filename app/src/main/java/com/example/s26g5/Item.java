@@ -11,6 +11,7 @@ public class Item {
     private String description;
     private String materials;
     private String dynasty;
+    private String category;
     private String culturalOrigin;
     private String dimensions;
     private String currentLocation;
@@ -22,13 +23,12 @@ public class Item {
     private long timestamp;
     private List<String> liked;
     private String key;
-    private String category;
 
     public Item() {
         // Required by Firebase
     }
 
-    public Item(String lotNumber, String materials, String artifactName, String dynasty, String image, String description, String CulturalOrigin, String Dimensions,
+    public Item(String lotNumber, String materials, String artifactName, String dynasty, String category, String image, String description, String CulturalOrigin, String Dimensions,
                 String CurrentLocation, String AcquisitionMethod, String Provenance, String AccessionNumber, String ConditionReport, String Notes, long timestamp, List<String> liked) {
 
         this.lotNumber = lotNumber;
@@ -47,6 +47,7 @@ public class Item {
         this.notes = Notes;
         this.timestamp = timestamp;
         this.liked = liked == null ? new ArrayList<>() : liked;
+        this.category = category;
     }
 
 
