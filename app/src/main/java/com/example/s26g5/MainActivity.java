@@ -1,5 +1,7 @@
 package com.example.s26g5;
 
+import static com.example.s26g5.R.*;
+
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
