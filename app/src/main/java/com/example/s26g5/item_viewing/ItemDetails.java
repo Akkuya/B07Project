@@ -34,7 +34,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ItemDetails extends Fragment implements UICallbackInterface {
     Item item = null;
-    //TextView category;
+    TextView name;
+    TextView category;
     TextView material;
     TextView dynasty;
     TextView culturalOrigin;
@@ -69,7 +70,8 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         DataSnapshot itemJson = (DataSnapshot) result;
         item = itemJson.getValue(Item.class);
 
-//        category.setText(item.get);
+        name.setText(item.getArtifactName());
+        category.setText(item.getCategory());
         material.setText(item.getMaterials());
         dynasty.setText(item.getDynasty());
         culturalOrigin.setText(item.getCulturalOrigin());
@@ -138,7 +140,8 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
         String lotNumber = getArguments().getString("lotNumber");
         db.getInfo("artifacts/"+lotNumber, ItemDetails.this);
 
-        //        TextView category = view.findViewById(R.id.textViewItemDetCategory);
+        name = view.findViewById(R.id.textViewItemDetTitle);
+        category = view.findViewById(R.id.textViewItemDetCategory);
         material = view.findViewById(R.id.textViewItemDetMaterial);
         dynasty = view.findViewById(R.id.textViewItemDetDynasty);
         culturalOrigin = view.findViewById(R.id.textViewItemDetCulturalOrigin);
