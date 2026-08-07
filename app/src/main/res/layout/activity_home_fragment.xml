@@ -6,65 +6,138 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-    <Button
-        android:id="@+id/buttonRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Artifact Browser"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="419dp"
+        android:layout_height="306dp"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/buttonScroller"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/scroller"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRecyclerView"
-        app:layout_constraintStart_toStartOf="parent"
+        <TextView
+            android:id="@+id/homepage_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toronto Asian Art Museum"
+            android:textColor="@color/highlight"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="141dp"
+            tools:layout_editor_absoluteY="90dp" />
+
+        <TextView
+            android:id="@+id/homepage_desc"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="TAAM was established in response to a recognized gap in the representation of Asian art and cultural narratives in local museums. With the generous support of community members and local partners, TAAM has built a growing collection of over 2,000 artifacts, spanning thousands of years of history from across East, South, and Southeast Asia."
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="134dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="377dp"
+        android:layout_height="256dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_card"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSpinner"/>
-
-    <Button
-        android:id="@+id/buttonSettings"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSpinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRecyclerView"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0">
 
-    <Button
-        android:id="@+id/buttonSpinner"
-        android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Browse our selection"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/buttonArtifactView"
+            android:layout_width="185dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_card"
+            android:text="Artifact Browser"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Check out your profile"
+            android:textSize="20sp" />
+        <Button
+            android:id="@+id/buttonSettings"
+            android:layout_width="185dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_card"
+            android:text="Settings"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/spinner"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonScroller" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/buttonManageItems"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/manage_items"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSpinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@+id/textContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Us"
+            android:textColor="@color/highlight"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="13dp"
-        tools:layout_editor_absoluteY="50dp" />
+        <TextView
+            android:id="@+id/textAddress"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="Address: 255 Consumers Road Toronto  Ontario Canada M2J 4R3"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Phone: +1(647)946-7698"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="Email: info@taam.ca"
+            android:textSize="15sp" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

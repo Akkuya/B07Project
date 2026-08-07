@@ -17,37 +17,16 @@ public class HomeFragment extends Fragment {
         ((MainActivity) requireActivity()).setNavigationVisible(true);
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
 
-        Button buttonRecyclerView = view.findViewById(R.id.buttonRecyclerView);
-        Button buttonScroller = view.findViewById(R.id.buttonScroller);
-        Button buttonSpinner = view.findViewById(R.id.buttonSpinner);
-        Button buttonManageItems = view.findViewById(R.id.buttonManageItems);
+        Button buttonArtifactView = view.findViewById(R.id.buttonArtifactView);
         Button buttonSettings = view.findViewById(R.id.buttonSettings);
 
-        buttonRecyclerView.setOnClickListener(new View.OnClickListener() {
+        buttonArtifactView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadFragment(new ArtifactBrowserFragment());
             }
         });
 
-        buttonScroller.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new ScrollerFragment());
-            }
-        });
-
-        buttonSpinner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new SpinnerFragment());
-            }
-        });
-
-        buttonManageItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { loadFragment(new ManageItemsFragment());}
-        });
 
         buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override

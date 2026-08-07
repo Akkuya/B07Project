@@ -44,9 +44,10 @@ public final class FirebaseDBManager {
         return true;
     }
 
-    public boolean updateItem(String path, HashMap<String, Object> item) {
-        db.child(path).updateChildren(item);
-        return true;
+    public Task<Void> updateItem(String path, Object item, UICallbackInterface callback) {
+        return db.child(path).setValue(item)
+                .addOnSuccessListener(unused -> callback.onSuccess(null))
+                .addOnFailureListener(e -> callback.onFailure(e.getMessage()));
     }
 
     public boolean deleteItem(String path, Integer LotNumber) {
