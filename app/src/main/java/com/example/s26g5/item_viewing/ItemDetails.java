@@ -196,7 +196,7 @@ public class ItemDetails extends Fragment implements UICallbackInterface {
 
         return view;
     }
-
+//file
 
 
     private void loadFragment(Fragment fragment) {
