@@ -28,7 +28,7 @@ public class SignupFragment extends Fragment implements UICallbackInterface {
     public void onFailure(Object result) {
         Toast.makeText(
                         getContext(),
-                        "Username and/or password is incorrect",
+                        "Error with signing up",
                         Toast.LENGTH_SHORT)
                 .show();
     }
